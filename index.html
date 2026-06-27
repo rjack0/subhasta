@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#071018" />
+    <title>Area Scout</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/maplibre-gl@5.22.0/dist/maplibre-gl.css"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@5.22.0/dist/maplibre-gl.js" defer></script>
+    <script type="module" src="./main.js"></script>
+  </head>
+  <body>
+    <div class="ambient ambient-a"></div>
+    <div class="ambient ambient-b"></div>
+    <div class="ambient-grid"></div>
+
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">AS</div>
+          <div class="brand-copy">
+            <p>Area Scout</p>
+            <span>RentSeeker-inspired map prototype</span>
+          </div>
+        </div>
+
+        <section class="control-card">
+          <div class="card-kicker">Search</div>
+          <h1>Map tagged places in a specific area.</h1>
+          <p class="card-copy">
+            Search a city, neighborhood, or ZIP. The app geocodes the area, pulls nearby
+            OpenStreetMap features, and lays them out in the same dark, map-first shell.
+          </p>
+
+          <form id="area-form" class="search-form">
+            <label class="field-label" for="area-input">Area</label>
+            <div class="search-row">
+              <input
+                id="area-input"
+                type="text"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="Los Angeles, CA"
+              />
+              <button class="primary-button" type="submit">Search area</button>
+            </div>
+          </form>
+
+          <div class="range-block">
+            <div class="range-topline">
+              <label class="field-label" for="radius-input">Search radius</label>
+              <span id="radius-readout" class="mono-pill">1.8 km</span>
+            </div>
+            <input id="radius-input" type="range" min="800" max="5000" step="100" value="1800" />
+          </div>
+        </section>
+
+        <section class="control-card">
+          <div class="card-kicker">Scope</div>
+          <div class="section-row">
+            <h2>What to map</h2>
+            <span id="scope-label" class="mono-pill">All tagged places</span>
+          </div>
+          <div id="scope-chips" class="chip-grid"></div>
+        </section>
+
+        <section class="control-card">
+          <div class="card-kicker">Status</div>
+          <div class="metrics-grid">
+            <div class="metric">
+              <span>Results</span>
+              <strong id="results-count">0</strong>
+            </div>
+            <div class="metric">
+              <span>Mode</span>
+              <strong id="data-mode">Idle</strong>
+            </div>
+            <div class="metric">
+              <span>Area</span>
+              <strong id="area-summary">Los Angeles, CA</strong>
+            </div>
+            <div class="metric">
+              <span>Viewport</span>
+              <strong id="viewport-summary">Ready</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="control-card">
+          <div class="card-kicker">Legend</div>
+          <div id="legend-list" class="legend-list"></div>
+        </section>
+      </aside>
+
+      <main class="map-stage">
+        <header class="hero-bar">
+          <div class="hero-copy">
+            <p class="card-kicker">Live OSM sweep</p>
+            <h2>Copying the RentSeeker map layout, not the data.</h2>
+            <p>
+              This prototype keeps the same full-screen, industrial map theatre and swaps in a
+              public area search so you can validate the interaction model before wiring in real data.
+            </p>
+          </div>
+          <div class="hero-status">
+            <span id="status-pill" class="status-pill">Ready</span>
+          </div>
+        </header>
+
+        <div class="map-frame">
+          <div id="map"></div>
+          <div class="map-overlay-top">
+            <div class="overlay-card">
+              <span class="overlay-label">Center</span>
+              <strong id="center-summary">34.0522, -118.2437</strong>
+            </div>
+            <div class="overlay-card">
+              <span class="overlay-label">Query</span>
+              <strong id="query-summary">Los Angeles, CA</strong>
+            </div>
+            <div class="overlay-card">
+              <span class="overlay-label">Source</span>
+              <strong id="source-summary">MapLibre + Overpass</strong>
+            </div>
+          </div>
+
+          <section class="results-strip">
+            <div class="strip-head">
+              <div>
+                <p class="card-kicker">Results</p>
+                <h3>Nearby places</h3>
+              </div>
+              <button id="recenter-button" class="ghost-button" type="button">Recenter</button>
+            </div>
+            <div id="result-strip" class="card-strip"></div>
+          </section>
+        </div>
+      </main>
+
+      <aside class="detail-panel">
+        <div class="detail-shell">
+          <div class="card-kicker">Details</div>
+          <h2>Selected place</h2>
+          <div id="detail-empty" class="detail-empty">
+            Choose a result card or map pin to inspect its tags, coordinates, and links.
+          </div>
+          <article id="detail-card" class="detail-card" hidden>
+            <div class="detail-topline">
+              <div>
+                <p id="detail-group" class="detail-group">Place</p>
+                <h3 id="detail-name">Name</h3>
+              </div>
+              <a id="detail-link" class="ghost-button" href="#" target="_blank" rel="noreferrer">Open OSM</a>
+            </div>
+            <p id="detail-address" class="detail-address"></p>
+            <div class="detail-stats">
+              <div>
+                <span>Distance</span>
+                <strong id="detail-distance">0 m</strong>
+              </div>
+              <div>
+                <span>Coords</span>
+                <strong id="detail-coords">0, 0</strong>
+              </div>
+              <div>
+                <span>Category</span>
+                <strong id="detail-category">all</strong>
+              </div>
+            </div>
+            <div id="detail-tags" class="tag-cloud"></div>
+            <div class="detail-footer">
+              <button id="copy-coords-button" class="primary-button" type="button">Copy coords</button>
+              <span id="detail-source" class="mono-pill">Live lookup</span>
+            </div>
+          </article>
+        </div>
+      </aside>
+    </div>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+  </body>
+</html>
