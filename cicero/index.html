@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cicero | Field Atlas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="cicero-shell">
+      <header class="topbar">
+        <a class="back-link" href="../">← Field Atlas</a>
+        <div class="wordmark"><span>CI</span><div><strong>Cicero</strong><small>organizational profile studio</small></div></div>
+        <div class="status">LOCAL MODEL / V1</div>
+      </header>
+
+      <section class="intro">
+        <p class="eyebrow">Sub-app / structured analysis</p>
+        <h1>Turn a workforce sketch into a legible operating model.</h1>
+        <p>Use a declared workforce size and role mix to generate a transparent profile. The output is an estimate, not a claim about any named company or individual.</p>
+      </section>
+
+      <section class="workspace">
+        <aside class="controls">
+          <p class="eyebrow">Inputs</p>
+          <label for="org-name">Organization label</label>
+          <input id="org-name" value="Major insurance enterprise" />
+          <label for="employee-count">Total employees</label>
+          <input id="employee-count" type="number" min="1" step="100" value="390000" />
+          <div class="control-head"><span>Role distribution</span><button id="reset-button" type="button">Reset</button></div>
+          <div id="role-inputs" class="role-inputs"></div>
+          <button id="add-role" class="add-button" type="button">+ Add role</button>
+        </aside>
+
+        <section class="output">
+          <div class="output-head">
+            <div><p class="eyebrow">Generated profile</p><h2 id="profile-title">Major insurance enterprise</h2></div>
+            <div class="total-badge"><span>allocated</span><strong id="allocation-total">100.0%</strong></div>
+          </div>
+          <div id="alert" class="alert" hidden></div>
+          <div id="role-table" class="role-table"></div>
+          <div class="notes-grid">
+            <article><p class="eyebrow">Method</p><p>Headcount equals total employees multiplied by each declared percentage, rounded to the nearest whole person.</p></article>
+            <article><p class="eyebrow">Use</p><p>Compare operating layers, document assumptions, and attach source notes before treating the model as evidence.</p></article>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
