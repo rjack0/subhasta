@@ -260,6 +260,7 @@ a {
 .metrics-grid,
 .legend-list,
 .chip-grid,
+.job-lenses,
 .detail-stats,
 .tag-cloud {
   display: grid;
@@ -268,6 +269,52 @@ a {
 
 .search-form {
   margin-top: 18px;
+}
+
+.job-label {
+  margin-top: 20px;
+}
+
+.job-lenses {
+  margin-top: 10px;
+}
+
+.job-lens {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--lens-color, var(--accent));
+  border-radius: 14px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.035);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+.job-lens:hover,
+.job-lens.active {
+  transform: translateX(2px);
+  border-color: color-mix(in srgb, var(--lens-color) 55%, white 10%);
+  background: color-mix(in srgb, var(--lens-color) 13%, transparent);
+}
+
+.job-lens span,
+.profile-summary span {
+  color: var(--muted-2);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+
+.profile-summary {
+  display: grid;
+  gap: 7px;
+  padding: 12px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
 }
 
 .field-label {

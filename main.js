@@ -1,8 +1,8 @@
-const STORAGE_KEY = 'areascout.state.v1'
+const STORAGE_KEY = 'fieldatlas.state.v2'
 const DEFAULT_QUERY = 'Los Angeles, CA'
 const DEFAULT_CENTER = [-118.2437, 34.0522]
-const DEFAULT_RADIUS = 1800
-const MAX_RADIUS = 5000
+const DEFAULT_RADIUS = 25000
+const MAX_RADIUS = 100000
 
 const GROUP_COLORS = {
   all: '#abff02',
@@ -13,6 +13,7 @@ const GROUP_COLORS = {
   health: '#f472b6',
   parks: '#4ade80',
   housing: '#facc15',
+  dealerships: '#ff8a3d',
   other: '#9ca3af'
 }
 
@@ -74,6 +75,42 @@ const CATEGORY_DEFS = {
     clauses: [
       'nwr["building"~"apartments|house|detached|semidetached_house|terrace|residential"](around:{radius},{lat},{lng});'
     ]
+  }
+}
+
+const JOB_LENSES = {
+  dealerships: {
+    label: 'Car dealerships',
+    shortLabel: 'Dealerships',
+    description: 'OSM commercial locations',
+    sourceLabel: 'Overpass / OSM',
+    collector: 'overpass',
+    color: '#ff8a3d',
+    category: 'dealerships',
+    clauses: [
+      'nwr["shop"="car"](around:{radius},{lat},{lng});',
+      'nwr["shop"="car_repair"](around:{radius},{lat},{lng});',
+      'nwr["shop"="motorcycle"](around:{radius},{lat},{lng});'
+    ]
+  },
+  spine: {
+    label: 'Spine surgeons',
+    shortLabel: 'Spine surgeons',
+    description: 'Federal NPI Registry taxonomy',
+    sourceLabel: 'CMS NPPES API',
+    collector: 'nppes',
+    color: '#54d3ff',
+    category: 'spine',
+    taxonomyCodes: ['207XS0106X', '207T00000X']
+  },
+  moderate: {
+    label: 'Moderate',
+    shortLabel: 'Moderate / safety',
+    description: 'Local trust-and-safety review',
+    sourceLabel: 'Review workspace',
+    collector: 'moderate',
+    color: '#b794f4',
+    category: 'moderate'
   }
 }
 
@@ -178,6 +215,7 @@ const DEMO_RESULTS = [
 
 const state = {
   query: DEFAULT_QUERY,
+  job: 'dealerships',
   category: 'all',
   radius: DEFAULT_RADIUS,
   areaLabel: DEFAULT_QUERY,
@@ -239,6 +277,10 @@ function inferGroup(tags = {}) {
   const leisure = tags.leisure || ''
   const railway = tags.railway || ''
   const building = tags.building || ''
+
+  if (['car', 'car_repair', 'motorcycle'].includes(shop)) {
+    return 'dealerships'
+  }
 
   if (['cafe', 'restaurant', 'bar', 'fast_food', 'pub', 'biergarten', 'food_court', 'marketplace'].includes(amenity)) {
     return 'food'
@@ -311,7 +353,11 @@ function decodeOverpassElement(element) {
     name: tags.name || prettyLabelFromTags(tags),
     kind: inferKind(tags),
     group,
-    category: group === 'other' ? 'All tagged places' : CATEGORY_DEFS[group]?.label || 'All tagged places',
+    category: group === 'other'
+      ? 'All tagged places'
+      : group === 'dealerships'
+        ? 'Car dealerships'
+        : CATEGORY_DEFS[group]?.label || 'All tagged places',
     address: formatAddress(tags) || 'Address not tagged',
     lat,
     lng,
@@ -343,11 +389,15 @@ function makeGeoJson(results) {
 }
 
 function getSearchRadius() {
-  return clamp(Number(refs.radiusInput.value || DEFAULT_RADIUS), 800, MAX_RADIUS)
+  return clamp(Number(refs.radiusInput.value || DEFAULT_RADIUS), 5000, MAX_RADIUS)
 }
 
 function getSelectedCategoryDefinition() {
   return CATEGORY_DEFS[state.category] || CATEGORY_DEFS.all
+}
+
+function getActiveJob() {
+  return JOB_LENSES[state.job] || JOB_LENSES.dealerships
 }
 
 function persistState() {
@@ -356,6 +406,7 @@ function persistState() {
       STORAGE_KEY,
       JSON.stringify({
         query: state.query,
+        job: state.job,
         category: state.category,
         radius: state.radius,
         center: state.center,
@@ -373,8 +424,9 @@ function restoreState() {
     if (!raw) return
     const parsed = JSON.parse(raw)
     if (typeof parsed.query === 'string') state.query = parsed.query
+    if (typeof parsed.job === 'string' && JOB_LENSES[parsed.job]) state.job = parsed.job
     if (typeof parsed.category === 'string' && CATEGORY_DEFS[parsed.category]) state.category = parsed.category
-    if (Number.isFinite(parsed.radius)) state.radius = clamp(parsed.radius, 800, MAX_RADIUS)
+    if (Number.isFinite(parsed.radius)) state.radius = clamp(parsed.radius, 5000, MAX_RADIUS)
     if (Array.isArray(parsed.center) && parsed.center.length === 2) {
       const [lng, lat] = parsed.center
       if (Number.isFinite(lng) && Number.isFinite(lat)) state.center = [lng, lat]
@@ -414,23 +466,43 @@ function showToast(message) {
 }
 
 function renderScopeChips() {
-  refs.scopeChips.innerHTML = ''
-  for (const [key, definition] of Object.entries(CATEGORY_DEFS)) {
+  const lens = getActiveJob()
+  refs.scopeChips.innerHTML = `<div class="profile-summary"><strong>${lens.label}</strong><span>${lens.sourceLabel} &middot; ${lens.collector === 'moderate' ? 'No matching or association features' : 'source-specific query adapter'}</span></div>`
+  syncScopeUI()
+}
+
+function renderJobLenses() {
+  refs.jobLenses.innerHTML = ''
+  for (const [key, lens] of Object.entries(JOB_LENSES)) {
     const button = document.createElement('button')
     button.type = 'button'
-    button.className = 'chip-button'
-    button.dataset.category = key
-    button.innerHTML = `<div><strong>${definition.label}</strong><span>${key === 'all' ? 'Broad sweep' : 'Focused filter'}</span></div>`
+    button.className = 'job-lens'
+    button.dataset.job = key
+    button.style.setProperty('--lens-color', lens.color)
+    button.innerHTML = `<strong>${lens.label}</strong><span>${lens.description}</span>`
     button.addEventListener('click', async () => {
-      if (state.category === key) return
-      state.category = key
-      syncScopeUI()
+      if (state.job === key) return
+      state.job = key
+      syncJobUI()
       persistState()
       await runSearch()
     })
-    refs.scopeChips.appendChild(button)
+    refs.jobLenses.appendChild(button)
   }
-  syncScopeUI()
+  syncJobUI()
+}
+
+function syncJobUI() {
+  const lens = getActiveJob()
+  refs.heroKicker.textContent = `${lens.sourceLabel} sweep`
+  refs.sourceSummary.textContent = lens.sourceLabel
+  refs.areaSummary.textContent = lens.shortLabel
+  for (const button of refs.jobLenses.querySelectorAll('button')) {
+    button.classList.toggle('active', button.dataset.job === state.job)
+  }
+  refs.resultsHeading.textContent = lens.collector === 'moderate' ? 'Review queue' : `${lens.shortLabel} records`
+  refs.scopeLabel.textContent = lens.collector === 'moderate' ? 'Safety review only' : lens.description
+  renderScopeChips()
 }
 
 function syncScopeUI() {
@@ -447,6 +519,7 @@ function syncScopeUI() {
 function renderLegend() {
   const items = [
     ['all', 'All tagged places'],
+    ['dealerships', 'Car dealerships'],
     ['food', 'Food & drink'],
     ['groceries', 'Groceries'],
     ['transit', 'Transit'],
@@ -472,8 +545,8 @@ function renderLegend() {
 
 function renderStats() {
   refs.resultsCount.textContent = String(state.results.length)
-  refs.dataMode.textContent = state.sourceMode === 'demo' ? 'Demo' : state.loading ? 'Loading' : 'Live'
-  refs.areaSummary.textContent = state.areaLabel || state.query || DEFAULT_QUERY
+  refs.dataMode.textContent = state.sourceMode === 'demo' ? 'Demo' : state.loading ? 'Loading' : getActiveJob().sourceLabel
+  refs.areaSummary.textContent = getActiveJob().shortLabel
   refs.viewportSummary.textContent = `${formatDistance(state.radius)} radius`
   refs.querySummary.textContent = state.query || DEFAULT_QUERY
   refs.centerSummary.textContent = formatCoords(state.center[1], state.center[0])
@@ -573,6 +646,7 @@ function syncUI() {
   refs.areaInput.value = state.query
   refs.radiusInput.value = String(state.radius)
   refs.recenterButton.disabled = state.loading
+  syncJobUI()
   syncScopeUI()
   renderStats()
   renderResults()
@@ -652,12 +726,13 @@ async function geocodeArea(query) {
     label: item.display_name || query,
     lat,
     lng,
-    bbox
+    bbox,
+    address: item.address || {}
   }
 }
 
 function buildOverpassQuery(lat, lng, radius, category) {
-  const definition = CATEGORY_DEFS[category] || CATEGORY_DEFS.all
+  const definition = category === 'dealerships' ? JOB_LENSES.dealerships : CATEGORY_DEFS[category] || CATEGORY_DEFS.all
   const clauses = definition.clauses
     .map((clause) =>
       clause
@@ -672,6 +747,87 @@ function buildOverpassQuery(lat, lng, radius, category) {
 ${clauses}
 );
 out center tags;`
+}
+
+function getNppesAreaParams(place) {
+  const address = place.address || {}
+  const params = {}
+  const stateCode = String(address['ISO3166-2-lvl4'] || '').split('-').pop()
+  if (stateCode && stateCode.length === 2) params.state = stateCode
+  if (address.postcode) params.postal_code = String(address.postcode).split('-')[0]
+  if (address.city || address.town || address.village) {
+    params.city = address.city || address.town || address.village
+  }
+  return params
+}
+
+function decodeNppesProvider(provider, center) {
+  const address = (provider.addresses || []).find((entry) => entry.address_purpose === 'LOCATION') || provider.addresses?.[0]
+  if (!address) return null
+  const lat = Number(address.latitude)
+  const lng = Number(address.longitude)
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null
+
+  const basic = provider.basic || {}
+  const name = basic.organization_name ||
+    [basic.first_name, basic.middle_name, basic.last_name].filter(Boolean).join(' ') ||
+    `NPI ${provider.number}`
+  const addressText = [
+    address.address_1,
+    address.address_2,
+    [address.city, address.state, address.postal_code].filter(Boolean).join(', ')
+  ].filter(Boolean).join(', ')
+  const taxonomy = (provider.taxonomies || []).find((entry) => entry.primary) || provider.taxonomies?.[0] || {}
+
+  return {
+    id: `npi/${provider.number}`,
+    name,
+    kind: taxonomy.desc || 'Spine surgery provider',
+    group: 'health',
+    category: 'Spine surgeons',
+    address: addressText,
+    lat,
+    lng,
+    distance: haversineMeters(center, [lng, lat]),
+    source: 'CMS NPPES API',
+    tags: {
+      npi: provider.number,
+      taxonomy: taxonomy.code || 'n/a',
+      specialty: taxonomy.desc || 'n/a',
+      enumeration: provider.enumeration_type || 'n/a'
+    },
+    url: `https://npiregistry.cms.hhs.gov/provider-view/${provider.number}`
+  }
+}
+
+async function fetchNppes(place, center) {
+  const areaParams = getNppesAreaParams(place)
+  const common = {
+    version: '2.1',
+    limit: '200',
+    address_purpose: 'LOCATION'
+  }
+  const queries = JOB_LENSES.spine.taxonomyCodes.map((taxonomyCode) => {
+    const params = new URLSearchParams({ ...common, ...areaParams, taxonomy_code: taxonomyCode })
+    return fetch(`https://npiregistry.cms.hhs.gov/api/?${params.toString()}`).then(async (response) => {
+      if (!response.ok) throw new Error(`NPPES returned ${response.status}`)
+      const data = await response.json()
+      return Array.isArray(data.results) ? data.results : []
+    })
+  })
+  const batches = await Promise.all(queries)
+  const unique = new Map()
+  for (const provider of batches.flat()) {
+    if (!unique.has(provider.number)) unique.set(provider.number, provider)
+  }
+  return [...unique.values()]
+    .map((provider) => decodeNppesProvider(provider, center))
+    .filter(Boolean)
+    .filter((provider) => provider.distance <= state.radius)
+}
+
+async function fetchModerate() {
+  return []
 }
 
 async function fetchOverpass(lat, lng, radius, category) {
@@ -713,6 +869,31 @@ function applyResults(nextResults, sourceMode) {
   updateMapSource()
 }
 
+function fallbackResultsForJob() {
+  if (state.job === 'spine') {
+    return DEMO_RESULTS.filter((entry) => entry.group === 'health').map((entry) => ({
+      ...entry,
+      name: 'Demo spine surgery practice',
+      category: 'Spine surgeons',
+      kind: 'Orthopaedic Surgery, Spine',
+      tags: { source: 'demo fallback', taxonomy: '207XS0106X' },
+      url: 'https://npiregistry.cms.hhs.gov/'
+    }))
+  }
+  if (state.job === 'dealerships') {
+    return DEMO_RESULTS.filter((entry) => entry.group === 'housing').map((entry) => ({
+      ...entry,
+      name: 'Demo auto dealership',
+      group: 'dealerships',
+      category: 'Car dealerships',
+      kind: 'car dealership',
+      tags: { shop: 'car', source: 'demo fallback' },
+      url: 'https://www.openstreetmap.org/'
+    }))
+  }
+  return []
+}
+
 async function runSearch({ keepCenter = false } = {}) {
   const query = refs.areaInput.value.trim()
   if (!query) {
@@ -746,16 +927,26 @@ async function runSearch({ keepCenter = false } = {}) {
       fitMapToArea(place.bbox)
     }
 
-    const elements = await fetchOverpass(place.lat, place.lng, state.radius, state.category)
-    const decoded = elements.map(decodeOverpassElement).filter(Boolean)
+    let decoded
+    if (getActiveJob().collector === 'nppes') {
+      decoded = await fetchNppes(place, [place.lng, place.lat])
+    } else if (getActiveJob().collector === 'moderate') {
+      decoded = await fetchModerate()
+    } else {
+      const elements = await fetchOverpass(place.lat, place.lng, state.radius, 'dealerships')
+      decoded = elements.map(decodeOverpassElement).filter(Boolean).map((entry) => ({
+        ...entry,
+        category: 'Car dealerships'
+      }))
+    }
     applyResults(decoded, 'live')
-    setLoading(false, `Loaded ${decoded.length} places`)
-    showToast(`Loaded ${decoded.length} live places`)
+    setLoading(false, `Loaded ${decoded.length} records`)
+    showToast(getActiveJob().collector === 'moderate' ? 'Review workspace ready' : `Loaded ${decoded.length} records`)
     persistState()
     return
   } catch (error) {
     console.error(error)
-    const fallback = DEMO_RESULTS.map((entry) => ({
+    const fallback = fallbackResultsForJob().map((entry) => ({
       ...entry,
       distance: haversineMeters([entry.lng, entry.lat], state.center)
     }))
@@ -865,6 +1056,8 @@ function initMap() {
           GROUP_COLORS.parks,
           'housing',
           GROUP_COLORS.housing,
+          'dealerships',
+          GROUP_COLORS.dealerships,
           GROUP_COLORS.other
         ],
         'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 5, 14, 9, 16, 11],
@@ -956,13 +1149,14 @@ function bindEvents() {
 function hydrateSelectedState() {
   refs.areaInput.value = state.query
   refs.radiusInput.value = String(state.radius)
-  refs.areaSummary.textContent = state.areaLabel
+  refs.areaSummary.textContent = getActiveJob().shortLabel
   refs.querySummary.textContent = state.query
   refs.centerSummary.textContent = formatCoords(state.center[1], state.center[0])
 }
 
 async function bootstrap() {
   refs.areaForm = $('area-form')
+  refs.jobLenses = $('job-lenses')
   refs.areaInput = $('area-input')
   refs.radiusInput = $('radius-input')
   refs.radiusReadout = $('radius-readout')
@@ -993,9 +1187,13 @@ async function bootstrap() {
   refs.recenterButton = $('recenter-button')
   refs.map = $('map')
   refs.toast = $('toast')
+  refs.heroKicker = $('hero-kicker')
+  refs.sourceSummary = $('source-summary')
+  refs.resultsHeading = $('results-heading')
 
   restoreState()
   hydrateSelectedState()
+  renderJobLenses()
   renderLegend()
   renderScopeChips()
   bindEvents()

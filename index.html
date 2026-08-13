@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#071018" />
-    <title>Area Scout</title>
+    <title>Field Atlas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -27,23 +27,26 @@
     <div class="app-shell">
       <aside class="sidebar">
         <div class="brand">
-          <div class="brand-mark">AS</div>
-          <div class="brand-copy">
-            <p>Area Scout</p>
-            <span>RentSeeker-inspired map prototype</span>
+            <div class="brand-mark">FA</div>
+            <div class="brand-copy">
+              <p>Field Atlas</p>
+              <span>programmatic job intelligence</span>
           </div>
         </div>
 
         <section class="control-card">
           <div class="card-kicker">Search</div>
-          <h1>Map tagged places in a specific area.</h1>
+          <h1>Map the people and places behind a job.</h1>
           <p class="card-copy">
-            Search a city, neighborhood, or ZIP. The app geocodes the area, pulls nearby
-            OpenStreetMap features, and lays them out in the same dark, map-first shell.
+            Select a job lens, enter an area, and run its collector. Each lens declares its
+            source, query rules, and fields instead of forcing every job through one generic search.
           </p>
 
+          <div class="field-label job-label">Job lens</div>
+          <div id="job-lenses" class="job-lenses"></div>
+
           <form id="area-form" class="search-form">
-            <label class="field-label" for="area-input">Area</label>
+            <label class="field-label" for="area-input">Area, city, or ZIP</label>
             <div class="search-row">
               <input
                 id="area-input"
@@ -59,16 +62,16 @@
           <div class="range-block">
             <div class="range-topline">
               <label class="field-label" for="radius-input">Search radius</label>
-              <span id="radius-readout" class="mono-pill">1.8 km</span>
+            <span id="radius-readout" class="mono-pill">25 km</span>
             </div>
-            <input id="radius-input" type="range" min="800" max="5000" step="100" value="1800" />
+            <input id="radius-input" type="range" min="5000" max="100000" step="5000" value="25000" />
           </div>
         </section>
 
         <section class="control-card">
-          <div class="card-kicker">Scope</div>
+          <div class="card-kicker">Query profile</div>
           <div class="section-row">
-            <h2>What to map</h2>
+            <h2>What this lens returns</h2>
             <span id="scope-label" class="mono-pill">All tagged places</span>
           </div>
           <div id="scope-chips" class="chip-grid"></div>
@@ -78,15 +81,15 @@
           <div class="card-kicker">Status</div>
           <div class="metrics-grid">
             <div class="metric">
-              <span>Results</span>
+              <span>Records</span>
               <strong id="results-count">0</strong>
             </div>
             <div class="metric">
-              <span>Mode</span>
+              <span>Source</span>
               <strong id="data-mode">Idle</strong>
             </div>
             <div class="metric">
-              <span>Area</span>
+              <span>Lens</span>
               <strong id="area-summary">Los Angeles, CA</strong>
             </div>
             <div class="metric">
@@ -105,11 +108,11 @@
       <main class="map-stage">
         <header class="hero-bar">
           <div class="hero-copy">
-            <p class="card-kicker">Live OSM sweep</p>
-            <h2>Copying the RentSeeker map layout, not the data.</h2>
+            <p id="hero-kicker" class="card-kicker">Live source sweep</p>
+            <h2>One map shell. A different collector for every job.</h2>
             <p>
-              This prototype keeps the same full-screen, industrial map theatre and swaps in a
-              public area search so you can validate the interaction model before wiring in real data.
+              The interface keeps the RentSeeker-inspired full-screen map theatre while the active
+              lens controls the source, taxonomy, and record fields underneath it.
             </p>
           </div>
           <div class="hero-status">
@@ -130,7 +133,7 @@
             </div>
             <div class="overlay-card">
               <span class="overlay-label">Source</span>
-              <strong id="source-summary">MapLibre + Overpass</strong>
+              <strong id="source-summary">MapLibre + source adapter</strong>
             </div>
           </div>
 
@@ -138,7 +141,7 @@
             <div class="strip-head">
               <div>
                 <p class="card-kicker">Results</p>
-                <h3>Nearby places</h3>
+                <h3 id="results-heading">Nearby records</h3>
               </div>
               <button id="recenter-button" class="ghost-button" type="button">Recenter</button>
             </div>
@@ -152,7 +155,7 @@
           <div class="card-kicker">Details</div>
           <h2>Selected place</h2>
           <div id="detail-empty" class="detail-empty">
-            Choose a result card or map pin to inspect its tags, coordinates, and links.
+            Choose a result card or map pin to inspect its source fields, coordinates, and links.
           </div>
           <article id="detail-card" class="detail-card" hidden>
             <div class="detail-topline">
