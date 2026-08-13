@@ -26,6 +26,10 @@
           <input id="org-name" value="Major insurance enterprise" />
           <label for="employee-count">Total employees</label>
           <input id="employee-count" type="number" min="1" step="100" value="390000" />
+          <label for="source-note">Source note</label>
+          <input id="source-note" value="Analyst estimate / local fixture" />
+          <label for="confidence">Confidence</label>
+          <input id="confidence" type="number" min="0" max="100" step="1" value="62" />
           <div class="control-head"><span>Role distribution</span><button id="reset-button" type="button">Reset</button></div>
           <div id="role-inputs" class="role-inputs"></div>
           <button id="add-role" class="add-button" type="button">+ Add role</button>
@@ -38,6 +42,7 @@
           </div>
           <div id="alert" class="alert" hidden></div>
           <div id="role-table" class="role-table"></div>
+          <div class="export-row"><button id="export-context" class="add-button" type="button">Export as context object</button><span id="export-status"></span></div>
         </section>
       </section>
     </main>

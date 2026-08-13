@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CLO</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <nav class="rail" aria-label="Primary navigation">
+        <button class="rail-mark" data-route="command" aria-label="CLO home">CL</button>
+        <div class="rail-nav">
+          <button class="rail-button active" data-route="command">01<span>COMMAND</span></button>
+          <button class="rail-button" data-route="evidence">02<span>EVIDENCE</span></button>
+          <button class="rail-button" data-route="law">03<span>LAW</span></button>
+          <button class="rail-button" data-route="elements">04<span>ELEMENTS</span></button>
+          <button class="rail-button" data-route="procedure">05<span>PROCEDURE</span></button>
+          <button class="rail-button" data-route="strategy">06<span>STRATEGY</span></button>
+          <button class="rail-button" data-route="drafts">07<span>DRAFTS</span></button>
+          <button class="rail-button" data-route="deadlines">08<span>DEADLINES</span></button>
+        </div>
+        <div class="rail-bottom"><button class="rail-button" data-route="system">SYS<span>SYSTEM</span></button></div>
+      </nav>
+
+      <header class="topbar">
+        <button class="matter-switch"><strong>Northstar Housing Matter</strong><span>LOS ANGELES · ACTIVE</span>⌄</button>
+        <button id="global-search" class="search-command"><span>⌘K</span>Search evidence, law, people, events, filings…</button>
+        <div class="top-controls"><span class="indicator">MEM <b>94%</b></span><span class="indicator">AGT <b>0</b></span><span class="indicator">DB <b>OK</b></span></div>
+      </header>
+
+      <main class="body">
+        <section id="stage" class="stage" aria-live="polite"></section>
+        <aside id="inspector" class="inspector"></aside>
+      </main>
+      <footer class="statusbar"><span>DB <b>VERIFIED</b></span><span>FILES <b id="file-count">3</b></span><span>INDEX <b>READY</b></span><span>AGENTS <b>0 ACTIVE</b></span><span>RAM <b id="ram">--</b></span><span>JOBS <b>0</b></span><span class="status-spacer"></span><span>CLO / LOCAL CASE STORE</span></footer>
+    </div>
+    <div id="drawer" class="drawer" hidden></div>
+    <script type="module" src="./renderer.js"></script>
+  </body>
+</html>

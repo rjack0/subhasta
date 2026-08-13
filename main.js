@@ -1139,6 +1139,13 @@ function bindEvents() {
     showToast('Map recentered')
   })
 
+  refs.importContextButton.addEventListener('click', async () => {
+    const selected = state.results.find((result) => result.id === state.selectedId)
+    if (!selected || !window.clo?.importContext) return
+    await window.clo.importContext({ source: selected.source, externalId: selected.id, name: selected.name, address: selected.address, lat: selected.lat, lng: selected.lng, tags: selected.tags, url: selected.url })
+    showToast('Context imported')
+  })
+
   refs.copyCoordsButton.addEventListener('click', async () => {
     const selected = state.results.find((result) => result.id === state.selectedId)
     if (!selected) return
@@ -1186,6 +1193,7 @@ async function bootstrap() {
   refs.detailTags = $('detail-tags')
   refs.copyCoordsButton = $('copy-coords-button')
   refs.recenterButton = $('recenter-button')
+  refs.importContextButton = $('import-context-button')
   refs.map = $('map')
   refs.toast = $('toast')
   refs.heroKicker = $('hero-kicker')

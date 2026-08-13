@@ -8,7 +8,7 @@ const DEFAULT_ROLES = [
 ]
 
 const state = { roles: DEFAULT_ROLES.map(([name, percent, note]) => ({ name, percent, note })) }
-const refs = { name: document.querySelector('#org-name'), employees: document.querySelector('#employee-count'), roles: document.querySelector('#role-inputs'), table: document.querySelector('#role-table'), total: document.querySelector('#allocation-total'), title: document.querySelector('#profile-title'), heading: document.querySelector('#cicero-heading'), alert: document.querySelector('#alert') }
+const refs = { name: document.querySelector('#org-name'), employees: document.querySelector('#employee-count'), source: document.querySelector('#source-note'), confidence: document.querySelector('#confidence'), roles: document.querySelector('#role-inputs'), table: document.querySelector('#role-table'), total: document.querySelector('#allocation-total'), title: document.querySelector('#profile-title'), heading: document.querySelector('#cicero-heading'), alert: document.querySelector('#alert') }
 
 function number(value, fallback = 0) { const parsed = Number(value); return Number.isFinite(parsed) ? parsed : fallback }
 function renderInputs() {
@@ -40,4 +40,10 @@ function renderTable() {
 document.querySelector('#add-role').addEventListener('click', () => { state.roles.push({ name: 'New role', percent: 0, note: 'Add a source-backed description.' }); renderInputs(); renderTable() })
 document.querySelector('#reset-button').addEventListener('click', () => { state.roles = DEFAULT_ROLES.map(([name, percent, note]) => ({ name, percent, note })); refs.name.value = 'Major insurance enterprise'; refs.employees.value = 390000; renderInputs(); renderTable() })
 refs.name.addEventListener('input', renderTable); refs.employees.addEventListener('input', renderTable)
+refs.source.addEventListener('input', renderTable); refs.confidence.addEventListener('input', renderTable)
+document.querySelector('#export-context').addEventListener('click', async () => {
+  const record = { name: refs.name.value, employees: number(refs.employees.value), source: refs.source.value, confidence: number(refs.confidence.value) / 100, roles: state.roles }
+  if (window.clo?.importContext) { await window.clo.importContext(record); document.querySelector('#export-status').textContent = 'CONTEXT SAVED' }
+  else document.querySelector('#export-status').textContent = 'DESKTOP ONLY'
+})
 renderInputs(); renderTable()

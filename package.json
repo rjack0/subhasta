@@ -1,10 +1,12 @@
 {
-  "name": "area-scout",
+  "name": "subhasta-clo",
   "private": true,
-  "version": "0.1.0",
-  "type": "module",
+  "version": "0.2.0",
+  "description": "CLO litigation operating environment with Field Atlas and Cicero",
+  "main": "electron/main.cjs",
   "scripts": {
-    "dev": "python3 -m http.server 4173",
-    "start": "python3 -m http.server 4173"
+    "start": "electron .",
+    "dev": "electron .",
+    "check": "electron --version"
   }
 }

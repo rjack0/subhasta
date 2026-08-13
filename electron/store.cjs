@@ -1,0 +1,71 @@
+const fs = require('node:fs/promises')
+const crypto = require('node:crypto')
+const path = require('node:path')
+
+const now = () => new Date().toISOString()
+const id = (prefix) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`
+
+const seed = () => ({
+  version: 1,
+  matter: { id: 'matter-001', name: 'Northstar Housing Matter', subtitle: 'Los Angeles · active working set', status: 'ACTIVE' },
+  people: [], organizations: [], properties: [], units: [], events: [], incidents: [], workOrders: [], vendors: [], telemetry: [], notices: [], extractedText: [], authorities: [], propositions: [], legalClaims: [], legalElements: [], elementRequirements: [], evidenceLinks: [], propositionLinks: [], contradictions: [], evidenceGaps: [], proceduralEvents: [], courtFilings: [], docketEntries: [], deadlines: [], paragraphProvenance: [], judgeProfiles: [], opponentProfiles: [], agentJobs: [],
+  facts: [
+    { id: 'fact-001', title: 'Recurring water intrusion', detail: 'Reported across three winter seasons.', status: 'FACT', source: 'Incident log / 2024-02-11' },
+    { id: 'fact-002', title: 'Notice reached owner', detail: 'Written notice is linked to a dated work order.', status: 'VERIFIED', source: 'Email export / 2024-04-02' },
+    { id: 'fact-003', title: 'Inspection record missing', detail: 'No signed inspection report in the current working set.', status: 'HYPOTHESIS', source: 'Gap analysis' }
+  ],
+  evidence: [
+    { id: 'ev-001', name: 'Winter incident chronology.pdf', type: 'PDF', hash: 'sha256:seed-001', source: 'Seeded fixture', status: 'VERIFIED', links: ['fact-001', 'element-001'], createdAt: now() },
+    { id: 'ev-002', name: 'Owner notice email.eml', type: 'EMAIL', hash: 'sha256:seed-002', source: 'Seeded fixture', status: 'VERIFIED', links: ['fact-002', 'element-002'], createdAt: now() },
+    { id: 'ev-003', name: 'LAHD inspection record', type: 'MISSING', hash: null, source: 'Gap', status: 'HYPOTHESIS', links: ['element-003'], createdAt: now() }
+  ],
+  law: [
+    { id: 'law-001', title: 'Civil Code §1942.4', jurisdiction: 'CALIFORNIA', status: 'VERIFIED', text: 'A landlord may not collect rent or issue certain notices while specified conditions remain unresolved.', proposition: 'Unresolved statutory conditions can affect rent collection and notice remedies.', links: ['element-002'] },
+    { id: 'law-002', title: 'Local housing code', jurisdiction: 'LOS ANGELES', status: 'HYPOTHESIS', text: 'Local inspection and notice requirements remain to be confirmed from the controlling source.', proposition: null, links: ['element-003'] }
+  ],
+  claims: [{ id: 'claim-001', title: 'Habitability / notice theory', status: 'INCOMPLETE', proof: 66, elements: ['element-001', 'element-002', 'element-003'] }],
+  elements: [
+    { id: 'element-001', title: 'Condition existed', status: 'COMPLETE', proof: 100, missing: null, links: ['fact-001', 'ev-001'] },
+    { id: 'element-002', title: 'Required notice', status: 'COMPLETE', proof: 100, missing: null, links: ['fact-002', 'ev-002', 'law-001'] },
+    { id: 'element-003', title: 'Required inspection / remedy path', status: 'INCOMPLETE', proof: 33, missing: 'Obtain signed inspection record', links: ['ev-003', 'law-002'] }
+  ],
+  procedure: [
+    { id: 'proc-001', date: '2026-08-20', title: 'Service deadline', type: 'DEADLINE', status: 'PENDING', source: 'Procedure rule fixture' },
+    { id: 'proc-002', date: '2026-09-01', title: 'Responsive filing window', type: 'DEADLINE', status: 'PENDING', source: 'Derived from service deadline' }
+  ],
+  drafts: [{ id: 'draft-001', title: 'Verified demand section', status: 'DRAFT', paragraphs: [{ id: 'para-001', text: 'The record supports a recurring condition and documented notice.', provenance: ['fact-001', 'fact-002', 'ev-001', 'ev-002'], status: 'SUPPORTED' }] }],
+  strategy: { judge: { confidence: 0.62, sourceUniverse: 'Local procedural fixture', observations: ['Procedure-sensitive review', 'Evidence gaps reduce certainty'] }, opponent: { confidence: 0.48, sourceUniverse: 'Pleadings and notice fixture', observations: ['Likely challenge: missing inspection record'] } },
+  context: [],
+  audit: [{ id: id('audit'), at: now(), action: 'SEEDED MATTER', object: 'matter-001' }]
+})
+
+async function createStore(filePath) {
+  await fs.mkdir(path.dirname(filePath), { recursive: true })
+  let data
+  try { data = JSON.parse(await fs.readFile(filePath, 'utf8')) } catch { data = seed(); await fs.writeFile(filePath, JSON.stringify(data, null, 2)) }
+  return {
+    snapshot: () => data,
+    async persist() { await fs.writeFile(filePath, JSON.stringify(data, null, 2)) },
+    async update(patch) { data = { ...data, ...patch }; data.audit.push({ id: id('audit'), at: now(), action: 'UPDATE', object: 'matter-001' }); await this.persist(); return data },
+    async stageEvidence(filePathToRead) {
+      const bytes = await fs.readFile(filePathToRead)
+      const hash = crypto.createHash('sha256').update(bytes).digest('hex')
+      const textExtensions = new Set(['.txt', '.md', '.csv', '.json', '.html', '.xml'])
+      const extractedText = textExtensions.has(path.extname(filePathToRead).toLowerCase()) ? bytes.toString('utf8') : null
+      return { id: id('stage'), name: path.basename(filePathToRead), originalPath: filePathToRead, bytes: bytes.length, hash: `sha256:${hash}`, type: path.extname(filePathToRead).slice(1).toUpperCase() || 'FILE', source: 'Local import', status: 'STAGED', extractedText, custodian: null, originalTimestamps: null }
+    },
+    stageTextEvidence(text) {
+      const bytes = Buffer.from(text, 'utf8')
+      const hash = crypto.createHash('sha256').update(bytes).digest('hex')
+      return { id: id('stage'), name: 'Clipboard text', originalPath: null, bytes: bytes.length, hash: `sha256:${hash}`, type: 'TEXT', source: 'Clipboard import', status: 'STAGED', extractedText: text, custodian: null, originalTimestamps: null }
+    },
+    async commitEvidence(staged) {
+      const committed = staged.map((item) => ({ ...item, id: id('ev'), status: 'VERIFIED', links: [], linkedEvents: [], linkedPeople: [], linkedSystems: [], linkedElements: [], corroboration: 'UNREVIEWED', contradiction: null, importedAt: now(), createdAt: now() }))
+      data.extractedText.push(...committed.filter((item) => item.extractedText).map((item) => ({ id: id('text'), evidenceId: item.id, text: item.extractedText, createdAt: now() })))
+      data.evidence.push(...committed); data.audit.push({ id: id('audit'), at: now(), action: 'COMMIT EVIDENCE', object: committed.map((item) => item.id).join(', ') }); await this.persist(); return data
+    },
+    async addContext(record) { data.context.push({ ...record, id: id('ctx'), createdAt: now(), status: 'CONTEXT_ONLY' }); await this.persist(); return data }
+  }
+}
+
+module.exports = { createStore }

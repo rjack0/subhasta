@@ -47,5 +47,6 @@ h2 { margin: 8px 0 0; font-size: clamp(1.6rem, 3vw, 3rem); letter-spacing: -.06e
 .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
 .notes-grid article { padding: 18px; border-radius: 16px; background: rgba(255,255,255,.35); }
 .notes-grid article p:last-child { margin: 10px 0 0; color: var(--muted); line-height: 1.5; font-size: .9rem; }
+.export-row { display: flex; align-items: center; gap: 16px; margin-top: 20px; }.export-row span { color: #3f7d63; font: .7rem var(--mono); }
 @media (max-width: 850px) { .workspace { grid-template-columns: 1fr; } .controls { position: static; } .table-row { grid-template-columns: 1.3fr .6fr .7fr; } .table-row span:last-child { grid-column: 1 / -1; } }
 @media (max-width: 560px) { .status { display: none; } .intro { padding-top: 54px; } .notes-grid { grid-template-columns: 1fr; } h1 { font-size: 3.25rem; } }
