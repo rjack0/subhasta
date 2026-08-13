@@ -3,6 +3,7 @@ const { contextBridge, ipcRenderer } = require('electron')
 contextBridge.exposeInMainWorld('clo', {
   getState: () => ipcRenderer.invoke('case:state'),
   save: (patch) => ipcRenderer.invoke('case:save', patch),
+  action: (name, payload) => ipcRenderer.invoke('case:action', name, payload),
   chooseEvidence: () => ipcRenderer.invoke('evidence:choose-files'),
   chooseEvidenceDirectory: () => ipcRenderer.invoke('evidence:choose-directory'),
   clipboardEvidence: () => ipcRenderer.invoke('evidence:clipboard'),

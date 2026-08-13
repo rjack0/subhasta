@@ -29,6 +29,10 @@ function createWindow() {
 function registerIpc() {
   ipcMain.handle('case:state', () => store.snapshot())
   ipcMain.handle('case:save', (_, patch) => store.update(patch))
+  ipcMain.handle('case:action', (_, action, payload) => {
+    if (typeof action !== 'string' || !/^[a-z-]+$/.test(action)) throw new Error('Invalid case action')
+    return store.applyAction(action, payload && typeof payload === 'object' ? payload : {})
+  })
   ipcMain.handle('evidence:choose-files', async () => {
     const result = await dialog.showOpenDialog(mainWindow, { properties: ['openFile', 'multiSelections'] })
     if (result.canceled) return []

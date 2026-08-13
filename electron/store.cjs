@@ -4,9 +4,17 @@ const path = require('node:path')
 
 const now = () => new Date().toISOString()
 const id = (prefix) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`
+const collectionNames = ['people', 'organizations', 'properties', 'units', 'events', 'incidents', 'workOrders', 'vendors', 'telemetry', 'notices', 'extractedText', 'authorities', 'propositions', 'legalClaims', 'legalElements', 'elementRequirements', 'evidenceLinks', 'propositionLinks', 'contradictions', 'evidenceGaps', 'proceduralEvents', 'courtFilings', 'docketEntries', 'deadlines', 'paragraphProvenance', 'judgeProfiles', 'opponentProfiles', 'agentJobs', 'facts', 'evidence', 'law', 'claims', 'elements', 'procedure', 'drafts', 'context', 'audit']
+
+function normalize(data) {
+  const normalized = { ...data, version: Math.max(Number(data.version || 0), 2) }
+  for (const name of collectionNames) if (!Array.isArray(normalized[name])) normalized[name] = []
+  normalized.audit = normalized.audit || []
+  return normalized
+}
 
 const seed = () => ({
-  version: 1,
+  version: 2,
   matter: { id: 'matter-001', name: 'Northstar Housing Matter', subtitle: 'Los Angeles · active working set', status: 'ACTIVE' },
   people: [], organizations: [], properties: [], units: [], events: [], incidents: [], workOrders: [], vendors: [], telemetry: [], notices: [], extractedText: [], authorities: [], propositions: [], legalClaims: [], legalElements: [], elementRequirements: [], evidenceLinks: [], propositionLinks: [], contradictions: [], evidenceGaps: [], proceduralEvents: [], courtFilings: [], docketEntries: [], deadlines: [], paragraphProvenance: [], judgeProfiles: [], opponentProfiles: [], agentJobs: [],
   facts: [
@@ -42,11 +50,47 @@ const seed = () => ({
 async function createStore(filePath) {
   await fs.mkdir(path.dirname(filePath), { recursive: true })
   let data
-  try { data = JSON.parse(await fs.readFile(filePath, 'utf8')) } catch { data = seed(); await fs.writeFile(filePath, JSON.stringify(data, null, 2)) }
+  try { data = normalize(JSON.parse(await fs.readFile(filePath, 'utf8'))); await fs.writeFile(filePath, JSON.stringify(data, null, 2)) } catch { data = seed(); await fs.writeFile(filePath, JSON.stringify(data, null, 2)) }
   return {
     snapshot: () => data,
     async persist() { await fs.writeFile(filePath, JSON.stringify(data, null, 2)) },
     async update(patch) { data = { ...data, ...patch }; data.audit.push({ id: id('audit'), at: now(), action: 'UPDATE', object: 'matter-001' }); await this.persist(); return data },
+    async applyAction(action, payload = {}) {
+      if (action === 'create-proposition') {
+        const authorityId = payload.authorityId || data.law[0]?.id
+        const proposition = { id: id('prop'), title: payload.title || 'Statutory condition proposition', text: payload.text || data.law[0]?.proposition || 'Proposition requires source verification.', authorityId, status: 'PENDING', source: 'Local authority fixture', createdAt: now() }
+        data.propositions.push(proposition)
+        data.law = data.law.map((item) => item.id === authorityId ? { ...item, proposition: proposition.text, propositionId: proposition.id } : item)
+        data.audit.push({ id: id('audit'), at: now(), action: 'CREATE PROPOSITION', object: proposition.id })
+      } else if (action === 'build-section') {
+        const draft = data.drafts[0]
+        if (draft) {
+          draft.paragraphs.push({ id: id('para'), text: 'The current record connects the verified condition, notice, and governing authority.', provenance: ['fact-001', 'fact-002', 'ev-001', 'ev-002', 'law-001'], status: 'SUPPORTED', createdAt: now() })
+          draft.status = 'BUILT'
+          data.paragraphProvenance.push({ id: id('prov'), paragraphId: draft.paragraphs.at(-1).id, sources: draft.paragraphs.at(-1).provenance, createdAt: now() })
+        }
+        data.audit.push({ id: id('audit'), at: now(), action: 'BUILD SECTION', object: data.drafts[0]?.id || 'none' })
+      } else if (action === 'verify-citations') {
+        if (data.drafts[0]) data.drafts[0].citationStatus = 'VERIFIED'
+        data.audit.push({ id: id('audit'), at: now(), action: 'VERIFY CITATIONS', object: data.drafts[0]?.id || 'none' })
+      } else if (action === 'validate-filing') {
+        const complete = data.elements.every((item) => item.status === 'COMPLETE')
+        if (data.drafts[0]) data.drafts[0].validation = complete ? 'PASSED' : 'FAILED'
+        data.audit.push({ id: id('audit'), at: now(), action: complete ? 'VALIDATE FILING' : 'VALIDATE FILING FAILED', object: data.drafts[0]?.id || 'none' })
+      } else if (action === 'export-filing') {
+        if (data.drafts[0]?.validation !== 'PASSED') throw new Error('Filing validation has not passed')
+        data.drafts[0].exportedAt = now()
+        data.audit.push({ id: id('audit'), at: now(), action: 'EXPORT FILING', object: data.drafts[0].id })
+      } else if (action === 'open-action') {
+        const target = data.evidence.find((item) => item.id === payload.id)
+        if (target) target.status = target.status === 'HYPOTHESIS' ? 'PENDING' : target.status
+        data.audit.push({ id: id('audit'), at: now(), action: 'OPEN ACTION', object: payload.id || 'none' })
+      } else {
+        throw new Error(`Unknown case action: ${action}`)
+      }
+      await this.persist()
+      return data
+    },
     async stageEvidence(filePathToRead) {
       const bytes = await fs.readFile(filePathToRead)
       const hash = crypto.createHash('sha256').update(bytes).digest('hex')
