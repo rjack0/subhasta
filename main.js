@@ -495,6 +495,7 @@ function renderJobLenses() {
 function syncJobUI() {
   const lens = getActiveJob()
   refs.heroKicker.textContent = `${lens.sourceLabel} sweep`
+  refs.heroTitle.textContent = lens.label
   refs.sourceSummary.textContent = lens.sourceLabel
   refs.areaSummary.textContent = lens.shortLabel
   for (const button of refs.jobLenses.querySelectorAll('button')) {
@@ -1188,6 +1189,7 @@ async function bootstrap() {
   refs.map = $('map')
   refs.toast = $('toast')
   refs.heroKicker = $('hero-kicker')
+  refs.heroTitle = $('hero-title')
   refs.sourceSummary = $('source-summary')
   refs.resultsHeading = $('results-heading')
 

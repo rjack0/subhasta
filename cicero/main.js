@@ -8,7 +8,7 @@ const DEFAULT_ROLES = [
 ]
 
 const state = { roles: DEFAULT_ROLES.map(([name, percent, note]) => ({ name, percent, note })) }
-const refs = { name: document.querySelector('#org-name'), employees: document.querySelector('#employee-count'), roles: document.querySelector('#role-inputs'), table: document.querySelector('#role-table'), total: document.querySelector('#allocation-total'), title: document.querySelector('#profile-title'), alert: document.querySelector('#alert') }
+const refs = { name: document.querySelector('#org-name'), employees: document.querySelector('#employee-count'), roles: document.querySelector('#role-inputs'), table: document.querySelector('#role-table'), total: document.querySelector('#allocation-total'), title: document.querySelector('#profile-title'), heading: document.querySelector('#cicero-heading'), alert: document.querySelector('#alert') }
 
 function number(value, fallback = 0) { const parsed = Number(value); return Number.isFinite(parsed) ? parsed : fallback }
 function renderInputs() {
@@ -26,6 +26,7 @@ function renderTable() {
   const employees = Math.max(1, Math.round(number(refs.employees.value, 1)))
   const total = state.roles.reduce((sum, role) => sum + Math.max(0, number(role.percent)), 0)
   refs.title.textContent = refs.name.value || 'Untitled organization'
+  refs.heading.textContent = refs.name.value || 'Untitled organization'
   refs.total.textContent = `${total.toFixed(1)}%`
   refs.alert.hidden = Math.abs(total - 100) < 0.05
   refs.alert.textContent = total > 100 ? 'Allocation exceeds 100%. Reduce one or more role percentages.' : 'Allocation is below 100%. Add or adjust roles until the model accounts for the full workforce.'
