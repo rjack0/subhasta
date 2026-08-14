@@ -172,7 +172,13 @@ async function createStore(filePath) {
       const committed = staged.filter((item) => !data.evidence.some((existing) => existing.hash && existing.hash === item.hash)).map((item) => ({ ...item, id: id('ev'), status: 'VERIFIED', links: [], linkedEvents: [], linkedPeople: [], linkedSystems: [], linkedElements: [], corroboration: 'UNREVIEWED', contradiction: null, importedAt: now(), createdAt: now() }))
       const duplicates = staged.filter((item) => data.evidence.some((existing) => existing.hash && existing.hash === item.hash)).map((item) => ({ ...item, status: 'DUPLICATE' }))
       data.extractedText.push(...committed.filter((item) => item.extractedText).map((item) => ({ id: id('text'), evidenceId: item.id, text: item.extractedText, createdAt: now() })))
-      data.evidence.push(...committed); data.audit.push({ id: id('audit'), at: now(), action: duplicates.length ? 'COMMIT EVIDENCE / DUPLICATE DETECTED' : 'COMMIT EVIDENCE', object: committed.map((item) => item.id).join(', ') || duplicates.map((item) => item.hash).join(', ') }); await this.persist(); return data
+      data.evidence.push(...committed)
+      data.agentJobs.push({ id: id('job'), type: 'HASH_EXTRACT_INDEX', status: 'COMPLETE', records: committed.length, startedAt: now(), finishedAt: now() })
+      data.audit.push({ id: id('audit'), at: now(), action: duplicates.length ? 'COMMIT EVIDENCE / DUPLICATE DETECTED' : 'COMMIT EVIDENCE', object: committed.map((item) => item.id).join(', ') || duplicates.map((item) => item.hash).join(', ') }); await this.persist(); return data
+    },
+    health() {
+      const active = data.agentJobs.filter((job) => job.status === 'RUNNING').length
+      return { db: 'VERIFIED', index: 'READY', agents: active, jobs: data.agentJobs.filter((job) => job.status !== 'COMPLETE').length, completedJobs: data.agentJobs.filter((job) => job.status === 'COMPLETE').length }
     },
     async addContext(record) { data.context.push({ ...record, id: id('ctx'), createdAt: now(), status: 'CONTEXT_ONLY' }); await this.persist(); return data }
   }

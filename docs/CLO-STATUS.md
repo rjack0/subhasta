@@ -6,13 +6,13 @@ This ledger is intentionally conservative. It records what is implemented and ve
 
 | Area | Passed | Total | Notes |
 |---|---:|---:|---|
-| Architecture and security | 14 | 15 | Electron shell, preload boundary, migration normalization, bounded action IPC, search/link/deadline IPC, SQLite persistence path, and source tests exist; background jobs and full IPC tests remain |
+| Architecture and security | 14 | 15 | Electron shell, preload boundary, migration normalization, bounded action IPC, SQLite persistence path, stateful job health, capture runner, and source tests exist; true worker isolation remains |
 | Data integrity and provenance | 17 | 20 | SHA-256, staging, commit, extracted text, audit, duplicate detection, typed evidence links, paragraph provenance, and context-only import are verified; SQL repository remains |
-| Functional surfaces | 21 | 25 | Primary views, import flow, proposition/build/validate/export-gate actions, object search, derived deadlines, and secondary navigation exist; several domain workflows remain fixtures |
+| Functional surfaces | 22 | 25 | Primary views, import flow, proposition/build/validate/export-gate actions, object search, derived deadlines, Evidence filters, stateful job status, and secondary navigation exist; several domain workflows remain fixtures |
 | Visual constitution | 18 | 25 | Shell geometry tokens, palette, responsive rules, 1440px/1024px/mobile captures, and corrected mobile fallback are verified; computed geometry and color-area audit remain |
 | Accessibility, interaction, performance | 7 | 10 | Search/Escape, route shortcuts, visible focus/select states, non-chat search, and mobile hierarchy exist; list navigation and benchmarks remain |
 | Verification, documentation, delivery | 5 | 5 | Store and constitution tests, rubric, README, background Electron smoke launch, capture runner, and 10 generated route screenshots exist |
-| **Total** | **85** | **100** | **B**; state-variant screenshots, performance benchmarks, and full domain integration remain |
+| **Total** | **86** | **100** | **B**; worker isolation, performance benchmarks, and full domain integration remain |
 
 ## Verified In This Repository
 

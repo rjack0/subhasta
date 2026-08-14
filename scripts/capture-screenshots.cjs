@@ -15,7 +15,7 @@ async function main() {
   ipcMain.handle('case:save', (_, patch) => store.update(patch))
   ipcMain.handle('case:action', (_, action, payload) => store.applyAction(action, payload))
   ipcMain.handle('case:search', (_, query) => store.search(query))
-  ipcMain.handle('system:health', () => ({ db: 'VERIFIED', index: 'READY', agents: 0, jobs: 0, ram: process.memoryUsage().rss }))
+  ipcMain.handle('system:health', () => ({ ...store.health(), ram: process.memoryUsage().rss }))
   ipcMain.handle('procedure:derive-deadlines', () => store.deriveDeadlines())
   const window = new BrowserWindow({ width: 1440, height: 900, show: false, backgroundColor: '#0C0E12', webPreferences: { preload: path.join(__dirname, '..', 'electron', 'preload.cjs'), contextIsolation: true, nodeIntegration: false, sandbox: true } })
   await window.loadFile(path.join(__dirname, '..', 'clo', 'index.html'))

@@ -59,7 +59,7 @@ function registerIpc() {
     return false
   })
   ipcMain.handle('context:import', (_, record) => store.addContext(record))
-  ipcMain.handle('system:health', () => ({ db: 'VERIFIED', index: 'READY', agents: 0, jobs: 0, ram: process.memoryUsage().rss }))
+  ipcMain.handle('system:health', () => ({ ...store.health(), ram: process.memoryUsage().rss }))
 }
 
 app.whenReady().then(async () => {

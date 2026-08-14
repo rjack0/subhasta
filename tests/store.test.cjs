@@ -21,6 +21,7 @@ async function main() {
 
     await store.commitEvidence([staged])
     assert.equal(store.snapshot().evidence.at(-1).status, 'VERIFIED')
+    assert.equal(store.health().completedJobs, 1)
     assert.equal(store.snapshot().extractedText.at(-1).evidenceId, store.snapshot().evidence.at(-1).id)
     const evidenceId = store.snapshot().evidence.at(-1).id
     await store.linkEvidence(evidenceId, 'fact', 'fact-001')
