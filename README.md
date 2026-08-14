@@ -24,7 +24,14 @@ Run the store test with the project Node runtime:
 npm run test:store
 ```
 
-The Electron runtime and foreground-safe screenshot capture are intentionally not claimed as verified in this pass.
+Run the constitution test and the background screenshot runner:
+
+```bash
+npm test
+CLO_BACKGROUND_CAPTURE=1 npm run capture:screenshots
+```
+
+The screenshot runner writes the route set to `artifacts/screenshots/` and never calls `show()`.
 
 ## Field Atlas
 

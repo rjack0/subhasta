@@ -4,12 +4,15 @@
   "version": "0.2.0",
   "description": "CLO litigation operating environment with Field Atlas and Cicero",
   "main": "electron/main.cjs",
+  "engines": { "node": ">=20" },
+  "devDependencies": { "electron": "^37.2.6" },
   "scripts": {
     "start": "electron .",
     "dev": "electron .",
     "check": "electron --version",
     "test:store": "node tests/store.test.cjs",
     "test:constitution": "node tests/constitution.test.cjs",
-    "test": "npm run test:store && npm run test:constitution"
+    "test": "npm run test:store && npm run test:constitution",
+    "capture:screenshots": "electron scripts/capture-screenshots.cjs"
   }
 }

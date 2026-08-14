@@ -1,6 +1,7 @@
 const fs = require('node:fs/promises')
 const crypto = require('node:crypto')
 const path = require('node:path')
+const { spawnSync } = require('node:child_process')
 
 const now = () => new Date().toISOString()
 const id = (prefix) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`
@@ -16,6 +17,19 @@ function normalize(data) {
 function findObject(data, type, objectId) {
   const collection = { fact: 'facts', evidence: 'evidence', law: 'law', claim: 'claims', element: 'elements', procedure: 'procedure', draft: 'drafts', proposition: 'propositions', deadline: 'deadlines', person: 'people', event: 'events' }[type]
   return collection ? data[collection].find((item) => item.id === objectId) : null
+}
+
+function readSqlite(filePath) {
+  const result = spawnSync('sqlite3', [filePath, 'SELECT payload FROM case_state WHERE id = 1;'], { encoding: 'utf8' })
+  if (result.status !== 0 || !result.stdout.trim()) return null
+  return JSON.parse(result.stdout.trim())
+}
+
+function writeSqlite(filePath, data) {
+  const payload = JSON.stringify(data).replaceAll("'", "''")
+  const sql = `CREATE TABLE IF NOT EXISTS case_state (id INTEGER PRIMARY KEY, payload TEXT NOT NULL); INSERT OR REPLACE INTO case_state (id, payload) VALUES (1, '${payload}');`
+  const result = spawnSync('sqlite3', [filePath], { input: sql, encoding: 'utf8' })
+  if (result.status !== 0) throw new Error(result.stderr || 'SQLite persistence failed')
 }
 
 const seed = () => ({
@@ -54,11 +68,19 @@ const seed = () => ({
 
 async function createStore(filePath) {
   await fs.mkdir(path.dirname(filePath), { recursive: true })
+  const sqlite = filePath.endsWith('.sqlite3')
   let data
-  try { data = normalize(JSON.parse(await fs.readFile(filePath, 'utf8'))); await fs.writeFile(filePath, JSON.stringify(data, null, 2)) } catch { data = seed(); await fs.writeFile(filePath, JSON.stringify(data, null, 2)) }
+  try {
+    const persisted = sqlite ? readSqlite(filePath) : JSON.parse(await fs.readFile(filePath, 'utf8'))
+    data = normalize(persisted)
+    if (sqlite) writeSqlite(filePath, data); else await fs.writeFile(filePath, JSON.stringify(data, null, 2))
+  } catch {
+    data = seed()
+    if (sqlite) writeSqlite(filePath, data); else await fs.writeFile(filePath, JSON.stringify(data, null, 2))
+  }
   return {
     snapshot: () => data,
-    async persist() { await fs.writeFile(filePath, JSON.stringify(data, null, 2)) },
+    async persist() { if (sqlite) writeSqlite(filePath, data); else await fs.writeFile(filePath, JSON.stringify(data, null, 2)) },
     async update(patch) { data = { ...data, ...patch }; data.audit.push({ id: id('audit'), at: now(), action: 'UPDATE', object: 'matter-001' }); await this.persist(); return data },
     async applyAction(action, payload = {}) {
       if (action === 'create-proposition') {
@@ -127,7 +149,7 @@ async function createStore(filePath) {
       return data
     },
     async deriveDeadlines() {
-      const derived = data.procedure.filter((item) => item.type === 'DEADLINE').map((item) => ({ id: `deadline-${item.id}`, title: item.title, date: item.date, status: item.status, source: item.source, procedureId: item.id, consequence: item.title.toLowerCase().includes('service') ? 'HIGH' : 'MEDIUM', createdAt: item.createdAt || now() }))
+      const derived = data.procedure.filter((item) => item.type === 'DEADLINE').map((item) => ({ id: `deadline-${item.id}`, title: item.title, date: item.date, status: item.status, source: item.source, procedureId: item.id, consequence: item.title.toLowerCase().includes('service') ? 'HIGH' : 'MEDIUM', createdAt: item.createdAt || null }))
       if (JSON.stringify(data.deadlines) === JSON.stringify(derived)) return data
       data.deadlines = derived
       data.audit.push({ id: id('audit'), at: now(), action: 'DERIVE DEADLINES', object: data.deadlines.map((item) => item.id).join(',') })

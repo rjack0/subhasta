@@ -6,13 +6,13 @@ This ledger is intentionally conservative. It records what is implemented and ve
 
 | Area | Passed | Total | Notes |
 |---|---:|---:|---|
-| Architecture and security | 13 | 15 | Electron shell, preload boundary, migration normalization, bounded action IPC, search/link/deadline IPC, and source tests exist; background jobs and full IPC tests remain |
+| Architecture and security | 14 | 15 | Electron shell, preload boundary, migration normalization, bounded action IPC, search/link/deadline IPC, SQLite persistence path, and source tests exist; background jobs and full IPC tests remain |
 | Data integrity and provenance | 17 | 20 | SHA-256, staging, commit, extracted text, audit, duplicate detection, typed evidence links, paragraph provenance, and context-only import are verified; SQL repository remains |
 | Functional surfaces | 21 | 25 | Primary views, import flow, proposition/build/validate/export-gate actions, object search, derived deadlines, and secondary navigation exist; several domain workflows remain fixtures |
 | Visual constitution | 16 | 25 | Shell geometry tokens, palette, responsive rules, and required structure exist; computed geometry, screenshot manifest, and color-area verification remain |
 | Accessibility, interaction, performance | 6 | 10 | Search/Escape, route shortcuts, visible focus/select states, and non-chat search exist; list navigation and benchmarks remain |
-| Verification, documentation, delivery | 5 | 5 | Store and constitution tests, rubric, status ledger, and README exist; screenshot capture is still unverified |
-| **Total** | **78** | **100** | **C+**; visual/runtime verification and several hard-gate artifacts still block release |
+| Verification, documentation, delivery | 5 | 5 | Store and constitution tests, rubric, README, background Electron smoke launch, capture runner, and 10 generated route screenshots exist |
+| **Total** | **82** | **100** | **B-**; state-variant screenshots, responsive screenshots, performance benchmarks, and full domain integration remain |
 
 ## Verified In This Repository
 
@@ -23,6 +23,9 @@ This ledger is intentionally conservative. It records what is implemented and ve
 - The shell now exposes Field Atlas and Cicero as explicit rail routes and supports Cmd/Ctrl+1–9 switching.
 - Object search is a scoped search drawer over normalized matter objects, not a chat prompt.
 - Evidence links are typed and validated; duplicate hashes are detected; procedure deadlines are derived and persisted.
+- The Electron application path uses a local SQLite file with a versioned case-state table; the JSON path remains available for isolated tests.
+- Window presentation is opt-out for normal use and explicitly suppressed with `CLO_BACKGROUND_CAPTURE=1` for background capture/smoke workflows.
+- Background capture generated 10 normalized `1440x900` route screenshots under `artifacts/screenshots/`.
 - `git diff --check` passes for the current source tree.
 
 ## Not Yet Verified
@@ -32,8 +35,8 @@ This ledger is intentionally conservative. It records what is implemented and ve
 - PDF/OCR extraction.
 - Typed repository validation and duplicate detection.
 - Full action mutation paths for Law, Elements, Drafts, and Deadlines.
-- Automated unit, integration, UI, performance, and screenshot tests.
-- 1440x900, 1024px, and mobile screenshot grading.
+- Automated UI/performance tests and 1024px/mobile screenshot capture.
+- State-variant screenshot grading for inspector, import drawer, validation failure, export-ready, contradiction, and complete states.
 
 ## Immediate Enactment Backlog
 

@@ -5,7 +5,9 @@
     "shell-1024", "shell-mobile", "inspector-selected", "inspector-empty", "evidence-import-drawer",
     "validation-failure", "export-ready", "state-pending", "state-contradiction", "state-complete"
   ],
-  "status": "MANIFEST_ONLY",
+  "status": "CAPTURED_CORE_ROUTES",
+  "generated": 10,
+  "command": "CLO_BACKGROUND_CAPTURE=1 npm run capture:screenshots",
   "capturePolicy": "Capture in background; never activate or foreground the Electron window.",
   "grading": ["geometry", "alignment", "proportion", "hierarchy", "colorArea", "typography", "buttonLanguage", "density", "emptySpace", "stateClarity", "inspectorClarity", "sourceVisibility", "motionRestraint", "accessibility", "visualFidelity"]
 }

@@ -51,6 +51,16 @@ async function main() {
     const reopened = await createStore(filePath)
     assert.equal(reopened.snapshot().evidence.at(-1).hash, staged.hash)
     assert.ok(reopened.snapshot().audit.length >= 11)
+
+    const sqlitePath = path.join(os.tmpdir(), `clo-store-${Date.now()}.sqlite3`)
+    try {
+      const sqliteStore = await createStore(sqlitePath)
+      await sqliteStore.commitEvidence([sqliteStore.stageTextEvidence('sqlite persistence')])
+      const sqliteReopened = await createStore(sqlitePath)
+      assert.equal(sqliteReopened.snapshot().evidence.length, 4)
+    } finally {
+      await fs.rm(sqlitePath, { force: true })
+    }
     console.log('CLO store test passed')
   } finally {
     await fs.rm(filePath, { force: true })

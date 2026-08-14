@@ -23,7 +23,7 @@ function createWindow() {
     }
   })
   mainWindow.loadFile(path.join(__dirname, '..', 'clo', 'index.html'))
-  mainWindow.once('ready-to-show', () => mainWindow.show())
+  mainWindow.once('ready-to-show', () => { if (process.env.CLO_BACKGROUND_CAPTURE !== '1') mainWindow.show() })
 }
 
 function registerIpc() {
@@ -63,7 +63,7 @@ function registerIpc() {
 }
 
 app.whenReady().then(async () => {
-  store = await createStore(path.join(app.getPath('userData'), 'clo-case-store.json'))
+  store = await createStore(path.join(app.getPath('userData'), 'clo-case-store.sqlite3'))
   registerIpc()
   createWindow()
   app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow() })
