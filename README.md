@@ -11,10 +11,12 @@ The build is measured against [the hyper-precise CLO acceptance rubric](docs/CLO
 - `electron/main.cjs`: main process, window, dialogs, and IPC handlers.
 - `electron/preload.cjs`: narrow renderer bridge.
 - `electron/store.cjs`: versioned local case store, provenance, audit, and action mutations.
+- `electron/hash-worker.cjs`: background SHA-256 and text extraction worker.
 - `clo/`: primary renderer shell, routes, inspector, status strip, and evidence drawer.
 - `index.html`, `main.js`, `styles.css`: Field Atlas secondary surface.
 - `cicero/`: Cicero organizational analysis secondary surface.
 - `tests/store.test.cjs`: repeatable persistence and provenance test.
+- `tests/performance.test.cjs`: 10,000-object search feedback benchmark.
 
 ## Verification
 

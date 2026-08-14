@@ -2,6 +2,7 @@ const fs = require('node:fs/promises')
 const crypto = require('node:crypto')
 const path = require('node:path')
 const { spawnSync } = require('node:child_process')
+const { Worker } = require('node:worker_threads')
 
 const now = () => new Date().toISOString()
 const id = (prefix) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`
@@ -30,6 +31,15 @@ function writeSqlite(filePath, data) {
   const sql = `CREATE TABLE IF NOT EXISTS case_state (id INTEGER PRIMARY KEY, payload TEXT NOT NULL); INSERT OR REPLACE INTO case_state (id, payload) VALUES (1, '${payload}');`
   const result = spawnSync('sqlite3', [filePath], { input: sql, encoding: 'utf8' })
   if (result.status !== 0) throw new Error(result.stderr || 'SQLite persistence failed')
+}
+
+function processEvidenceBytes(bytes, extension) {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker(path.join(__dirname, 'hash-worker.cjs'))
+    worker.once('message', (result) => { worker.terminate(); resolve(result) })
+    worker.once('error', (error) => { worker.terminate(); reject(error) })
+    worker.postMessage({ bytes, extension })
+  })
 }
 
 const seed = () => ({
@@ -158,10 +168,9 @@ async function createStore(filePath) {
     },
     async stageEvidence(filePathToRead) {
       const bytes = await fs.readFile(filePathToRead)
-      const hash = crypto.createHash('sha256').update(bytes).digest('hex')
-      const textExtensions = new Set(['.txt', '.md', '.csv', '.json', '.html', '.xml'])
-      const extractedText = textExtensions.has(path.extname(filePathToRead).toLowerCase()) ? bytes.toString('utf8') : null
-      return { id: id('stage'), name: path.basename(filePathToRead), originalPath: filePathToRead, bytes: bytes.length, hash: `sha256:${hash}`, type: path.extname(filePathToRead).slice(1).toUpperCase() || 'FILE', source: 'Local import', status: 'STAGED', extractedText, custodian: null, originalTimestamps: null }
+      const extension = path.extname(filePathToRead).toLowerCase()
+      const processed = await processEvidenceBytes(bytes, extension)
+      return { id: id('stage'), name: path.basename(filePathToRead), originalPath: filePathToRead, bytes: bytes.length, hash: `sha256:${processed.hash}`, type: extension.slice(1).toUpperCase() || 'FILE', source: 'Local import', status: 'STAGED', extractedText: processed.extractedText, custodian: null, originalTimestamps: null }
     },
     stageTextEvidence(text) {
       const bytes = Buffer.from(text, 'utf8')

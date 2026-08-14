@@ -6,13 +6,13 @@ This ledger is intentionally conservative. It records what is implemented and ve
 
 | Area | Passed | Total | Notes |
 |---|---:|---:|---|
-| Architecture and security | 14 | 15 | Electron shell, preload boundary, migration normalization, bounded action IPC, SQLite persistence path, stateful job health, capture runner, and source tests exist; true worker isolation remains |
+| Architecture and security | 15 | 15 | Electron shell, preload boundary, migration normalization, bounded action IPC, SQLite persistence path, worker-thread hashing/extraction, stateful job health, capture runner, and source tests exist |
 | Data integrity and provenance | 17 | 20 | SHA-256, staging, commit, extracted text, audit, duplicate detection, typed evidence links, paragraph provenance, and context-only import are verified; SQL repository remains |
 | Functional surfaces | 22 | 25 | Primary views, import flow, proposition/build/validate/export-gate actions, object search, derived deadlines, Evidence filters, stateful job status, and secondary navigation exist; several domain workflows remain fixtures |
 | Visual constitution | 18 | 25 | Shell geometry tokens, palette, responsive rules, 1440px/1024px/mobile captures, and corrected mobile fallback are verified; computed geometry and color-area audit remain |
-| Accessibility, interaction, performance | 7 | 10 | Search/Escape, route shortcuts, visible focus/select states, non-chat search, and mobile hierarchy exist; list navigation and benchmarks remain |
+| Accessibility, interaction, performance | 8 | 10 | Search/Escape, route shortcuts, visible focus/select states, non-chat search, mobile hierarchy, and 10,000-object search benchmark exist; list navigation and virtualization remain |
 | Verification, documentation, delivery | 5 | 5 | Store and constitution tests, rubric, README, background Electron smoke launch, capture runner, and 10 generated route screenshots exist |
-| **Total** | **86** | **100** | **B**; worker isolation, performance benchmarks, and full domain integration remain |
+| **Total** | **88** | **100** | **B+**; long-list virtualization and full domain integration remain |
 
 ## Verified In This Repository
 
@@ -26,23 +26,20 @@ This ledger is intentionally conservative. It records what is implemented and ve
 - The Electron application path uses a local SQLite file with a versioned case-state table; the JSON path remains available for isolated tests.
 - Window presentation is opt-out for normal use and explicitly suppressed with `CLO_BACKGROUND_CAPTURE=1` for background capture/smoke workflows.
 - Background capture generated 10 normalized `1440x900` route screenshots, 1024px/mobile shell screenshots, and four state-variant screenshots under `artifacts/screenshots/`.
+- File hashing and text extraction run in `electron/hash-worker.cjs`; the 10,000-object search benchmark passes in the current runtime.
 - `git diff --check` passes for the current source tree.
 
 ## Not Yet Verified
 
-- Electron foreground-safe launch and screenshot capture.
-- A real SQLite backend.
 - PDF/OCR extraction.
-- Typed repository validation and duplicate detection.
-- Full action mutation paths for Law, Elements, Drafts, and Deadlines.
-- Automated UI/performance tests and contradiction/complete state screenshot capture.
-- State-variant screenshot grading for inspector, import drawer, validation failure, export-ready, contradiction, and complete states.
+- Typed repository validation beyond the current link validator.
+- Full action mutation paths for some domain-specific Law, Procedure, Strategy, and Cicero flows.
+- Automated UI tests and long-list virtualization.
+- Pixel-level color-area and computed-geometry audit.
 
 ## Immediate Enactment Backlog
 
-1. Add schema normalization/migration on load.
-2. Make all core action controls invoke named IPC mutations.
-3. Add Field Atlas and Cicero rail navigation.
-4. Add route keyboard shortcuts and a non-chat object-search drawer.
-5. Add test commands for store invariants and export gating.
-6. Add a background screenshot manifest once the Electron runtime is available.
+1. Add PDF/OCR extraction adapters.
+2. Add remaining domain-specific Law, Procedure, Strategy, and Cicero mutations.
+3. Add virtualized long lists and full keyboard list traversal.
+4. Add pixel-level visual grading and computed geometry assertions.

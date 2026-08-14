@@ -18,6 +18,11 @@ async function main() {
     const digest = crypto.createHash('sha256').update(text).digest('hex')
     assert.equal(staged.hash, `sha256:${digest}`)
     assert.equal(staged.status, 'STAGED')
+    const sourcePath = path.join(os.tmpdir(), `clo-source-${Date.now()}.txt`)
+    await fs.writeFile(sourcePath, 'worker extraction')
+    const stagedFile = await store.stageEvidence(sourcePath)
+    assert.equal(stagedFile.extractedText, 'worker extraction')
+    await fs.rm(sourcePath, { force: true })
 
     await store.commitEvidence([staged])
     assert.equal(store.snapshot().evidence.at(-1).status, 'VERIFIED')
