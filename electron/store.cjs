@@ -13,6 +13,11 @@ function normalize(data) {
   return normalized
 }
 
+function findObject(data, type, objectId) {
+  const collection = { fact: 'facts', evidence: 'evidence', law: 'law', claim: 'claims', element: 'elements', procedure: 'procedure', draft: 'drafts', proposition: 'propositions', deadline: 'deadlines', person: 'people', event: 'events' }[type]
+  return collection ? data[collection].find((item) => item.id === objectId) : null
+}
+
 const seed = () => ({
   version: 2,
   matter: { id: 'matter-001', name: 'Northstar Housing Matter', subtitle: 'Los Angeles · active working set', status: 'ACTIVE' },
@@ -62,6 +67,19 @@ async function createStore(filePath) {
         data.propositions.push(proposition)
         data.law = data.law.map((item) => item.id === authorityId ? { ...item, proposition: proposition.text, propositionId: proposition.id } : item)
         data.audit.push({ id: id('audit'), at: now(), action: 'CREATE PROPOSITION', object: proposition.id })
+      } else if (action === 'verify-source') {
+        const authority = data.law.find((item) => item.id === payload.authorityId) || data.law[0]
+        if (authority) authority.status = 'VERIFIED'
+        data.audit.push({ id: id('audit'), at: now(), action: 'VERIFY SOURCE', object: authority?.id || 'none' })
+      } else if (action === 'link-element') {
+        const authority = data.law.find((item) => item.id === payload.authorityId) || data.law[0]
+        const element = data.elements.find((item) => item.id === payload.elementId) || data.elements[0]
+        if (!authority || !element) throw new Error('Law element link target does not exist')
+        const link = { id: id('prop-link'), propositionId: authority.propositionId || authority.id, elementId: element.id, createdAt: now() }
+        data.propositionLinks.push(link)
+        authority.links = Array.from(new Set([...(authority.links || []), element.id]))
+        element.links = Array.from(new Set([...(element.links || []), authority.id]))
+        data.audit.push({ id: id('audit'), at: now(), action: 'LINK ELEMENT', object: link.id })
       } else if (action === 'build-section') {
         const draft = data.drafts[0]
         if (draft) {
@@ -91,6 +109,31 @@ async function createStore(filePath) {
       await this.persist()
       return data
     },
+    search(query) {
+      const needle = String(query || '').trim().toLowerCase()
+      if (!needle) return []
+      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', DEADLINES: 'deadlines' }
+      return Object.entries(groups).flatMap(([type, collection]) => data[collection].filter((item) => JSON.stringify(item).toLowerCase().includes(needle)).slice(0, 20).map((item) => ({ id: item.id, type, name: item.title || item.name || item.filename || item.id, status: item.status || 'ACTIVE', source: item.source || item.provenance || 'Matter store', matterId: data.matter.id })))
+    },
+    async linkEvidence(evidenceId, targetType, targetId) {
+      const evidence = data.evidence.find((item) => item.id === evidenceId)
+      if (!evidence || !findObject(data, targetType, targetId)) throw new Error('Evidence link target does not exist')
+      const link = { id: id('link'), evidenceId, targetType, targetId, createdAt: now() }
+      if (!data.evidenceLinks.some((item) => item.evidenceId === evidenceId && item.targetType === targetType && item.targetId === targetId)) data.evidenceLinks.push(link)
+      evidence.links = Array.from(new Set([...(evidence.links || []), targetId]))
+      evidence.linkedElements = targetType === 'element' ? Array.from(new Set([...(evidence.linkedElements || []), targetId])) : evidence.linkedElements || []
+      data.audit.push({ id: id('audit'), at: now(), action: 'LINK EVIDENCE', object: link.id })
+      await this.persist()
+      return data
+    },
+    async deriveDeadlines() {
+      const derived = data.procedure.filter((item) => item.type === 'DEADLINE').map((item) => ({ id: `deadline-${item.id}`, title: item.title, date: item.date, status: item.status, source: item.source, procedureId: item.id, consequence: item.title.toLowerCase().includes('service') ? 'HIGH' : 'MEDIUM', createdAt: item.createdAt || now() }))
+      if (JSON.stringify(data.deadlines) === JSON.stringify(derived)) return data
+      data.deadlines = derived
+      data.audit.push({ id: id('audit'), at: now(), action: 'DERIVE DEADLINES', object: data.deadlines.map((item) => item.id).join(',') })
+      await this.persist()
+      return data
+    },
     async stageEvidence(filePathToRead) {
       const bytes = await fs.readFile(filePathToRead)
       const hash = crypto.createHash('sha256').update(bytes).digest('hex')
@@ -104,9 +147,10 @@ async function createStore(filePath) {
       return { id: id('stage'), name: 'Clipboard text', originalPath: null, bytes: bytes.length, hash: `sha256:${hash}`, type: 'TEXT', source: 'Clipboard import', status: 'STAGED', extractedText: text, custodian: null, originalTimestamps: null }
     },
     async commitEvidence(staged) {
-      const committed = staged.map((item) => ({ ...item, id: id('ev'), status: 'VERIFIED', links: [], linkedEvents: [], linkedPeople: [], linkedSystems: [], linkedElements: [], corroboration: 'UNREVIEWED', contradiction: null, importedAt: now(), createdAt: now() }))
+      const committed = staged.filter((item) => !data.evidence.some((existing) => existing.hash && existing.hash === item.hash)).map((item) => ({ ...item, id: id('ev'), status: 'VERIFIED', links: [], linkedEvents: [], linkedPeople: [], linkedSystems: [], linkedElements: [], corroboration: 'UNREVIEWED', contradiction: null, importedAt: now(), createdAt: now() }))
+      const duplicates = staged.filter((item) => data.evidence.some((existing) => existing.hash && existing.hash === item.hash)).map((item) => ({ ...item, status: 'DUPLICATE' }))
       data.extractedText.push(...committed.filter((item) => item.extractedText).map((item) => ({ id: id('text'), evidenceId: item.id, text: item.extractedText, createdAt: now() })))
-      data.evidence.push(...committed); data.audit.push({ id: id('audit'), at: now(), action: 'COMMIT EVIDENCE', object: committed.map((item) => item.id).join(', ') }); await this.persist(); return data
+      data.evidence.push(...committed); data.audit.push({ id: id('audit'), at: now(), action: duplicates.length ? 'COMMIT EVIDENCE / DUPLICATE DETECTED' : 'COMMIT EVIDENCE', object: committed.map((item) => item.id).join(', ') || duplicates.map((item) => item.hash).join(', ') }); await this.persist(); return data
     },
     async addContext(record) { data.context.push({ ...record, id: id('ctx'), createdAt: now(), status: 'CONTEXT_ONLY' }); await this.persist(); return data }
   }

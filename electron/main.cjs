@@ -33,6 +33,9 @@ function registerIpc() {
     if (typeof action !== 'string' || !/^[a-z-]+$/.test(action)) throw new Error('Invalid case action')
     return store.applyAction(action, payload && typeof payload === 'object' ? payload : {})
   })
+  ipcMain.handle('case:search', (_, query) => store.search(query))
+  ipcMain.handle('evidence:link', (_, evidenceId, targetType, targetId) => store.linkEvidence(evidenceId, targetType, targetId))
+  ipcMain.handle('procedure:derive-deadlines', () => store.deriveDeadlines())
   ipcMain.handle('evidence:choose-files', async () => {
     const result = await dialog.showOpenDialog(mainWindow, { properties: ['openFile', 'multiSelections'] })
     if (result.canceled) return []

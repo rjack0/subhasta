@@ -1,0 +1,11 @@
+{
+  "referenceViewport": { "width": 1440, "height": 900 },
+  "required": [
+    "command", "evidence", "law", "elements", "procedure", "strategy", "drafts", "deadlines", "field-atlas", "cicero",
+    "shell-1024", "shell-mobile", "inspector-selected", "inspector-empty", "evidence-import-drawer",
+    "validation-failure", "export-ready", "state-pending", "state-contradiction", "state-complete"
+  ],
+  "status": "MANIFEST_ONLY",
+  "capturePolicy": "Capture in background; never activate or foreground the Electron window.",
+  "grading": ["geometry", "alignment", "proportion", "hierarchy", "colorArea", "typography", "buttonLanguage", "density", "emptySpace", "stateClarity", "inspectorClarity", "sourceVisibility", "motionRestraint", "accessibility", "visualFidelity"]
+}

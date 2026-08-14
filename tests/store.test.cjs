@@ -22,8 +22,20 @@ async function main() {
     await store.commitEvidence([staged])
     assert.equal(store.snapshot().evidence.at(-1).status, 'VERIFIED')
     assert.equal(store.snapshot().extractedText.at(-1).evidenceId, store.snapshot().evidence.at(-1).id)
+    const evidenceId = store.snapshot().evidence.at(-1).id
+    await store.linkEvidence(evidenceId, 'fact', 'fact-001')
+    assert.ok(store.snapshot().evidenceLinks.some((item) => item.evidenceId === evidenceId && item.targetId === 'fact-001'))
+    await store.commitEvidence([staged])
+    assert.equal(store.snapshot().evidence.filter((item) => item.hash === staged.hash).length, 1)
+    assert.equal((await store.search('CLO store test'))[0].type, 'EVIDENCE')
+    await store.deriveDeadlines()
+    assert.equal(store.snapshot().deadlines.length, 2)
 
     await store.applyAction('create-proposition')
+    await store.applyAction('verify-source')
+    await store.applyAction('link-element')
+    assert.equal(store.snapshot().law[0].status, 'VERIFIED')
+    assert.ok(store.snapshot().propositionLinks.length >= 1)
     await store.applyAction('build-section')
     await store.applyAction('verify-citations')
     await store.applyAction('validate-filing')
@@ -38,7 +50,7 @@ async function main() {
 
     const reopened = await createStore(filePath)
     assert.equal(reopened.snapshot().evidence.at(-1).hash, staged.hash)
-    assert.ok(reopened.snapshot().audit.length >= 8)
+    assert.ok(reopened.snapshot().audit.length >= 11)
     console.log('CLO store test passed')
   } finally {
     await fs.rm(filePath, { force: true })

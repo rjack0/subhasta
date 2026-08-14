@@ -8,6 +8,8 @@
     "start": "electron .",
     "dev": "electron .",
     "check": "electron --version",
-    "test:store": "node tests/store.test.cjs"
+    "test:store": "node tests/store.test.cjs",
+    "test:constitution": "node tests/constitution.test.cjs",
+    "test": "npm run test:store && npm run test:constitution"
   }
 }
