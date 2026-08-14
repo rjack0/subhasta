@@ -27,11 +27,12 @@ This ledger is intentionally conservative. It records what is implemented and ve
 - Window presentation is opt-out for normal use and explicitly suppressed with `CLO_BACKGROUND_CAPTURE=1` for background capture/smoke workflows.
 - Background capture generated 10 normalized `1440x900` route screenshots, 1024px/mobile shell screenshots, and four state-variant screenshots under `artifacts/screenshots/`.
 - File hashing and text extraction run in `electron/hash-worker.cjs`; the 10,000-object search benchmark passes in the current runtime.
+- PDF text extraction uses the local `pdftotext` executable when present; OCR remains intentionally separate and unclaimed.
 - `git diff --check` passes for the current source tree.
 
 ## Not Yet Verified
 
-- PDF/OCR extraction.
+- OCR extraction and scanned-PDF fallback.
 - Typed repository validation beyond the current link validator.
 - Full action mutation paths for some domain-specific Law, Procedure, Strategy, and Cicero flows.
 - Automated UI tests and long-list virtualization.

@@ -22,6 +22,7 @@ async function main() {
     await fs.writeFile(sourcePath, 'worker extraction')
     const stagedFile = await store.stageEvidence(sourcePath)
     assert.equal(stagedFile.extractedText, 'worker extraction')
+    assert.ok(stagedFile.originalTimestamps.mtime)
     await fs.rm(sourcePath, { force: true })
 
     await store.commitEvidence([staged])

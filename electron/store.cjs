@@ -168,9 +168,10 @@ async function createStore(filePath) {
     },
     async stageEvidence(filePathToRead) {
       const bytes = await fs.readFile(filePathToRead)
+      const fileStat = await fs.stat(filePathToRead)
       const extension = path.extname(filePathToRead).toLowerCase()
       const processed = await processEvidenceBytes(bytes, extension)
-      return { id: id('stage'), name: path.basename(filePathToRead), originalPath: filePathToRead, bytes: bytes.length, hash: `sha256:${processed.hash}`, type: extension.slice(1).toUpperCase() || 'FILE', source: 'Local import', status: 'STAGED', extractedText: processed.extractedText, custodian: null, originalTimestamps: null }
+      return { id: id('stage'), name: path.basename(filePathToRead), originalPath: filePathToRead, bytes: bytes.length, hash: `sha256:${processed.hash}`, type: extension.slice(1).toUpperCase() || 'FILE', source: 'Local import', status: 'STAGED', extractedText: processed.extractedText, custodian: null, originalTimestamps: { birthtime: fileStat.birthtime.toISOString(), mtime: fileStat.mtime.toISOString() } }
     },
     stageTextEvidence(text) {
       const bytes = Buffer.from(text, 'utf8')
