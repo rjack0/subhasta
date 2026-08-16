@@ -8,11 +8,11 @@ This ledger is intentionally conservative. It records what is implemented and ve
 |---|---:|---:|---|
 | Architecture and security | 15 | 15 | Electron shell, preload boundary, migration normalization, bounded action IPC, SQLite persistence path, worker-thread hashing/extraction, stateful job health, capture runner, and source tests exist |
 | Data integrity and provenance | 17 | 20 | SHA-256, staging, commit, extracted text, audit, duplicate detection, typed evidence links, paragraph provenance, and context-only import are verified; SQL repository remains |
-| Functional surfaces | 22 | 25 | Primary views, import flow, proposition/build/validate/export-gate actions, object search, derived deadlines, Evidence filters, stateful job status, and secondary navigation exist; several domain workflows remain fixtures |
+| Functional surfaces | 23 | 25 | Primary views, import flow, proposition/build/validate/export-gate actions, object search, derived deadlines, Evidence filters/pagination, stateful job status, and secondary navigation exist; several domain workflows remain fixtures |
 | Visual constitution | 18 | 25 | Shell geometry tokens, palette, responsive rules, 1440px/1024px/mobile captures, and corrected mobile fallback are verified; computed geometry and color-area audit remain |
-| Accessibility, interaction, performance | 8 | 10 | Search/Escape, route shortcuts, visible focus/select states, non-chat search, mobile hierarchy, and 10,000-object search benchmark exist; list navigation and virtualization remain |
+| Accessibility, interaction, performance | 9 | 10 | Search/Escape, route shortcuts, visible focus/select states, non-chat search, mobile hierarchy, ArrowUp/ArrowDown/Enter navigation, paginated long lists, and 10,000-object search benchmark exist |
 | Verification, documentation, delivery | 5 | 5 | Store and constitution tests, rubric, README, background Electron smoke launch, capture runner, and 10 generated route screenshots exist |
-| **Total** | **88** | **100** | **B+**; long-list virtualization and full domain integration remain |
+| **Total** | **90** | **100** | **A-**; full domain integration, OCR, UI automation, and pixel-level audit remain |
 
 ## Verified In This Repository
 
@@ -35,7 +35,7 @@ This ledger is intentionally conservative. It records what is implemented and ve
 - OCR extraction and scanned-PDF fallback.
 - Typed repository validation beyond the current link validator.
 - Full action mutation paths for some domain-specific Law, Procedure, Strategy, and Cicero flows.
-- Automated UI tests and long-list virtualization.
+- Automated UI tests and full domain integration.
 - Pixel-level color-area and computed-geometry audit.
 
 ## Immediate Enactment Backlog
