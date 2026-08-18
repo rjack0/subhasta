@@ -4,7 +4,7 @@
 
 The implementation ledger is executable and repository-local:
 
-- `docs/MASTER-LEDGER.json` contains 1,600 atomic requirement records: the original 1,050, a 250-point 1540 N. Vine machine extension, and a 300-point shared-renderer representation extension.
+- `docs/MASTER-LEDGER.json` contains 2,700 atomic requirement records: the original 1,050, a 250-point 1540 N. Vine machine extension, a 300-point shared-renderer representation extension, and a 1,100-point full-trial operating extension.
 - `docs/MASTER-LEDGER.md` is the review projection.
 - `docs/source-registry.json` records indexed attachment sources, hashes, and source families.
 - `docs/source-extracts/` preserves the original pasted text used for intake.
@@ -29,6 +29,7 @@ The build is measured against [the hyper-precise CLO acceptance rubric](docs/CLO
 - `electron/store.cjs`: versioned local case store, provenance, audit, and action mutations.
 - `electron/hash-worker.cjs`: background SHA-256 and text extraction worker.
 - `clo/`: primary renderer shell, routes, inspector, status strip, and evidence drawer.
+- The Trial route contains the phase, witness, exhibit, motion, objection, examination, jury-instruction, ruling, post-trial, and appeal-preservation operating record.
 - `index.html`, `main.js`, `styles.css`: Field Atlas secondary surface.
 - `cicero/`: Cicero organizational analysis secondary surface.
 - `tests/store.test.cjs`: repeatable persistence and provenance test.

@@ -1,10 +1,10 @@
 # Proscriptio Master Completion Ledger
 
-Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine extension, and the 300-point shared-renderer representation extension.
+Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine extension, the 300-point shared-renderer representation extension, and the 1,000-point full-trial operating extension.
 
-- Total requirements: **1600**
-- Implemented baseline: **544**
-- Remaining requirements: **1056**
+- Total requirements: **2700**
+- Implemented baseline: **560**
+- Remaining requirements: **2140**
 - Attachment sources indexed: **62**
 
 | ID | Requirement | Repeat | Status | Feature refs | Evidence |
@@ -1609,3 +1609,1103 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 1598 | Machine unit matrix: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
 | 1599 | Machine unit matrix: renders a keyboard-focus state without hover dependency | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
 | 1600 | Machine unit matrix: renders a responsive state without hiding source or action semantics | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
+| 1601 | trial matter identity: has a named owner and responsible next action | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1602 | trial matter identity: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1603 | trial matter identity: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1604 | trial matter identity: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1605 | trial matter identity: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1606 | trial matter identity: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1607 | trial matter identity: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1608 | trial matter identity: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1609 | trial matter identity: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1610 | trial matter identity: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1611 | trial jurisdiction: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1612 | trial jurisdiction: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1613 | trial jurisdiction: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1614 | trial jurisdiction: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1615 | trial jurisdiction: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1616 | trial jurisdiction: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1617 | trial jurisdiction: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1618 | trial jurisdiction: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1619 | trial jurisdiction: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1620 | trial jurisdiction: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1621 | trial venue: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1622 | trial venue: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1623 | trial venue: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1624 | trial venue: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1625 | trial venue: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1626 | trial venue: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1627 | trial venue: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1628 | trial venue: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1629 | trial venue: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1630 | trial venue: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1631 | trial parties: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1632 | trial parties: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1633 | trial parties: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1634 | trial parties: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1635 | trial parties: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1636 | trial parties: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1637 | trial parties: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1638 | trial parties: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1639 | trial parties: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1640 | trial parties: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1641 | trial service record: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1642 | trial service record: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1643 | trial service record: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1644 | trial service record: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1645 | trial service record: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1646 | trial service record: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1647 | trial service record: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1648 | trial service record: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1649 | trial service record: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1650 | trial service record: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1651 | trial operative pleading: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1652 | trial operative pleading: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1653 | trial operative pleading: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1654 | trial operative pleading: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1655 | trial operative pleading: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1656 | trial operative pleading: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1657 | trial operative pleading: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1658 | trial operative pleading: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1659 | trial operative pleading: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1660 | trial operative pleading: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1661 | trial answer and defenses: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1662 | trial answer and defenses: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1663 | trial answer and defenses: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1664 | trial answer and defenses: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1665 | trial answer and defenses: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1666 | trial answer and defenses: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1667 | trial answer and defenses: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1668 | trial answer and defenses: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1669 | trial answer and defenses: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1670 | trial answer and defenses: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1671 | trial cross-claims: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1672 | trial cross-claims: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1673 | trial cross-claims: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1674 | trial cross-claims: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1675 | trial cross-claims: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1676 | trial cross-claims: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1677 | trial cross-claims: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1678 | trial cross-claims: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1679 | trial cross-claims: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1680 | trial cross-claims: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1681 | trial requested relief: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1682 | trial requested relief: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1683 | trial requested relief: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1684 | trial requested relief: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1685 | trial requested relief: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1686 | trial requested relief: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1687 | trial requested relief: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1688 | trial requested relief: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1689 | trial requested relief: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1690 | trial requested relief: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1691 | trial scheduling order: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1692 | trial scheduling order: has a source or explicit source gap | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1693 | trial scheduling order: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1694 | trial scheduling order: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1695 | trial scheduling order: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1696 | trial scheduling order: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1697 | trial scheduling order: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1698 | trial scheduling order: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1699 | trial scheduling order: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1700 | trial scheduling order: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1701 | trial case-management conference: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1702 | trial case-management conference: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1703 | trial case-management conference: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1704 | trial case-management conference: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1705 | trial case-management conference: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1706 | trial case-management conference: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1707 | trial case-management conference: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1708 | trial case-management conference: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1709 | trial case-management conference: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1710 | trial case-management conference: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1711 | trial discovery plan: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1712 | trial discovery plan: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1713 | trial discovery plan: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1714 | trial discovery plan: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1715 | trial discovery plan: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1716 | trial discovery plan: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1717 | trial discovery plan: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1718 | trial discovery plan: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1719 | trial discovery plan: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1720 | trial discovery plan: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1721 | trial preservation notice: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1722 | trial preservation notice: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1723 | trial preservation notice: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1724 | trial preservation notice: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1725 | trial preservation notice: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1726 | trial preservation notice: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1727 | trial preservation notice: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1728 | trial preservation notice: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1729 | trial preservation notice: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1730 | trial preservation notice: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1731 | trial discovery requests: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1732 | trial discovery requests: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1733 | trial discovery requests: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1734 | trial discovery requests: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1735 | trial discovery requests: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1736 | trial discovery requests: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1737 | trial discovery requests: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1738 | trial discovery requests: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1739 | trial discovery requests: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1740 | trial discovery requests: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1741 | trial discovery responses: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1742 | trial discovery responses: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1743 | trial discovery responses: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1744 | trial discovery responses: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1745 | trial discovery responses: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1746 | trial discovery responses: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1747 | trial discovery responses: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1748 | trial discovery responses: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1749 | trial discovery responses: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1750 | trial discovery responses: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1751 | trial privilege log: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1752 | trial privilege log: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1753 | trial privilege log: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1754 | trial privilege log: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1755 | trial privilege log: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1756 | trial privilege log: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1757 | trial privilege log: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1758 | trial privilege log: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1759 | trial privilege log: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1760 | trial privilege log: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1761 | trial inspection request: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1762 | trial inspection request: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1763 | trial inspection request: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1764 | trial inspection request: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1765 | trial inspection request: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1766 | trial inspection request: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1767 | trial inspection request: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1768 | trial inspection request: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1769 | trial inspection request: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1770 | trial inspection request: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1771 | trial subpoena plan: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1772 | trial subpoena plan: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1773 | trial subpoena plan: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1774 | trial subpoena plan: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1775 | trial subpoena plan: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1776 | trial subpoena plan: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1777 | trial subpoena plan: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1778 | trial subpoena plan: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1779 | trial subpoena plan: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1780 | trial subpoena plan: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1781 | trial deposition plan: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1782 | trial deposition plan: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1783 | trial deposition plan: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1784 | trial deposition plan: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1785 | trial deposition plan: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1786 | trial deposition plan: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1787 | trial deposition plan: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1788 | trial deposition plan: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1789 | trial deposition plan: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1790 | trial deposition plan: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1791 | trial discovery motion: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1792 | trial discovery motion: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1793 | trial discovery motion: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1794 | trial discovery motion: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1795 | trial discovery motion: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1796 | trial discovery motion: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1797 | trial discovery motion: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1798 | trial discovery motion: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1799 | trial discovery motion: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1800 | trial discovery motion: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1801 | trial expert disclosure: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1802 | trial expert disclosure: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1803 | trial expert disclosure: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1804 | trial expert disclosure: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1805 | trial expert disclosure: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1806 | trial expert disclosure: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1807 | trial expert disclosure: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1808 | trial expert disclosure: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1809 | trial expert disclosure: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1810 | trial expert disclosure: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1811 | trial expert qualification: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1812 | trial expert qualification: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1813 | trial expert qualification: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1814 | trial expert qualification: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1815 | trial expert qualification: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1816 | trial expert qualification: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1817 | trial expert qualification: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1818 | trial expert qualification: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1819 | trial expert qualification: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1820 | trial expert qualification: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1821 | trial expert methodology: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1822 | trial expert methodology: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1823 | trial expert methodology: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1824 | trial expert methodology: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1825 | trial expert methodology: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1826 | trial expert methodology: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1827 | trial expert methodology: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1828 | trial expert methodology: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1829 | trial expert methodology: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1830 | trial expert methodology: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1831 | trial expert materials: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1832 | trial expert materials: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1833 | trial expert materials: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1834 | trial expert materials: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1835 | trial expert materials: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1836 | trial expert materials: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1837 | trial expert materials: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1838 | trial expert materials: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1839 | trial expert materials: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1840 | trial expert materials: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1841 | trial expert rebuttal: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1842 | trial expert rebuttal: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1843 | trial expert rebuttal: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1844 | trial expert rebuttal: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1845 | trial expert rebuttal: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1846 | trial expert rebuttal: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1847 | trial expert rebuttal: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1848 | trial expert rebuttal: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1849 | trial expert rebuttal: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1850 | trial expert rebuttal: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1851 | trial dispositive motion: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1852 | trial dispositive motion: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1853 | trial dispositive motion: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1854 | trial dispositive motion: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1855 | trial dispositive motion: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1856 | trial dispositive motion: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1857 | trial dispositive motion: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1858 | trial dispositive motion: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1859 | trial dispositive motion: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1860 | trial dispositive motion: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1861 | trial motion in limine: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1862 | trial motion in limine: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1863 | trial motion in limine: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1864 | trial motion in limine: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1865 | trial motion in limine: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1866 | trial motion in limine: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1867 | trial motion in limine: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1868 | trial motion in limine: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1869 | trial motion in limine: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1870 | trial motion in limine: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1871 | trial opposition: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1872 | trial opposition: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1873 | trial opposition: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1874 | trial opposition: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1875 | trial opposition: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1876 | trial opposition: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1877 | trial opposition: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1878 | trial opposition: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1879 | trial opposition: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1880 | trial opposition: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1881 | trial reply: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1882 | trial reply: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1883 | trial reply: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1884 | trial reply: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1885 | trial reply: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1886 | trial reply: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1887 | trial reply: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1888 | trial reply: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1889 | trial reply: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1890 | trial reply: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1891 | trial hearing logistics: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1892 | trial hearing logistics: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1893 | trial hearing logistics: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1894 | trial hearing logistics: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1895 | trial hearing logistics: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1896 | trial hearing logistics: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1897 | trial hearing logistics: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1898 | trial hearing logistics: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1899 | trial hearing logistics: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1900 | trial hearing logistics: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1901 | trial settlement record: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1902 | trial settlement record: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1903 | trial settlement record: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1904 | trial settlement record: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1905 | trial settlement record: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1906 | trial settlement record: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1907 | trial settlement record: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1908 | trial settlement record: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1909 | trial settlement record: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1910 | trial settlement record: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1911 | trial pretrial conference: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1912 | trial pretrial conference: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1913 | trial pretrial conference: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1914 | trial pretrial conference: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1915 | trial pretrial conference: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1916 | trial pretrial conference: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1917 | trial pretrial conference: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1918 | trial pretrial conference: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1919 | trial pretrial conference: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1920 | trial pretrial conference: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1921 | trial pretrial statement: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1922 | trial pretrial statement: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1923 | trial pretrial statement: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1924 | trial pretrial statement: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1925 | trial pretrial statement: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1926 | trial pretrial statement: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1927 | trial pretrial statement: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1928 | trial pretrial statement: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1929 | trial pretrial statement: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1930 | trial pretrial statement: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1931 | trial witness list: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1932 | trial witness list: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1933 | trial witness list: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1934 | trial witness list: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1935 | trial witness list: has a status distinct from completion | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1936 | trial witness list: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1937 | trial witness list: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1938 | trial witness list: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1939 | trial witness list: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1940 | trial witness list: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1941 | trial exhibit list: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1942 | trial exhibit list: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1943 | trial exhibit list: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1944 | trial exhibit list: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1945 | trial exhibit list: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1946 | trial exhibit list: has a provenance link to facts or evidence | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1947 | trial exhibit list: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1948 | trial exhibit list: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1949 | trial exhibit list: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1950 | trial exhibit list: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1951 | trial exhibit objections: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1952 | trial exhibit objections: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1953 | trial exhibit objections: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1954 | trial exhibit objections: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1955 | trial exhibit objections: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1956 | trial exhibit objections: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1957 | trial exhibit objections: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1958 | trial exhibit objections: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1959 | trial exhibit objections: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1960 | trial exhibit objections: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1961 | trial proposed stipulations: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1962 | trial proposed stipulations: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1963 | trial proposed stipulations: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1964 | trial proposed stipulations: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1965 | trial proposed stipulations: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1966 | trial proposed stipulations: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1967 | trial proposed stipulations: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1968 | trial proposed stipulations: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1969 | trial proposed stipulations: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1970 | trial proposed stipulations: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1971 | trial proposed instructions: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1972 | trial proposed instructions: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1973 | trial proposed instructions: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1974 | trial proposed instructions: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1975 | trial proposed instructions: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1976 | trial proposed instructions: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1977 | trial proposed instructions: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1978 | trial proposed instructions: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1979 | trial proposed instructions: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1980 | trial proposed instructions: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1981 | trial trial brief: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1982 | trial trial brief: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1983 | trial trial brief: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1984 | trial trial brief: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1985 | trial trial brief: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1986 | trial trial brief: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1987 | trial trial brief: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1988 | trial trial brief: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1989 | trial trial brief: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 1990 | trial trial brief: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 1991 | trial courtroom logistics: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 1992 | trial courtroom logistics: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1993 | trial courtroom logistics: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 1994 | trial courtroom logistics: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1995 | trial courtroom logistics: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1996 | trial courtroom logistics: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 1997 | trial courtroom logistics: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 1998 | trial courtroom logistics: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1999 | trial courtroom logistics: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2000 | trial courtroom logistics: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2001 | trial voir dire topics: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2002 | trial voir dire topics: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2003 | trial voir dire topics: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2004 | trial voir dire topics: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2005 | trial voir dire topics: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2006 | trial voir dire topics: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2007 | trial voir dire topics: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2008 | trial voir dire topics: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2009 | trial voir dire topics: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2010 | trial voir dire topics: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2011 | trial cause challenge: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2012 | trial cause challenge: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2013 | trial cause challenge: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2014 | trial cause challenge: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2015 | trial cause challenge: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2016 | trial cause challenge: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2017 | trial cause challenge: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2018 | trial cause challenge: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2019 | trial cause challenge: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2020 | trial cause challenge: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2021 | trial peremptory record: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2022 | trial peremptory record: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2023 | trial peremptory record: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2024 | trial peremptory record: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2025 | trial peremptory record: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2026 | trial peremptory record: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2027 | trial peremptory record: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2028 | trial peremptory record: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2029 | trial peremptory record: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2030 | trial peremptory record: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2031 | trial juror question: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2032 | trial juror question: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2033 | trial juror question: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2034 | trial juror question: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2035 | trial juror question: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2036 | trial juror question: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2037 | trial juror question: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2038 | trial juror question: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2039 | trial juror question: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2040 | trial juror question: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2041 | trial jury admonition: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2042 | trial jury admonition: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2043 | trial jury admonition: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2044 | trial jury admonition: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2045 | trial jury admonition: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2046 | trial jury admonition: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2047 | trial jury admonition: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2048 | trial jury admonition: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2049 | trial jury admonition: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2050 | trial jury admonition: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2051 | trial opening theory: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2052 | trial opening theory: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2053 | trial opening theory: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2054 | trial opening theory: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2055 | trial opening theory: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2056 | trial opening theory: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2057 | trial opening theory: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2058 | trial opening theory: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2059 | trial opening theory: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2060 | trial opening theory: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2061 | trial opening proof map: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2062 | trial opening proof map: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2063 | trial opening proof map: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2064 | trial opening proof map: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2065 | trial opening proof map: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2066 | trial opening proof map: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2067 | trial opening proof map: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2068 | trial opening proof map: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2069 | trial opening proof map: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2070 | trial opening proof map: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2071 | trial plaintiff order of proof: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2072 | trial plaintiff order of proof: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2073 | trial plaintiff order of proof: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2074 | trial plaintiff order of proof: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2075 | trial plaintiff order of proof: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2076 | trial plaintiff order of proof: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2077 | trial plaintiff order of proof: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2078 | trial plaintiff order of proof: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2079 | trial plaintiff order of proof: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2080 | trial plaintiff order of proof: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2081 | trial defense order of proof: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2082 | trial defense order of proof: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2083 | trial defense order of proof: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2084 | trial defense order of proof: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2085 | trial defense order of proof: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2086 | trial defense order of proof: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2087 | trial defense order of proof: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2088 | trial defense order of proof: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2089 | trial defense order of proof: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2090 | trial defense order of proof: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2091 | trial rebuttal order: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2092 | trial rebuttal order: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2093 | trial rebuttal order: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2094 | trial rebuttal order: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2095 | trial rebuttal order: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2096 | trial rebuttal order: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2097 | trial rebuttal order: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2098 | trial rebuttal order: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2099 | trial rebuttal order: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2100 | trial rebuttal order: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2101 | trial fact witness: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2102 | trial fact witness: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2103 | trial fact witness: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2104 | trial fact witness: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2105 | trial fact witness: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2106 | trial fact witness: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2107 | trial fact witness: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2108 | trial fact witness: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2109 | trial fact witness: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2110 | trial fact witness: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2111 | trial adverse witness: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2112 | trial adverse witness: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2113 | trial adverse witness: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2114 | trial adverse witness: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2115 | trial adverse witness: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2116 | trial adverse witness: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2117 | trial adverse witness: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2118 | trial adverse witness: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2119 | trial adverse witness: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2120 | trial adverse witness: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2121 | trial expert witness: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2122 | trial expert witness: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2123 | trial expert witness: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2124 | trial expert witness: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2125 | trial expert witness: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2126 | trial expert witness: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2127 | trial expert witness: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2128 | trial expert witness: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2129 | trial expert witness: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2130 | trial expert witness: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2131 | trial custodian witness: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2132 | trial custodian witness: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2133 | trial custodian witness: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2134 | trial custodian witness: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2135 | trial custodian witness: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2136 | trial custodian witness: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2137 | trial custodian witness: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2138 | trial custodian witness: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2139 | trial custodian witness: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2140 | trial custodian witness: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2141 | trial witness foundation: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2142 | trial witness foundation: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2143 | trial witness foundation: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2144 | trial witness foundation: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2145 | trial witness foundation: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2146 | trial witness foundation: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2147 | trial witness foundation: has a contradiction or defense field | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2148 | trial witness foundation: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2149 | trial witness foundation: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2150 | trial witness foundation: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2151 | trial witness personal knowledge: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2152 | trial witness personal knowledge: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2153 | trial witness personal knowledge: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2154 | trial witness personal knowledge: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2155 | trial witness personal knowledge: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2156 | trial witness personal knowledge: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2157 | trial witness personal knowledge: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2158 | trial witness personal knowledge: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2159 | trial witness personal knowledge: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2160 | trial witness personal knowledge: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2161 | trial witness credibility: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2162 | trial witness credibility: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2163 | trial witness credibility: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2164 | trial witness credibility: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2165 | trial witness credibility: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2166 | trial witness credibility: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2167 | trial witness credibility: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2168 | trial witness credibility: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2169 | trial witness credibility: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2170 | trial witness credibility: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2171 | trial witness impeachment: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2172 | trial witness impeachment: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2173 | trial witness impeachment: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2174 | trial witness impeachment: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2175 | trial witness impeachment: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2176 | trial witness impeachment: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2177 | trial witness impeachment: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2178 | trial witness impeachment: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2179 | trial witness impeachment: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2180 | trial witness impeachment: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2181 | trial witness sequestration: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2182 | trial witness sequestration: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2183 | trial witness sequestration: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2184 | trial witness sequestration: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2185 | trial witness sequestration: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2186 | trial witness sequestration: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2187 | trial witness sequestration: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2188 | trial witness sequestration: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2189 | trial witness sequestration: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2190 | trial witness sequestration: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2191 | trial witness accommodation: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2192 | trial witness accommodation: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2193 | trial witness accommodation: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2194 | trial witness accommodation: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2195 | trial witness accommodation: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2196 | trial witness accommodation: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2197 | trial witness accommodation: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2198 | trial witness accommodation: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2199 | trial witness accommodation: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2200 | trial witness accommodation: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2201 | trial direct examination: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2202 | trial direct examination: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2203 | trial direct examination: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2204 | trial direct examination: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2205 | trial direct examination: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2206 | trial direct examination: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2207 | trial direct examination: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2208 | trial direct examination: has an inspectable audit history | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2209 | trial direct examination: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2210 | trial direct examination: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2211 | trial cross examination: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2212 | trial cross examination: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2213 | trial cross examination: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2214 | trial cross examination: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2215 | trial cross examination: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2216 | trial cross examination: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2217 | trial cross examination: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2218 | trial cross examination: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2219 | trial cross examination: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2220 | trial cross examination: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2221 | trial redirect examination: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2222 | trial redirect examination: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2223 | trial redirect examination: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2224 | trial redirect examination: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2225 | trial redirect examination: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2226 | trial redirect examination: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2227 | trial redirect examination: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2228 | trial redirect examination: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2229 | trial redirect examination: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2230 | trial redirect examination: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2231 | trial recross examination: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2232 | trial recross examination: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2233 | trial recross examination: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2234 | trial recross examination: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2235 | trial recross examination: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2236 | trial recross examination: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2237 | trial recross examination: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2238 | trial recross examination: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2239 | trial recross examination: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2240 | trial recross examination: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2241 | trial examination outline: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2242 | trial examination outline: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2243 | trial examination outline: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2244 | trial examination outline: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2245 | trial examination outline: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2246 | trial examination outline: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2247 | trial examination outline: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2248 | trial examination outline: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2249 | trial examination outline: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2250 | trial examination outline: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2251 | trial leading question control: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2252 | trial leading question control: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2253 | trial leading question control: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2254 | trial leading question control: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2255 | trial leading question control: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2256 | trial leading question control: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2257 | trial leading question control: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2258 | trial leading question control: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2259 | trial leading question control: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2260 | trial leading question control: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2261 | trial nonresponsive answer: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2262 | trial nonresponsive answer: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2263 | trial nonresponsive answer: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2264 | trial nonresponsive answer: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2265 | trial nonresponsive answer: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2266 | trial nonresponsive answer: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2267 | trial nonresponsive answer: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2268 | trial nonresponsive answer: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2269 | trial nonresponsive answer: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2270 | trial nonresponsive answer: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2271 | trial offer of proof: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2272 | trial offer of proof: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2273 | trial offer of proof: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2274 | trial offer of proof: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2275 | trial offer of proof: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2276 | trial offer of proof: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2277 | trial offer of proof: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2278 | trial offer of proof: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2279 | trial offer of proof: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2280 | trial offer of proof: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2281 | trial testimony correction: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2282 | trial testimony correction: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2283 | trial testimony correction: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2284 | trial testimony correction: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2285 | trial testimony correction: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2286 | trial testimony correction: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2287 | trial testimony correction: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2288 | trial testimony correction: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2289 | trial testimony correction: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2290 | trial testimony correction: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2291 | trial transcript citation: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2292 | trial transcript citation: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2293 | trial transcript citation: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2294 | trial transcript citation: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2295 | trial transcript citation: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2296 | trial transcript citation: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2297 | trial transcript citation: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2298 | trial transcript citation: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2299 | trial transcript citation: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2300 | trial transcript citation: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2301 | trial documentary exhibit: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2302 | trial documentary exhibit: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2303 | trial documentary exhibit: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2304 | trial documentary exhibit: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2305 | trial documentary exhibit: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2306 | trial documentary exhibit: has a provenance link to facts or evidence | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2307 | trial documentary exhibit: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2308 | trial documentary exhibit: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2309 | trial documentary exhibit: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2310 | trial documentary exhibit: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2311 | trial demonstrative exhibit: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2312 | trial demonstrative exhibit: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2313 | trial demonstrative exhibit: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2314 | trial demonstrative exhibit: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2315 | trial demonstrative exhibit: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2316 | trial demonstrative exhibit: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2317 | trial demonstrative exhibit: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2318 | trial demonstrative exhibit: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2319 | trial demonstrative exhibit: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2320 | trial demonstrative exhibit: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2321 | trial physical exhibit: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2322 | trial physical exhibit: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2323 | trial physical exhibit: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2324 | trial physical exhibit: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2325 | trial physical exhibit: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2326 | trial physical exhibit: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2327 | trial physical exhibit: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2328 | trial physical exhibit: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2329 | trial physical exhibit: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2330 | trial physical exhibit: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2331 | trial public record: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2332 | trial public record: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2333 | trial public record: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2334 | trial public record: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2335 | trial public record: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2336 | trial public record: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2337 | trial public record: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2338 | trial public record: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2339 | trial public record: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2340 | trial public record: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2341 | trial business record: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2342 | trial business record: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2343 | trial business record: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2344 | trial business record: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2345 | trial business record: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2346 | trial business record: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2347 | trial business record: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2348 | trial business record: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2349 | trial business record: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2350 | trial business record: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2351 | trial electronic communication: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2352 | trial electronic communication: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2353 | trial electronic communication: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2354 | trial electronic communication: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2355 | trial electronic communication: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2356 | trial electronic communication: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2357 | trial electronic communication: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2358 | trial electronic communication: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2359 | trial electronic communication: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2360 | trial electronic communication: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2361 | trial photograph: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2362 | trial photograph: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2363 | trial photograph: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2364 | trial photograph: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2365 | trial photograph: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2366 | trial photograph: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2367 | trial photograph: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2368 | trial photograph: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2369 | trial photograph: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2370 | trial photograph: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2371 | trial video or audio: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2372 | trial video or audio: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2373 | trial video or audio: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2374 | trial video or audio: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2375 | trial video or audio: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2376 | trial video or audio: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2377 | trial video or audio: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2378 | trial video or audio: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2379 | trial video or audio: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2380 | trial video or audio: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2381 | trial metadata: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2382 | trial metadata: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2383 | trial metadata: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2384 | trial metadata: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2385 | trial metadata: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2386 | trial metadata: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2387 | trial metadata: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2388 | trial metadata: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2389 | trial metadata: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2390 | trial metadata: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2391 | trial exhibit admission: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2392 | trial exhibit admission: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2393 | trial exhibit admission: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2394 | trial exhibit admission: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2395 | trial exhibit admission: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2396 | trial exhibit admission: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2397 | trial exhibit admission: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2398 | trial exhibit admission: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2399 | trial exhibit admission: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2400 | trial exhibit admission: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2401 | trial hearsay objection: has a named owner and responsible next action | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2402 | trial hearsay objection: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2403 | trial hearsay objection: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2404 | trial hearsay objection: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2405 | trial hearsay objection: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2406 | trial hearsay objection: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2407 | trial hearsay objection: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2408 | trial hearsay objection: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2409 | trial hearsay objection: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2410 | trial hearsay objection: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2411 | trial authentication objection: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2412 | trial authentication objection: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2413 | trial authentication objection: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2414 | trial authentication objection: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2415 | trial authentication objection: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2416 | trial authentication objection: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2417 | trial authentication objection: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2418 | trial authentication objection: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2419 | trial authentication objection: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2420 | trial authentication objection: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2421 | trial relevance objection: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2422 | trial relevance objection: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2423 | trial relevance objection: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2424 | trial relevance objection: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2425 | trial relevance objection: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2426 | trial relevance objection: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2427 | trial relevance objection: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2428 | trial relevance objection: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2429 | trial relevance objection: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2430 | trial relevance objection: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2431 | trial foundation objection: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2432 | trial foundation objection: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2433 | trial foundation objection: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2434 | trial foundation objection: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2435 | trial foundation objection: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2436 | trial foundation objection: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2437 | trial foundation objection: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2438 | trial foundation objection: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2439 | trial foundation objection: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2440 | trial foundation objection: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2441 | trial best-evidence objection: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2442 | trial best-evidence objection: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2443 | trial best-evidence objection: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2444 | trial best-evidence objection: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2445 | trial best-evidence objection: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2446 | trial best-evidence objection: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2447 | trial best-evidence objection: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2448 | trial best-evidence objection: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2449 | trial best-evidence objection: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2450 | trial best-evidence objection: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2451 | trial speculation objection: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2452 | trial speculation objection: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2453 | trial speculation objection: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2454 | trial speculation objection: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2455 | trial speculation objection: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2456 | trial speculation objection: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2457 | trial speculation objection: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2458 | trial speculation objection: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2459 | trial speculation objection: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2460 | trial speculation objection: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2461 | trial prejudice objection: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2462 | trial prejudice objection: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2463 | trial prejudice objection: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2464 | trial prejudice objection: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2465 | trial prejudice objection: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2466 | trial prejudice objection: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2467 | trial prejudice objection: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2468 | trial prejudice objection: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2469 | trial prejudice objection: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2470 | trial prejudice objection: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2471 | trial cumulative objection: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2472 | trial cumulative objection: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2473 | trial cumulative objection: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2474 | trial cumulative objection: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2475 | trial cumulative objection: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2476 | trial cumulative objection: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2477 | trial cumulative objection: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2478 | trial cumulative objection: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2479 | trial cumulative objection: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2480 | trial cumulative objection: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2481 | trial ruling record: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2482 | trial ruling record: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2483 | trial ruling record: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2484 | trial ruling record: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2485 | trial ruling record: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2486 | trial ruling record: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2487 | trial ruling record: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2488 | trial ruling record: has an inspectable audit history | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2489 | trial ruling record: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2490 | trial ruling record: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2491 | trial objection preservation: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2492 | trial objection preservation: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2493 | trial objection preservation: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2494 | trial objection preservation: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2495 | trial objection preservation: has a status distinct from completion | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2496 | trial objection preservation: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2497 | trial objection preservation: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2498 | trial objection preservation: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2499 | trial objection preservation: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2500 | trial objection preservation: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2501 | trial jury instruction elements: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2502 | trial jury instruction elements: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2503 | trial jury instruction elements: has a controlling-rule placeholder | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2504 | trial jury instruction elements: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2505 | trial jury instruction elements: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2506 | trial jury instruction elements: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2507 | trial jury instruction elements: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2508 | trial jury instruction elements: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2509 | trial jury instruction elements: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2510 | trial jury instruction elements: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2511 | trial burden instruction: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2512 | trial burden instruction: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2513 | trial burden instruction: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2514 | trial burden instruction: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2515 | trial burden instruction: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2516 | trial burden instruction: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2517 | trial burden instruction: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2518 | trial burden instruction: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2519 | trial burden instruction: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2520 | trial burden instruction: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2521 | trial credibility instruction: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2522 | trial credibility instruction: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2523 | trial credibility instruction: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2524 | trial credibility instruction: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2525 | trial credibility instruction: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2526 | trial credibility instruction: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2527 | trial credibility instruction: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2528 | trial credibility instruction: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2529 | trial credibility instruction: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2530 | trial credibility instruction: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2531 | trial damages instruction: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2532 | trial damages instruction: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2533 | trial damages instruction: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2534 | trial damages instruction: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2535 | trial damages instruction: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2536 | trial damages instruction: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2537 | trial damages instruction: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2538 | trial damages instruction: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2539 | trial damages instruction: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2540 | trial damages instruction: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2541 | trial no-double-recovery instruction: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2542 | trial no-double-recovery instruction: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2543 | trial no-double-recovery instruction: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2544 | trial no-double-recovery instruction: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2545 | trial no-double-recovery instruction: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2546 | trial no-double-recovery instruction: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2547 | trial no-double-recovery instruction: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2548 | trial no-double-recovery instruction: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2549 | trial no-double-recovery instruction: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2550 | trial no-double-recovery instruction: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2551 | trial closing argument: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2552 | trial closing argument: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2553 | trial closing argument: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2554 | trial closing argument: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2555 | trial closing argument: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2556 | trial closing argument: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2557 | trial closing argument: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2558 | trial closing argument: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2559 | trial closing argument: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2560 | trial closing argument: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2561 | trial rebuttal closing: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2562 | trial rebuttal closing: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2563 | trial rebuttal closing: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2564 | trial rebuttal closing: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2565 | trial rebuttal closing: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2566 | trial rebuttal closing: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2567 | trial rebuttal closing: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2568 | trial rebuttal closing: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2569 | trial rebuttal closing: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2570 | trial rebuttal closing: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2571 | trial verdict form: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2572 | trial verdict form: has a source or explicit source gap | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2573 | trial verdict form: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2574 | trial verdict form: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2575 | trial verdict form: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2576 | trial verdict form: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2577 | trial verdict form: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2578 | trial verdict form: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2579 | trial verdict form: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2580 | trial verdict form: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2581 | trial judgment entry: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2582 | trial judgment entry: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2583 | trial judgment entry: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2584 | trial judgment entry: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2585 | trial judgment entry: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2586 | trial judgment entry: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2587 | trial judgment entry: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2588 | trial judgment entry: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2589 | trial judgment entry: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2590 | trial judgment entry: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2591 | trial costs request: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2592 | trial costs request: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2593 | trial costs request: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2594 | trial costs request: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2595 | trial costs request: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2596 | trial costs request: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2597 | trial costs request: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2598 | trial costs request: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2599 | trial costs request: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2600 | trial costs request: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2601 | trial post-trial motion: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2602 | trial post-trial motion: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2603 | trial post-trial motion: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2604 | trial post-trial motion: has a date or explicit date dependency | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2605 | trial post-trial motion: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2606 | trial post-trial motion: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2607 | trial post-trial motion: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2608 | trial post-trial motion: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2609 | trial post-trial motion: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2610 | trial post-trial motion: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2611 | trial new-trial issue: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2612 | trial new-trial issue: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2613 | trial new-trial issue: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2614 | trial new-trial issue: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2615 | trial new-trial issue: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2616 | trial new-trial issue: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2617 | trial new-trial issue: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2618 | trial new-trial issue: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2619 | trial new-trial issue: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2620 | trial new-trial issue: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2621 | trial judgment notwithstanding issue: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2622 | trial judgment notwithstanding issue: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2623 | trial judgment notwithstanding issue: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2624 | trial judgment notwithstanding issue: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2625 | trial judgment notwithstanding issue: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2626 | trial judgment notwithstanding issue: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2627 | trial judgment notwithstanding issue: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2628 | trial judgment notwithstanding issue: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2629 | trial judgment notwithstanding issue: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2630 | trial judgment notwithstanding issue: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2631 | trial stay request: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2632 | trial stay request: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2633 | trial stay request: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2634 | trial stay request: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2635 | trial stay request: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2636 | trial stay request: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2637 | trial stay request: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2638 | trial stay request: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2639 | trial stay request: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2640 | trial stay request: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2641 | trial enforcement step: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2642 | trial enforcement step: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2643 | trial enforcement step: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2644 | trial enforcement step: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2645 | trial enforcement step: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2646 | trial enforcement step: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2647 | trial enforcement step: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2648 | trial enforcement step: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2649 | trial enforcement step: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2650 | trial enforcement step: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2651 | trial notice of appeal: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2652 | trial notice of appeal: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2653 | trial notice of appeal: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2654 | trial notice of appeal: has a date or explicit date dependency | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2655 | trial notice of appeal: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2656 | trial notice of appeal: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2657 | trial notice of appeal: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2658 | trial notice of appeal: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2659 | trial notice of appeal: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2660 | trial notice of appeal: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2661 | trial appellate deadline: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2662 | trial appellate deadline: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2663 | trial appellate deadline: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2664 | trial appellate deadline: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2665 | trial appellate deadline: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2666 | trial appellate deadline: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2667 | trial appellate deadline: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2668 | trial appellate deadline: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2669 | trial appellate deadline: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2670 | trial appellate deadline: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2671 | trial record designation: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2672 | trial record designation: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2673 | trial record designation: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2674 | trial record designation: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2675 | trial record designation: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2676 | trial record designation: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2677 | trial record designation: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2678 | trial record designation: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2679 | trial record designation: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2680 | trial record designation: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2681 | trial preserved issue: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2682 | trial preserved issue: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2683 | trial preserved issue: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2684 | trial preserved issue: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2685 | trial preserved issue: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2686 | trial preserved issue: has a provenance link to facts or evidence | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2687 | trial preserved issue: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2688 | trial preserved issue: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2689 | trial preserved issue: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2690 | trial preserved issue: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2691 | trial appellate argument: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2692 | trial appellate argument: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2693 | trial appellate argument: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2694 | trial appellate argument: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2695 | trial appellate argument: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2696 | trial appellate argument: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2697 | trial appellate argument: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2698 | trial appellate argument: has an inspectable audit history | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2699 | trial appellate argument: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2700 | trial appellate argument: has an end-to-end acceptance test | R4+ | UNREAD | — | — |

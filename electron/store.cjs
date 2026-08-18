@@ -11,19 +11,20 @@ const { makeLedgerState, sourceRegistry } = require('./ledger.cjs')
 
 const now = () => new Date().toISOString()
 const id = (prefix) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`
-const collectionNames = ['people', 'organizations', 'properties', 'units', 'incidents', 'workOrders', 'vendors', 'telemetry', 'notices', 'extractedText', 'authorities', 'propositions', 'legalClaims', 'legalElements', 'elementRequirements', 'evidenceLinks', 'propositionLinks', 'contradictions', 'evidenceGaps', 'proceduralEvents', 'courtFilings', 'docketEntries', 'deadlines', 'paragraphProvenance', 'judgeProfiles', 'opponentProfiles', 'agentJobs', 'facts', 'evidence', 'law', 'claims', 'elements', 'procedure', 'drafts', 'context', 'audit', 'events', 'machineFronts', 'unitMatrixDetailed', 'machineAuthorities', 'evidenceHolds', 'activationSequence', 'damagesModel', 'sourceCatalog', 'caseInputs', 'machineLinks', 'machineActions']
+const collectionNames = ['people', 'organizations', 'properties', 'units', 'incidents', 'workOrders', 'vendors', 'telemetry', 'notices', 'extractedText', 'authorities', 'propositions', 'legalClaims', 'legalElements', 'elementRequirements', 'evidenceLinks', 'propositionLinks', 'contradictions', 'evidenceGaps', 'proceduralEvents', 'courtFilings', 'docketEntries', 'deadlines', 'paragraphProvenance', 'judgeProfiles', 'opponentProfiles', 'agentJobs', 'facts', 'evidence', 'law', 'claims', 'elements', 'procedure', 'drafts', 'context', 'audit', 'events', 'machineFronts', 'unitMatrixDetailed', 'machineAuthorities', 'evidenceHolds', 'activationSequence', 'damagesModel', 'sourceCatalog', 'caseInputs', 'machineLinks', 'machineActions', 'trialPhases', 'trialWitnesses', 'trialExhibits', 'trialMotions', 'trialObjections', 'trialExaminations', 'juryInstructions', 'trialTasks', 'trialRulings', 'trialEvents', 'trialArguments', 'trialAppealIssues', 'trialActions']
 
 function normalize(data) {
   const normalized = { ...data, version: Math.max(Number(data.version || 0), 2) }
   for (const name of collectionNames) if (!Array.isArray(normalized[name])) normalized[name] = []
   normalized.audit = normalized.audit || []
+  normalized.trial = normalized.trial || { currentPhaseId: null, posture: 'PRETRIAL', readiness: 'INCOMPLETE', warning: 'Verify controlling court sources.', matterId: normalized.matter?.id || null, updatedAt: now() }
   normalized.ledger = normalized.ledger || makeLedgerState()
   normalized.sourceRegistry = normalized.sourceRegistry || sourceRegistry()
   return normalized
 }
 
 function findObject(data, type, objectId) {
-  const collection = { fact: 'facts', evidence: 'evidence', law: 'law', authority: 'authorities', machineAuthority: 'machineAuthorities', claim: 'claims', legalClaim: 'legalClaims', machineFront: 'machineFronts', element: 'elements', legalElement: 'legalElements', procedure: 'procedure', draft: 'drafts', proposition: 'propositions', deadline: 'deadlines', person: 'people', event: 'events', organization: 'organizations', unit: 'units', machineUnit: 'unitMatrixDetailed', notice: 'notices', filing: 'courtFilings', evidenceHold: 'evidenceHolds', activation: 'activationSequence', damage: 'damagesModel', source: 'sourceCatalog' }[type]
+  const collection = { fact: 'facts', evidence: 'evidence', law: 'law', authority: 'authorities', machineAuthority: 'machineAuthorities', claim: 'claims', legalClaim: 'legalClaims', machineFront: 'machineFronts', element: 'elements', legalElement: 'legalElements', procedure: 'procedure', draft: 'drafts', proposition: 'propositions', deadline: 'deadlines', person: 'people', event: 'events', organization: 'organizations', unit: 'units', machineUnit: 'unitMatrixDetailed', notice: 'notices', filing: 'courtFilings', evidenceHold: 'evidenceHolds', activation: 'activationSequence', damage: 'damagesModel', source: 'sourceCatalog', trialPhase: 'trialPhases', trialWitness: 'trialWitnesses', trialExhibit: 'trialExhibits', trialMotion: 'trialMotions', trialObjection: 'trialObjections', trialTask: 'trialTasks', trialRuling: 'trialRulings', trialEvent: 'trialEvents', trialAppealIssue: 'trialAppealIssues' }[type]
   return collection ? data[collection].find((item) => item.id === objectId) : null
 }
 
@@ -136,6 +137,50 @@ const seed = () => {
   data.context.push({ id: 'ctx-1540-machine-workbook', type: 'PROPERTY_SPECIFIC_LITIGATION_MACHINE', status: 'CONTEXT_ONLY', source: machineFixture.sourceFile, sourceWorkbook: machineFixture.sourceWorkbook, sheetCounts: data.machine.sheetCounts, researchState: machineFixture.researchState, handlingRule: machineFixture.handlingRule, createdAt: now(), updatedAt: now(), matterId: data.matter.id })
   data.machineLinks = []
   data.machineActions = []
+  data.trial = { currentPhaseId: 'TP-01', posture: 'PRETRIAL', readiness: 'INCOMPLETE', warning: 'Not legal advice; verify every rule, deadline, and local procedure against the controlling court source.', matterId: data.matter.id, updatedAt: now() }
+  data.trialPhases = [
+    ['TP-01', 'Pleadings and service', 'Confirm operative pleadings, service, jurisdiction, venue, and response dates.', 'OPEN'],
+    ['TP-02', 'Case management', 'Track scheduling orders, required conferences, disclosures, and court-specific forms.', 'PENDING'],
+    ['TP-03', 'Discovery', 'Track requests, responses, privilege logs, subpoenas, inspections, and preservation.', 'PENDING'],
+    ['TP-04', 'Motions', 'Build motions, oppositions, replies, declarations, exhibits, and hearing logistics.', 'PENDING'],
+    ['TP-05', 'Pretrial exchange', 'Finalize witness list, exhibit list, objections, proposed instructions, and trial brief.', 'PENDING'],
+    ['TP-06', 'Voir dire', 'Track juror questions, cause challenges, peremptory use, and preserved objections.', 'PENDING'],
+    ['TP-07', 'Opening statement', 'Prepare a fact-bounded opening tied to admissible proof and requested relief.', 'PENDING'],
+    ['TP-08', 'Plaintiff evidence', 'Organize foundation, direct examination, exhibits, and admission rulings.', 'PENDING'],
+    ['TP-09', 'Defense evidence', 'Organize cross examination, defense witnesses, impeachment, and rebuttal.', 'PENDING'],
+    ['TP-10', 'Closing and instructions', 'Track admitted proof, legal elements, proposed instructions, and closing limits.', 'PENDING'],
+    ['TP-11', 'Verdict and judgment', 'Record verdict, judgment, cost deadlines, post-trial motions, and enforcement posture.', 'PENDING'],
+    ['TP-12', 'Appeal preservation', 'Record notices, deadlines, rulings, offers of proof, objections, and appeal issues.', 'PENDING']
+  ].map(([id, title, purpose, status], index) => ({ id, title, purpose, status, order: index + 1, matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.trialWitnesses = [
+    { id: 'TW-01', name: 'Resident fact witness A', role: 'FACT', side: 'PLAINTIFF', status: 'LEAD', foundation: ['Personal knowledge', 'Dated communications'], directTopics: ['Condition timeline', 'Notice', 'Impact'], crossRisks: ['Memory sequence', 'Unit-specific scope'], impeachmentSources: ['EV-001', 'EV-002'], protectedData: 'ANONYMOUS_ID_ONLY' },
+    { id: 'TW-02', name: 'Maintenance custodian', role: 'CUSTODIAN', side: 'NEUTRAL', status: 'UNCONFIRMED', foundation: ['Business-record foundation', 'System familiarity'], directTopics: ['Work orders', 'Close codes', 'Reopen history'], crossRisks: ['Personal knowledge limits'], impeachmentSources: [], protectedData: 'MINIMUM_NECESSARY' },
+    { id: 'TW-03', name: 'Property manager representative', role: 'ADVERSE', side: 'DEFENSE', status: 'IDENTIFIED', foundation: ['Role and authority'], directTopics: ['Policies', 'Notice routing', 'Successor records'], crossRisks: ['Corporate knowledge boundary'], impeachmentSources: ['EV-002'], protectedData: 'PUBLIC_ROLE_ONLY' },
+    { id: 'TW-04', name: 'Qualified engineering witness', role: 'EXPERT', side: 'PLAINTIFF', status: 'NEEDS_QUALIFICATION', foundation: ['Qualifications', 'Methodology', 'Reliability'], directTopics: ['Hot-water causality', 'System versus unit scope'], crossRisks: ['Assumptions', 'Alternative causes'], impeachmentSources: [], protectedData: 'PUBLIC_CREDENTIALS_ONLY' }
+  ].map((item) => ({ ...item, matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.trialExhibits = [
+    { id: 'TX-01', label: 'PX-001', title: 'Recurring condition chronology', category: 'DOCUMENT', sourceEvidenceId: 'ev-001', custodianId: 'TW-01', foundation: 'Personal knowledge plus dated record', status: 'NOT_MOVED', objections: ['HEARSAY', 'AUTHENTICATION'], admissionResult: null },
+    { id: 'TX-02', label: 'PX-002', title: 'Owner notice communication', category: 'COMMUNICATION', sourceEvidenceId: 'ev-002', custodianId: 'TW-01', foundation: 'Sender/recipient and business transmission', status: 'NOT_MOVED', objections: ['AUTHENTICATION', 'COMPLETENESS'], admissionResult: null },
+    { id: 'TX-03', label: 'PX-003', title: 'Maintenance work-order export', category: 'BUSINESS_RECORD', sourceEvidenceId: null, custodianId: 'TW-02', foundation: 'System custodian and regular practice', status: 'FOUNDATION_NEEDED', objections: ['HEARSAY', 'BEST_EVIDENCE'], admissionResult: null },
+    { id: 'TX-04', label: 'PX-004', title: 'Official inspection or agency record', category: 'PUBLIC_RECORD', sourceEvidenceId: 'ev-003', custodianId: null, foundation: 'Official source certification', status: 'MISSING', objections: ['FOUNDATION', 'RELEVANCE'], admissionResult: null },
+    { id: 'DX-01', label: 'DX-001', title: 'Defense repair completion record', category: 'DEFENSE_DOCUMENT', sourceEvidenceId: null, custodianId: 'TW-03', foundation: 'Defense custodian or stipulation', status: 'REQUESTED', objections: ['COMPLETENESS', 'TIMING'], admissionResult: null }
+  ].map((item) => ({ ...item, matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.trialMotions = [
+    { id: 'TM-01', title: 'Motion in limine: exclude unsupported unrelated address evidence', type: 'LIMINE', side: 'PLAINTIFF', status: 'DRAFT', ruleSource: 'COURT_RULE_REQUIRED', relief: 'Exclude or limit unrelated property evidence', oppositionNeeded: true, hearingDate: null },
+    { id: 'TM-02', title: 'Motion to compel preserved maintenance records', type: 'DISCOVERY', side: 'PLAINTIFF', status: 'PENDING', ruleSource: 'DISCOVERY_RULE_REQUIRED', relief: 'Order production or privilege log', oppositionNeeded: true, hearingDate: null },
+    { id: 'TM-03', title: 'Opposition to dispositive motion', type: 'DISPOSITIVE', side: 'PLAINTIFF', status: 'NOT_STARTED', ruleSource: 'CONTROLLING_RULE_REQUIRED', relief: 'Deny judgment against supported elements', oppositionNeeded: false, hearingDate: null }
+  ].map((item) => ({ ...item, matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.trialObjections = ['HEARSAY', 'AUTHENTICATION', 'RELEVANCE', 'PREJUDICE', 'SPECULATION', 'FOUNDATION', 'BEST_EVIDENCE', 'LEADING', 'NONRESPONSIVE', 'ARGUMENTATIVE', 'CUMULATIVE', 'LACK_OF_PERSONAL_KNOWLEDGE'].map((ground, index) => ({ id: `TO-${String(index + 1).padStart(2, '0')}`, ground, target: null, phaseId: null, status: 'AVAILABLE', response: null, ruling: null, preserved: false, matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.trialExaminations = data.trialWitnesses.map((witness, index) => ({ id: `TE-${String(index + 1).padStart(2, '0')}`, witnessId: witness.id, mode: index === 0 ? 'DIRECT' : 'CROSS', topics: witness.directTopics, foundationChecklist: witness.foundation, notes: '', status: 'NOT_STARTED', matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.juryInstructions = ['Elements of each claim', 'Burden and standard of proof', 'Credibility and impeachment', 'Damages and no-double-recovery rule', 'Caution against unrelated-address evidence'].map((title, index) => ({ id: `JI-${String(index + 1).padStart(2, '0')}`, title, source: 'CONTROLLING INSTRUCTION SOURCE REQUIRED', status: 'DRAFT', objections: [], matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.trialTasks = [
+    ['TT-01', 'Obtain operative scheduling order', 'TP-02', 'COURT_RECORD'], ['TT-02', 'Serve or respond to outstanding discovery', 'TP-03', 'PROCEDURE'], ['TT-03', 'Build witness foundation packets', 'TP-05', 'WITNESS'], ['TT-04', 'Complete exhibit authentication map', 'TP-05', 'EXHIBIT'], ['TT-05', 'File motion or opposition by controlling deadline', 'TP-04', 'MOTION'], ['TT-06', 'Draft proposed jury instructions', 'TP-10', 'LAW'], ['TT-07', 'Prepare direct examination outline', 'TP-08', 'EXAMINATION'], ['TT-08', 'Prepare cross examination outline', 'TP-09', 'EXAMINATION'], ['TT-09', 'Record every objection and ruling', 'TP-08', 'PRESERVATION'], ['TT-10', 'Calendar judgment and appeal deadlines', 'TP-11', 'DEADLINE'], ['TT-11', 'Create post-trial motion decision tree', 'TP-11', 'POST_TRIAL'], ['TT-12', 'Prepare notice-of-appeal issue list', 'TP-12', 'APPEAL']
+  ].map(([id, title, phaseId, category]) => ({ id, title, phaseId, category, status: 'OPEN', dueDate: null, source: 'Trial operating checklist', matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.trialRulings = []
+  data.trialEvents = []
+  data.trialArguments = []
+  data.trialAppealIssues = []
+  data.trialActions = []
   data.audit.push({ id: id('audit'), at: now(), action: 'IMPORTED CAMDEN WAR ROOM FIXTURE', object: data.matter.id })
   return data
 }
@@ -258,6 +303,63 @@ async function createStore(filePath) {
         const event = { id: id('machine-action'), type: 'ACTIVATION', activationId: activation.id, output: payload.output || activation.output, status: 'RECORDED', recordedAt: now(), createdAt: now(), matterId: data.matter.id }
         if (!data.machineActions.some((item) => item.type === 'ACTIVATION' && item.activationId === activation.id)) data.machineActions.push(event)
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD ACTIVATION', object: event.id })
+      } else if (action === 'advance-trial-phase') {
+        const phase = data.trialPhases.find((item) => item.id === payload.phaseId)
+        if (!phase) throw new Error('Trial phase does not exist')
+        const current = data.trialPhases.find((item) => item.id === data.trial.currentPhaseId)
+        if (current && phase.order < current.order) throw new Error('Trial phase cannot move backward')
+        if (current) current.status = 'COMPLETE'
+        phase.status = 'ACTIVE'
+        data.trial.currentPhaseId = phase.id
+        data.trial.posture = phase.title.toUpperCase()
+        data.trial.readiness = data.trialTasks.filter((item) => item.phaseId === phase.id && item.status !== 'COMPLETE').length ? 'INCOMPLETE' : 'READY_FOR_REVIEW'
+        data.trialActions.push({ id: id('trial-action'), type: 'PHASE_ADVANCE', phaseId: phase.id, status: 'RECORDED', createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'ADVANCE TRIAL PHASE', object: phase.id })
+      } else if (action === 'record-trial-task') {
+        const task = data.trialTasks.find((item) => item.id === payload.taskId)
+        if (!task) throw new Error('Trial task does not exist')
+        task.status = payload.status || 'COMPLETE'
+        task.completedAt = task.status === 'COMPLETE' ? now() : null
+        if (payload.dueDate) task.dueDate = payload.dueDate
+        data.trialActions.push({ id: id('trial-action'), type: 'TASK_UPDATE', taskId: task.id, status: task.status, createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'UPDATE TRIAL TASK', object: task.id })
+      } else if (action === 'mark-exhibit-foundation') {
+        const exhibit = data.trialExhibits.find((item) => item.id === payload.exhibitId)
+        if (!exhibit) throw new Error('Trial exhibit does not exist')
+        const witness = payload.witnessId ? data.trialWitnesses.find((item) => item.id === payload.witnessId) : null
+        if (payload.witnessId && !witness) throw new Error('Foundation witness does not exist')
+        exhibit.custodianId = payload.witnessId || exhibit.custodianId
+        exhibit.foundationStatus = payload.status || 'READY_FOR_FOUNDATION'
+        exhibit.foundationNote = payload.note || (witness ? `Foundation assigned to ${witness.name}` : 'Foundation witness still required')
+        data.trialActions.push({ id: id('trial-action'), type: 'EXHIBIT_FOUNDATION', exhibitId: exhibit.id, witnessId: exhibit.custodianId, status: exhibit.foundationStatus, createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'MARK EXHIBIT FOUNDATION', object: exhibit.id })
+      } else if (action === 'record-trial-objection') {
+        const ground = String(payload.ground || '').trim().toUpperCase()
+        if (!ground || !data.trialObjections.some((item) => item.ground === ground)) throw new Error('Objection ground is not in the controlled list')
+        const objection = { id: id('trial-objection'), ground, target: payload.target || 'Unspecified testimony or exhibit', phaseId: payload.phaseId || data.trial.currentPhaseId, response: payload.response || null, ruling: payload.ruling || 'PENDING', preserved: Boolean(payload.preserved), createdAt: now(), updatedAt: now(), matterId: data.matter.id }
+        data.trialObjections.push(objection)
+        data.trialActions.push({ id: id('trial-action'), type: 'OBJECTION', objectionId: objection.id, status: objection.ruling, createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD TRIAL OBJECTION', object: objection.id })
+      } else if (action === 'record-trial-ruling') {
+        const ruling = { id: id('trial-ruling'), targetType: payload.targetType || 'UNKNOWN', targetId: payload.targetId || null, result: payload.result || 'PENDING', reasoning: payload.reasoning || '', preserved: Boolean(payload.preserved), source: payload.source || 'Court record required', createdAt: now(), updatedAt: now(), matterId: data.matter.id }
+        data.trialRulings.push(ruling)
+        data.trialActions.push({ id: id('trial-action'), type: 'RULING', rulingId: ruling.id, status: ruling.result, createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD TRIAL RULING', object: ruling.id })
+      } else if (action === 'record-examination') {
+        const examination = data.trialExaminations.find((item) => item.id === payload.examinationId)
+        if (!examination) throw new Error('Trial examination does not exist')
+        examination.status = payload.status || 'READY'
+        examination.notes = payload.notes || examination.notes
+        examination.completedAt = examination.status === 'COMPLETE' ? now() : null
+        data.trialActions.push({ id: id('trial-action'), type: 'EXAMINATION', examinationId: examination.id, status: examination.status, createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD EXAMINATION', object: examination.id })
+      } else if (action === 'record-appeal-issue') {
+        const issue = String(payload.issue || '').trim()
+        if (!issue) throw new Error('Appeal issue requires text')
+        const appealIssue = { id: id('appeal-issue'), issue, rulingId: payload.rulingId || null, preservation: payload.preservation || 'NOT_REVIEWED', recordLocation: payload.recordLocation || null, status: 'OPEN', createdAt: now(), updatedAt: now(), matterId: data.matter.id }
+        data.trialAppealIssues.push(appealIssue)
+        data.trialActions.push({ id: id('trial-action'), type: 'APPEAL_ISSUE', issueId: appealIssue.id, status: appealIssue.preservation, createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD APPEAL ISSUE', object: appealIssue.id })
       } else {
         throw new Error(`Unknown case action: ${action}`)
       }
@@ -267,7 +369,7 @@ async function createStore(filePath) {
     search(query) {
       const needle = String(query || '').trim().toLowerCase()
       if (!needle) return []
-      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', DEADLINES: 'deadlines', 'MACHINE FRONTS': 'machineFronts', 'MACHINE UNITS': 'unitMatrixDetailed', 'EVIDENCE HOLDS': 'evidenceHolds', SOURCES: 'sourceCatalog' }
+      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', DEADLINES: 'deadlines', 'MACHINE FRONTS': 'machineFronts', 'MACHINE UNITS': 'unitMatrixDetailed', 'EVIDENCE HOLDS': 'evidenceHolds', SOURCES: 'sourceCatalog', WITNESSES: 'trialWitnesses', EXHIBITS: 'trialExhibits', MOTIONS: 'trialMotions', 'TRIAL TASKS': 'trialTasks', 'APPEAL ISSUES': 'trialAppealIssues' }
       return Object.entries(groups).flatMap(([type, collection]) => data[collection].filter((item) => JSON.stringify(item).toLowerCase().includes(needle)).slice(0, 20).map((item) => ({ id: item.id, type, name: item.title || item.name || item.filename || item.id, status: item.status || 'ACTIVE', source: item.source || item.provenance || 'Matter store', matterId: data.matter.id })))
     },
     async linkEvidence(evidenceId, targetType, targetId) {

@@ -2,7 +2,7 @@
 
 ## Master Completion Ledger
 
-The repository now includes `docs/MASTER-LEDGER.json` and `docs/MASTER-LEDGER.md`, containing 1,600 atomic requirements: the original 1,050-point plan, a 250-point 1540 N. Vine machine extension, and a 300-point shared-renderer representation extension. The source registry covers 62 locally available pasted attachment files. The ledger distinguishes implementation, testing, and visual verification; related scaffolding is not treated as completion.
+The repository now includes `docs/MASTER-LEDGER.json` and `docs/MASTER-LEDGER.md`, containing 2,700 atomic requirements: the original 1,050-point plan, a 250-point 1540 N. Vine machine extension, a 300-point shared-renderer representation extension, and a 1,100-point full-trial operating extension. The source registry covers 62 locally available pasted attachment files. The ledger distinguishes implementation, testing, and visual verification; related scaffolding is not treated as completion.
 
 The current baseline is generated from direct repository evidence. The remaining requirements are intentionally open.
 
