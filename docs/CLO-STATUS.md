@@ -2,9 +2,9 @@
 
 ## Master Completion Ledger
 
-The repository now includes `docs/MASTER-LEDGER.json` and `docs/MASTER-LEDGER.md`, containing 1,050 atomic requirements plus a source registry for 52 locally available pasted attachment files. The ledger distinguishes implementation, testing, and visual verification; related scaffolding is not treated as completion.
+The repository now includes `docs/MASTER-LEDGER.json` and `docs/MASTER-LEDGER.md`, containing 1,300 atomic requirements: the original 1,050-point plan plus a 250-point 1540 N. Vine machine extension. The source registry covers 62 locally available pasted attachment files. The ledger distinguishes implementation, testing, and visual verification; related scaffolding is not treated as completion.
 
-The current baseline records 497 requirements as implemented from existing code and test evidence. The remaining 553 requirements are intentionally open.
+The current baseline records 547 requirements as implemented from existing code and test evidence. The remaining 753 requirements are intentionally open.
 
 This ledger is intentionally conservative. It records what is implemented and verified in the repository, not what is planned.
 
