@@ -7,11 +7,11 @@ This ledger is intentionally conservative. It records what is implemented and ve
 | Area | Passed | Total | Notes |
 |---|---:|---:|---|
 | Architecture and security | 15 | 15 | Electron shell, preload boundary, migration normalization, bounded action IPC, SQLite persistence path, worker-thread hashing/extraction, stateful job health, capture runner, and source tests exist |
-| Data integrity and provenance | 17 | 20 | SHA-256, staging, commit, extracted text, audit, duplicate detection, typed evidence links, paragraph provenance, and context-only import are verified; SQL repository remains |
-| Functional surfaces | 23 | 25 | Primary views, import flow, proposition/build/validate/export-gate actions, object search, derived deadlines, Evidence filters/pagination, stateful job status, and secondary navigation exist; several domain workflows remain fixtures |
+| Data integrity and provenance | 18 | 20 | SHA-256, staging, commit, extracted text, audit, duplicate detection, typed evidence links, paragraph provenance, context-only workbook import, and 287-unit/41-front coverage are verified; SQL repository remains |
+| Functional surfaces | 24 | 25 | Primary views, Camden Coverage matrix, import flow, proposition/build/validate/export-gate actions, object search, derived deadlines, Evidence filters/pagination, stateful job status, and secondary navigation exist; some domain mutations remain fixtures |
 | Visual constitution | 18 | 25 | Shell geometry tokens, palette, responsive rules, 1440px/1024px/mobile captures, and corrected mobile fallback are verified; computed geometry and color-area audit remain |
 | Accessibility, interaction, performance | 9 | 10 | Search/Escape, route shortcuts, visible focus/select states, non-chat search, mobile hierarchy, ArrowUp/ArrowDown/Enter navigation, paginated long lists, and 10,000-object search benchmark exist |
-| Verification, documentation, delivery | 5 | 5 | Store and constitution tests, rubric, README, background Electron smoke launch, capture runner, and 10 generated route screenshots exist |
+| Verification, documentation, delivery | 5 | 5 | Store, constitution, Camden fixture, and performance tests, rubric, README, background Electron smoke launch, capture runner, and 17 generated screenshots exist |
 | **Total** | **90** | **100** | **A-**; full domain integration, OCR, UI automation, and pixel-level audit remain |
 
 ## Verified In This Repository
@@ -25,7 +25,8 @@ This ledger is intentionally conservative. It records what is implemented and ve
 - Evidence links are typed and validated; duplicate hashes are detected; procedure deadlines are derived and persisted.
 - The Electron application path uses a local SQLite file with a versioned case-state table; the JSON path remains available for isolated tests.
 - Window presentation is opt-out for normal use and explicitly suppressed with `CLO_BACKGROUND_CAPTURE=1` for background capture/smoke workflows.
-- Background capture generated 10 normalized `1440x900` route screenshots, 1024px/mobile shell screenshots, and four state-variant screenshots under `artifacts/screenshots/`.
+- Background capture generated 11 normalized `1440x900` route screenshots, 1024px/mobile shell screenshots, and four state-variant screenshots under `artifacts/screenshots/`.
+- The supplied war-room workbook is imported as `fixtures/camden-1540-vine.json`; its raw sheet rows and source row numbers remain auditable.
 - File hashing and text extraction run in `electron/hash-worker.cjs`; the 10,000-object search benchmark passes in the current runtime.
 - PDF text extraction uses the local `pdftotext` executable when present; OCR remains intentionally separate and unclaimed.
 - `git diff --check` passes for the current source tree.

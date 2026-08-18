@@ -12,8 +12,9 @@
     "check": "electron --version",
     "test:store": "node tests/store.test.cjs",
     "test:constitution": "node tests/constitution.test.cjs",
+    "test:camden": "node tests/camden.test.cjs",
     "test:performance": "node tests/performance.test.cjs",
-    "test": "npm run test:store && npm run test:constitution && npm run test:performance",
+    "test": "npm run test:store && npm run test:constitution && npm run test:camden && npm run test:performance",
     "capture:screenshots": "electron scripts/capture-screenshots.cjs"
   }
 }

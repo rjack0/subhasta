@@ -3,7 +3,7 @@ const fs = require('node:fs/promises')
 const path = require('node:path')
 const { createStore } = require('../electron/store.cjs')
 
-const routes = ['command', 'evidence', 'law', 'elements', 'procedure', 'strategy', 'drafts', 'deadlines', 'field-atlas', 'cicero']
+const routes = ['command', 'evidence', 'law', 'elements', 'procedure', 'strategy', 'drafts', 'deadlines', 'coverage', 'field-atlas', 'cicero']
 const responsive = [{ name: 'shell-1024', width: 1024, height: 900 }, { name: 'shell-mobile', width: 390, height: 844 }]
 const outputDir = path.join(__dirname, '..', 'artifacts', 'screenshots')
 

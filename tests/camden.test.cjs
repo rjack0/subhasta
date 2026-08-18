@@ -1,0 +1,27 @@
+const assert = require('node:assert/strict')
+const fs = require('node:fs/promises')
+const os = require('node:os')
+const path = require('node:path')
+const fixture = require('../fixtures/camden-1540-vine.json')
+const { createStore } = require('../electron/store.cjs')
+
+async function main() {
+  assert.equal(fixture.sheets['Unit Matrix'].rows.length, 287)
+  assert.equal(fixture.sheets['Legal Fronts'].rows.length, 41)
+  assert.equal(fixture.sheets['Evidence Registry'].rows.length, 32)
+  assert.equal(fixture.sheets['Critical Clocks'].rows.length, 13)
+  const storePath = path.join(os.tmpdir(), `clo-camden-fixture-${Date.now()}.json`)
+  try {
+    const store = await createStore(storePath)
+    const data = store.snapshot()
+    assert.equal(data.matter.name, '1540 N. Vine / Vinyl Hollywood')
+    assert.equal(data.units.length, 287)
+    assert.equal(data.legalClaims.length, 41)
+    assert.ok(data.context.some((item) => item.type === 'WAR_ROOM_WORKBOOK'))
+    assert.ok(data.evidence.some((item) => item.id === 'EV-001' && item.status === 'MISSING'))
+    assert.ok(data.procedure.some((item) => item.id === 'CL-003' && item.status.includes('ACTIVE')))
+    console.log('CLO Camden fixture test passed')
+  } finally { await fs.rm(storePath, { force: true }) }
+}
+
+main().catch((error) => { console.error(error); process.exitCode = 1 })

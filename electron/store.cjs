@@ -3,6 +3,7 @@ const crypto = require('node:crypto')
 const path = require('node:path')
 const { spawnSync } = require('node:child_process')
 const { Worker } = require('node:worker_threads')
+const camdenFixture = require('../fixtures/camden-1540-vine.json')
 
 const now = () => new Date().toISOString()
 const id = (prefix) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`
@@ -42,7 +43,8 @@ function processEvidenceBytes(bytes, extension) {
   })
 }
 
-const seed = () => ({
+const seed = () => {
+  const data = ({
   version: 2,
   matter: { id: 'matter-001', name: 'Northstar Housing Matter', subtitle: 'Los Angeles · active working set', status: 'ACTIVE' },
   people: [], organizations: [], properties: [], units: [], events: [], incidents: [], workOrders: [], vendors: [], telemetry: [], notices: [], extractedText: [], authorities: [], propositions: [], legalClaims: [], legalElements: [], elementRequirements: [], evidenceLinks: [], propositionLinks: [], contradictions: [], evidenceGaps: [], proceduralEvents: [], courtFilings: [], docketEntries: [], deadlines: [], paragraphProvenance: [], judgeProfiles: [], opponentProfiles: [], agentJobs: [],
@@ -74,7 +76,36 @@ const seed = () => ({
   strategy: { judge: { confidence: 0.62, sourceUniverse: 'Local procedural fixture', observations: ['Procedure-sensitive review', 'Evidence gaps reduce certainty'] }, opponent: { confidence: 0.48, sourceUniverse: 'Pleadings and notice fixture', observations: ['Likely challenge: missing inspection record'] } },
   context: [],
   audit: [{ id: id('audit'), at: now(), action: 'SEEDED MATTER', object: 'matter-001' }]
-})
+  })
+  const rows = (sheet) => camdenFixture.sheets[sheet]?.rows || []
+  const source = camdenFixture.sourceFile
+  const parseLinks = (value) => String(value || '').split(',').map((item) => item.trim()).filter(Boolean)
+  data.matter = { id: 'matter-camden-vine', name: '1540 N. Vine / Vinyl Hollywood', subtitle: 'Camden transition · Los Angeles · controlled war room', status: 'ACTIVE', address: '1540 N. Vine Street, Los Angeles, CA' }
+  data.units = rows('Unit Matrix').map((row) => ({ id: row['Claimant ID'] || `unit-${row.sourceRow}`, matterId: data.matter.id, unit: row['Apt / Unit'], claimantId: row['Claimant ID'], status: row['Claim status'] || 'OPEN', source: row['Public unit info source'], publicRecord: row, createdAt: now(), updatedAt: now() }))
+  data.legalClaims = rows('Legal Fronts').map((row) => ({ id: row['Front ID'], matterId: data.matter.id, title: row['Front / theory'], authority: row.Authority, status: row['Camden status'], trigger: row['Exact trigger / elements'], remedy: row['Potential legal effect / remedy'], priority: row.Priority, defendants: row['Primary defendant(s) if facts fit'], defense: row['Likely defense'], proofNeeded: row['Plaintiff-side answer / proof needed'], source: row['Source URL'], sourceRow: row.sourceRow, createdAt: now(), updatedAt: now() }))
+  data.evidence = data.evidence.concat(rows('Evidence Registry').map((row) => ({ id: row['Evidence ID'], name: row['Evidence object'], type: 'WAR_ROOM_REGISTER', hash: null, source: row['Custodian/source'], status: row['Current state'], links: parseLinks(row['Linked fronts']), preservationRisk: row['Preservation risk'], extractionRequest: row['Exact extraction / request'], sourceUrl: row['Source URL'], sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() })))
+  data.procedure = data.procedure.concat(rows('Critical Clocks').map((row) => ({ id: row['Clock ID'], title: row.Trigger, date: row['Duration / deadline'], type: 'LEGAL_CLOCK', status: row['Current state'], source: row['Source URL'], consequence: row['Legal consequence / decision'], triggerProof: row['How to establish trigger'], sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() })))
+  data.law = data.law.concat(rows('Authorities').map((row) => ({ id: `authority-${row.sourceRow}`, title: row.Authority, jurisdiction: 'CALIFORNIA / LOS ANGELES', status: row['Important limitation']?.includes('unknown') ? 'HYPOTHESIS' : 'VERIFIED', text: row['Exact proposition for this case'], proposition: row['Exact proposition for this case'], use: row.Use, limitation: row['Important limitation'], source: row['Source URL'], sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() })))
+  data.facts = data.facts.concat(rows('Property Facts').map((row) => ({ id: row['Fact ID'], title: row['Property-specific fact'], detail: row['Why it matters'], status: row.Status, source: row['Source URL'], verification: row['Exact verification / next record'], sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() })))
+  data.context = [{ id: 'ctx-camden-workbook', type: 'WAR_ROOM_WORKBOOK', status: 'CONTEXT_ONLY', source, sourceWorkbook: camdenFixture.sourceWorkbook, sheetCounts: Object.fromEntries(Object.entries(camdenFixture.sheets).map(([key, value]) => [key, value.rows.length])), handlingRules: rows('Read Me'), createdAt: now() }]
+  data.organizations = [
+    { id: 'org-camden', name: 'Camden Property Trust / Camden Development', role: 'PREDECESSOR OWNER / MANAGER', status: 'PUBLIC-RECORD LEAD', source: source },
+    { id: 'org-blackrock', name: 'BlackRock Realty Advisors, Inc.', role: 'CURRENT MANAGER / SUCCESSOR VEHICLE LEAD', status: 'PARTLY VERIFIED', source: source },
+    { id: 'org-jll', name: 'JLL', role: 'SALE / BROKER RECORD', status: 'PUBLIC SOURCE', source: source },
+    { id: 'org-lahd', name: 'Los Angeles Housing Department', role: 'HOUSING ENFORCEMENT', status: 'OFFICIAL AGENCY', source: source },
+    { id: 'org-ladbs', name: 'Los Angeles Department of Building and Safety', role: 'BUILDING / PERMIT ENFORCEMENT', status: 'OFFICIAL AGENCY', source: source },
+    { id: 'org-lafd', name: 'Los Angeles Fire Department', role: 'LIFE-SAFETY ENFORCEMENT', status: 'OFFICIAL AGENCY', source: source },
+    { id: 'org-water-board', name: 'California Water Boards', role: 'HISTORICAL WATER-COMPLIANCE RECORD', status: 'OFFICIAL AGENCY', source: source },
+    { id: 'org-realpage', name: 'RealPage', role: 'PRICING-SYSTEM QUALIFICATION TO VERIFY', status: 'UNKNOWN', source: source }
+  ]
+  data.events = [
+    { id: 'event-sale-2026', title: 'Public portfolio sale announcement', date: '2026-08-05', status: 'CORROBORATED LEAD', source: 'War-room workbook / JLL lead', linkedOrganizations: ['org-camden', 'org-blackrock', 'org-jll'] },
+    { id: 'event-owner-clock', title: 'Successor disclosure clock', date: '2026-08-20', status: 'LIVE AUDIT', source: 'War-room critical clock CL-001', linkedOrganizations: ['org-blackrock'] },
+    { id: 'event-realpage-clock', title: 'RealPage exclusion/objection deadline', date: '2026-09-01', status: 'LIVE AUDIT', source: 'War-room critical clock CL-003', linkedOrganizations: ['org-realpage'] }
+  ]
+  data.audit.push({ id: id('audit'), at: now(), action: 'IMPORTED CAMDEN WAR ROOM FIXTURE', object: data.matter.id })
+  return data
+}
 
 async function createStore(filePath) {
   await fs.mkdir(path.dirname(filePath), { recursive: true })

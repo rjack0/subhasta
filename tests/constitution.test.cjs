@@ -9,7 +9,7 @@ const preload = read('electron/preload.cjs')
 const main = read('electron/main.cjs')
 const css = read('clo/styles.css')
 
-for (const route of ['command', 'evidence', 'law', 'elements', 'procedure', 'strategy', 'drafts', 'deadlines', 'system', 'field-atlas', 'cicero']) assert.match(shell, new RegExp(`data-route="${route}"`), `${route} route missing`)
+for (const route of ['command', 'evidence', 'law', 'elements', 'procedure', 'strategy', 'drafts', 'deadlines', 'coverage', 'system', 'field-atlas', 'cicero']) assert.match(shell, new RegExp(`data-route="${route}"`), `${route} route missing`)
 for (const token of ['--ink-0: #0c0e12', '--ink-1: #151820', '--bone: #eee9de', '--cobalt: #4263eb', '--ochre: #d5a33e', '--oxide: #ae493c', '--viridian: #3f7d63', '--violet: #7259a8']) assert.match(css, new RegExp(token), `${token} token missing`)
 assert.match(css, /grid-template-columns: 72px/)
 assert.match(css, /grid-template-rows: 56px minmax\(0, 1fr\) 28px/)

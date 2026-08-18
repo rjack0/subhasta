@@ -62,9 +62,10 @@ async function main() {
     const sqlitePath = path.join(os.tmpdir(), `clo-store-${Date.now()}.sqlite3`)
     try {
       const sqliteStore = await createStore(sqlitePath)
+      const sqliteBaseline = sqliteStore.snapshot().evidence.length
       await sqliteStore.commitEvidence([sqliteStore.stageTextEvidence('sqlite persistence')])
       const sqliteReopened = await createStore(sqlitePath)
-      assert.equal(sqliteReopened.snapshot().evidence.length, 4)
+      assert.equal(sqliteReopened.snapshot().evidence.length, sqliteBaseline + 1)
     } finally {
       await fs.rm(sqlitePath, { force: true })
     }

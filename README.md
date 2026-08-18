@@ -2,9 +2,11 @@
 
 Subhasta is an Electron litigation operating environment. CLO is the primary shell; Field Atlas and Cicero are secondary tools mounted from the same desktop navigation. The repository currently contains a seeded local case store and a functional first implementation of evidence staging, SHA-256 provenance, extracted text, audit history, proposition creation, draft building, validation gating, and contextual imports.
 
+The primary seeded matter is the supplied `1540_Vine_Camden_Litigation_War_Room.xlsx` baseline. Its 287-unit matrix, 41 legal fronts, evidence registry, critical clocks, authorities, property facts, and handling rules are preserved in `fixtures/camden-1540-vine.json` and surfaced through the Camden `COVERAGE` route. Workbook leads remain context until primary evidence is committed.
+
 ## Current quality gate
 
-The build is measured against [the hyper-precise CLO acceptance rubric](docs/CLO-RUBRIC.md). The current honest score and unresolved work are maintained in [the status ledger](docs/CLO-STATUS.md). The app is not being represented as release-complete: the ledger is currently `67/100 D` because automated UI, performance, screenshot, and several domain workflows remain.
+The build is measured against [the hyper-precise CLO acceptance rubric](docs/CLO-RUBRIC.md). The current honest score and unresolved work are maintained in [the status ledger](docs/CLO-STATUS.md). The current ledger is `90/100 A-`; remaining deductions are OCR, deeper domain mutations, UI automation, and pixel-level visual auditing.
 
 ## Desktop structure
 
