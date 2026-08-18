@@ -3,8 +3,8 @@
 Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine extension, and the 300-point shared-renderer representation extension.
 
 - Total requirements: **1600**
-- Implemented baseline: **539**
-- Remaining requirements: **1061**
+- Implemented baseline: **544**
+- Remaining requirements: **1056**
 - Attachment sources indexed: **62**
 
 | ID | Requirement | Repeat | Status | Feature refs | Evidence |
@@ -1199,116 +1199,116 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 1188 | Create activation step for unit-specific damages | R2 | UNREAD | — | — |
 | 1189 | Create activation step for source verification | R2 | UNREAD | — | — |
 | 1190 | Create activation step for enforcement escalation | R2 | UNREAD | — | — |
-| 1191 | Display activation output artifact | R2 | UNREAD | — | — |
-| 1192 | Display activation front unlocks | R2 | UNREAD | — | — |
-| 1193 | Display activation distinction warning | R2 | UNREAD | — | — |
-| 1194 | Timestamp each activation action | R2 | UNREAD | — | — |
-| 1195 | Audit each activation action | R2 | UNREAD | — | — |
-| 1196 | Allow activation action to create a gap | R2 | UNREAD | — | — |
-| 1197 | Allow activation action to create a deadline | R2 | UNREAD | — | — |
-| 1198 | Allow activation action to create a preservation hold | R2 | UNREAD | — | — |
-| 1199 | Prevent activation from implying liability | R2 | UNREAD | — | — |
-| 1200 | Prevent activation from bypassing safety remediation | R2 | UNREAD | — | — |
-| 1201 | Calculate habitability rent-loss base | R2 | UNREAD | — | — |
-| 1202 | Calculate fair-rental-value alternative | R2 | UNREAD | — | — |
-| 1203 | Track consequential expense separately | R2 | UNREAD | — | — |
-| 1204 | Track Civil Code 1942.4 actual damages | R2 | UNREAD | — | — |
-| 1205 | Track Civil Code 1942.4 statutory range | R2 | UNREAD | — | — |
-| 1206 | Track TAHO compensatory base | R2 | UNREAD | — | — |
-| 1207 | Track TAHO treble multiplier | R2 | UNREAD | — | — |
-| 1208 | Track TAHO statutory penalty range | R2 | UNREAD | — | — |
-| 1209 | Track REAP rent reduction | R2 | UNREAD | — | — |
-| 1210 | Track security-deposit restitution | R2 | UNREAD | — | — |
-| 1211 | Track security-deposit bad-faith multiplier | R2 | UNREAD | — | — |
-| 1212 | Track quiet-enjoyment loss | R2 | UNREAD | — | — |
-| 1213 | Track nuisance loss | R2 | UNREAD | — | — |
-| 1214 | Track negligence loss | R2 | UNREAD | — | — |
-| 1215 | Track Cartwright overcharge | R2 | UNREAD | — | — |
-| 1216 | Track AB325 statutory treble | R2 | UNREAD | — | — |
-| 1217 | Reconcile rent-loss overlap | R2 | UNREAD | — | — |
-| 1218 | Reconcile REAP credit | R2 | UNREAD | — | — |
-| 1219 | Reconcile deposit versus rent | R2 | UNREAD | — | — |
-| 1220 | Reconcile antitrust versus rent | R2 | UNREAD | — | — |
-| 1221 | Display damages input provenance | R2 | UNREAD | — | — |
-| 1222 | Display damages formula | R2 | UNREAD | — | — |
-| 1223 | Display damages stacking rule | R2 | UNREAD | — | — |
-| 1224 | Display anti-double-counting rule | R2 | UNREAD | — | — |
-| 1225 | Block duplicate economic base | R2 | UNREAD | — | — |
-| 1226 | Require unit/month granularity | R2 | UNREAD | — | — |
-| 1227 | Require source for every input | R2 | UNREAD | — | — |
-| 1228 | Require confidence for every estimate | R2 | UNREAD | — | — |
-| 1229 | Mark model as inference | R2 | UNREAD | — | — |
-| 1230 | Export damages audit table | R2 | UNREAD | — | — |
-| 1231 | Store authority type | R2 | UNREAD | — | — |
-| 1232 | Store operative proposition | R2 | UNREAD | — | — |
-| 1233 | Store property-specific use | R2 | UNREAD | — | — |
-| 1234 | Store authority limitation | R2 | UNREAD | — | — |
-| 1235 | Store authority source URL | R2 | UNREAD | — | — |
-| 1236 | Store authority retrieval date | R2 | UNREAD | — | — |
-| 1237 | Store 1540 source category | R2 | UNREAD | — | — |
-| 1238 | Store source use | R2 | UNREAD | — | — |
-| 1239 | Store source freshness | R2 | UNREAD | — | — |
-| 1240 | Store source verification state | R2 | UNREAD | — | — |
-| 1241 | Detect stale legal source | R2 | UNREAD | — | — |
-| 1242 | Detect missing legal source URL | R2 | UNREAD | — | — |
-| 1243 | Detect unsupported legal proposition | R2 | UNREAD | — | — |
-| 1244 | Detect missing effective date | R2 | UNREAD | — | — |
-| 1245 | Detect jurisdiction mismatch | R2 | UNREAD | — | — |
-| 1246 | Detect source status mismatch | R2 | UNREAD | — | — |
-| 1247 | Link machine front to authority | R2 | UNREAD | — | — |
-| 1248 | Link machine front to evidence hold | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1249 | Link unit field to proof requirement | R2 | UNREAD | — | — |
-| 1250 | Link damages input to source | R2 | UNREAD | — | — |
-| 1251 | Display machine route in navigation | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1252 | Display machine route in shared inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1253 | Display unit record in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1254 | Display front record in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1255 | Display evidence hold in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1256 | Display activation record in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1257 | Display damages record in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1258 | Display source catalog in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1259 | Display machine history in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1260 | Display machine contradiction state | R2 | UNREAD | — | — |
-| 1261 | Filter machine fronts by status | R2 | UNREAD | — | — |
-| 1262 | Filter evidence holds by priority | R2 | UNREAD | — | — |
-| 1263 | Filter units by source status | R2 | UNREAD | — | — |
-| 1264 | Filter units by confidence | R2 | UNREAD | — | — |
-| 1265 | Filter activation sequence by order | R2 | UNREAD | — | — |
-| 1266 | Filter damages by bucket | R2 | UNREAD | — | — |
-| 1267 | Search machine fields | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1268 | Search machine sources | R2 | UNREAD | — | — |
-| 1269 | Keyboard-select machine rows | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1270 | Capture machine-route screenshot | R2 | UNREAD | — | — |
-| 1271 | Test 287-row import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1272 | Test 65-field preservation | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1273 | Test 12-front import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1274 | Test 39-authority import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1275 | Test 15-hold import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1276 | Test 13-step activation import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1277 | Test 9-bucket damages import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1278 | Test 32-source import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1279 | Test dated-input import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1280 | Test machine restart recovery | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1281 | Test source lead state | R2 | UNREAD | — | — |
-| 1282 | Test alleged state | R2 | UNREAD | — | — |
-| 1283 | Test inference state | R2 | UNREAD | — | — |
-| 1284 | Test unknown state | R2 | UNREAD | — | — |
-| 1285 | Test exact-address guard | R2 | UNREAD | — | — |
-| 1286 | Test unit-to-front link | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1287 | Test front-to-authority link | R2 | UNREAD | — | — |
-| 1288 | Test hold-to-evidence link | R2 | UNREAD | — | — |
-| 1289 | Test damages provenance | R2 | UNREAD | — | — |
-| 1290 | Test machine export gating | R2 | UNREAD | — | — |
-| 1291 | Prevent public allegation from becoming fact | R2 | UNREAD | — | — |
-| 1292 | Prevent title lead from becoming owner fact | R2 | UNREAD | — | — |
-| 1293 | Prevent permit existence from proving violation | R2 | UNREAD | — | — |
-| 1294 | Prevent resident report from proving pattern | R2 | UNREAD | — | — |
-| 1295 | Prevent common-system hypothesis from proving topology | R2 | UNREAD | — | — |
-| 1296 | Prevent source URL from proving property record | R2 | UNREAD | — | — |
-| 1297 | Prevent nearby-address conflation | R2 | UNREAD | — | — |
-| 1298 | Prevent parent-company assumption | R2 | UNREAD | — | — |
-| 1299 | Prevent defense suppression | R2 | UNREAD | — | — |
-| 1300 | Prevent unsupported remedy claim | R2 | UNREAD | — | — |
+| 1191 | Create machine deadline from explicit date | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1192 | Display activation output artifact | R2 | UNREAD | — | — |
+| 1193 | Display activation front unlocks | R2 | UNREAD | — | — |
+| 1194 | Display activation distinction warning | R2 | UNREAD | — | — |
+| 1195 | Timestamp each activation action | R2 | UNREAD | — | — |
+| 1196 | Audit each activation action | R2 | UNREAD | — | — |
+| 1197 | Allow activation action to create a gap | R2 | UNREAD | — | — |
+| 1198 | Allow activation action to create a deadline | R2 | UNREAD | — | — |
+| 1199 | Allow activation action to create a preservation hold | R2 | UNREAD | — | — |
+| 1200 | Prevent activation from implying liability | R2 | UNREAD | — | — |
+| 1201 | Prevent activation from bypassing safety remediation | R2 | UNREAD | — | — |
+| 1202 | Calculate habitability rent-loss base | R2 | UNREAD | — | — |
+| 1203 | Calculate fair-rental-value alternative | R2 | UNREAD | — | — |
+| 1204 | Track consequential expense separately | R2 | UNREAD | — | — |
+| 1205 | Track Civil Code 1942.4 actual damages | R2 | UNREAD | — | — |
+| 1206 | Track Civil Code 1942.4 statutory range | R2 | UNREAD | — | — |
+| 1207 | Track TAHO compensatory base | R2 | UNREAD | — | — |
+| 1208 | Track TAHO treble multiplier | R2 | UNREAD | — | — |
+| 1209 | Track TAHO statutory penalty range | R2 | UNREAD | — | — |
+| 1210 | Track REAP rent reduction | R2 | UNREAD | — | — |
+| 1211 | Track security-deposit restitution | R2 | UNREAD | — | — |
+| 1212 | Track security-deposit bad-faith multiplier | R2 | UNREAD | — | — |
+| 1213 | Track quiet-enjoyment loss | R2 | UNREAD | — | — |
+| 1214 | Track nuisance loss | R2 | UNREAD | — | — |
+| 1215 | Track negligence loss | R2 | UNREAD | — | — |
+| 1216 | Track Cartwright overcharge | R2 | UNREAD | — | — |
+| 1217 | Track AB325 statutory treble | R2 | UNREAD | — | — |
+| 1218 | Reconcile rent-loss overlap | R2 | UNREAD | — | — |
+| 1219 | Reconcile REAP credit | R2 | UNREAD | — | — |
+| 1220 | Reconcile deposit versus rent | R2 | UNREAD | — | — |
+| 1221 | Reconcile antitrust versus rent | R2 | UNREAD | — | — |
+| 1222 | Display damages input provenance | R2 | UNREAD | — | — |
+| 1223 | Display damages formula | R2 | UNREAD | — | — |
+| 1224 | Display damages stacking rule | R2 | UNREAD | — | — |
+| 1225 | Display anti-double-counting rule | R2 | UNREAD | — | — |
+| 1226 | Block duplicate economic base | R2 | UNREAD | — | — |
+| 1227 | Require unit/month granularity | R2 | UNREAD | — | — |
+| 1228 | Require source for every input | R2 | UNREAD | — | — |
+| 1229 | Require confidence for every estimate | R2 | UNREAD | — | — |
+| 1230 | Mark model as inference | R2 | UNREAD | — | — |
+| 1231 | Export damages audit table | R2 | UNREAD | — | — |
+| 1232 | Store authority type | R2 | UNREAD | — | — |
+| 1233 | Store operative proposition | R2 | UNREAD | — | — |
+| 1234 | Store property-specific use | R2 | UNREAD | — | — |
+| 1235 | Store authority limitation | R2 | UNREAD | — | — |
+| 1236 | Store authority source URL | R2 | UNREAD | — | — |
+| 1237 | Store authority retrieval date | R2 | UNREAD | — | — |
+| 1238 | Store 1540 source category | R2 | UNREAD | — | — |
+| 1239 | Store source use | R2 | UNREAD | — | — |
+| 1240 | Store source freshness | R2 | UNREAD | — | — |
+| 1241 | Store source verification state | R2 | UNREAD | — | — |
+| 1242 | Review machine source without elevating lead | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1243 | Detect stale legal source | R2 | UNREAD | — | — |
+| 1244 | Detect missing legal source URL | R2 | UNREAD | — | — |
+| 1245 | Detect unsupported legal proposition | R2 | UNREAD | — | — |
+| 1246 | Detect missing effective date | R2 | UNREAD | — | — |
+| 1247 | Detect jurisdiction mismatch | R2 | UNREAD | — | — |
+| 1248 | Detect source status mismatch | R2 | UNREAD | — | — |
+| 1249 | Link machine front to authority | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1250 | Link machine front to evidence hold | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1251 | Link unit field to proof requirement | R2 | UNREAD | — | — |
+| 1252 | Link damages input to source | R2 | UNREAD | — | — |
+| 1253 | Display machine route in navigation | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1254 | Display machine route in shared inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1255 | Display unit record in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1256 | Display front record in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1257 | Display evidence hold in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1258 | Display activation record in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1259 | Display damages record in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1260 | Display source catalog in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1261 | Display authority register | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1262 | Display machine history in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1263 | Display machine contradiction state | R2 | UNREAD | — | — |
+| 1264 | Filter machine fronts by status | R2 | UNREAD | — | — |
+| 1265 | Filter evidence holds by priority | R2 | UNREAD | — | — |
+| 1266 | Filter units by source status | R2 | UNREAD | — | — |
+| 1267 | Filter units by confidence | R2 | UNREAD | — | — |
+| 1268 | Filter activation sequence by order | R2 | UNREAD | — | — |
+| 1269 | Filter damages by bucket | R2 | UNREAD | — | — |
+| 1270 | Search machine fields | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1271 | Search machine sources | R2 | UNREAD | — | — |
+| 1272 | Keyboard-select machine rows | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1273 | Capture machine-route screenshot | R2 | UNREAD | — | — |
+| 1274 | Test 287-row import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1275 | Test 65-field preservation | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1276 | Test 12-front import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1277 | Test 39-authority import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1278 | Test 15-hold import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1279 | Test 13-step activation import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1280 | Test 9-bucket damages import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1281 | Test 32-source import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1282 | Test dated-input import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1283 | Test machine restart recovery | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1284 | Test source lead state | R2 | UNREAD | — | — |
+| 1285 | Test alleged state | R2 | UNREAD | — | — |
+| 1286 | Test inference state | R2 | UNREAD | — | — |
+| 1287 | Test unknown state | R2 | UNREAD | — | — |
+| 1288 | Test exact-address guard | R2 | UNREAD | — | — |
+| 1289 | Test unit-to-front link | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1290 | Test front-to-authority link | R2 | UNREAD | — | — |
+| 1291 | Test hold-to-evidence link | R2 | UNREAD | — | — |
+| 1292 | Test damages provenance | R2 | UNREAD | — | — |
+| 1293 | Test machine deadline creation | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1294 | Test machine export gating | R2 | UNREAD | — | — |
+| 1295 | Prevent public allegation from becoming fact | R2 | UNREAD | — | — |
+| 1296 | Prevent title lead from becoming owner fact | R2 | UNREAD | — | — |
+| 1297 | Prevent permit existence from proving violation | R2 | UNREAD | — | — |
+| 1298 | Prevent resident report from proving pattern | R2 | UNREAD | — | — |
+| 1299 | Prevent common-system hypothesis from proving topology | R2 | UNREAD | — | — |
+| 1300 | Prevent source URL from proving property record | R2 | UNREAD | — | — |
 | 1301 | shared shell rail: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
 | 1302 | shared shell rail: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
 | 1303 | shared shell rail: renders a selected state with inspector synchronization | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
