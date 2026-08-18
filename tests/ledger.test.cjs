@@ -12,7 +12,7 @@ async function main() {
     assert.equal(state.ledger.requirements.length, 1050)
     assert.ok(state.sourceRegistry.families.includes('CLO'))
     assert.ok(state.sourceRegistry.attachmentCount >= 1)
-    assert.ok(state.sourceRegistry.sources.every((source) => source.textPath && fs.existsSync(path.join(__dirname, '..', source.textPath))))
+    assert.ok(state.sourceRegistry.sources.every((source) => source.sha256 && !source.filename && !source.textPath))
     assert.equal(store.ledgerSummary().total, 1050)
     await store.updateRequirement('0001', 'VERIFIED', { testEvidence: ['ledger.test.cjs'] })
     assert.equal(store.snapshot().ledger.requirements[0].status, 'VERIFIED')

@@ -20,7 +20,7 @@ const registry = {
   version: 1,
   generatedAt: new Date().toISOString(),
   attachmentCount: files.length,
-  sources: files,
+  sources: files.map(({ id, bytes, lines, sha256, ingestedAt }) => ({ id, bytes, lines, sha256, ingestedAt })),
   families: familyLabels,
   rules: { pastedClaims: 'LEAD_UNTIL_PRIMARY_SOURCE', residentReports: 'LEAD_UNTIL_CORROBORATED', addressIdentity: 'EXACT_PROPERTY_REQUIRED', contextImport: 'EXPLICIT_ACTION_REQUIRED' }
 }
@@ -39,6 +39,7 @@ for (const index of implementedIds) {
 
 fs.mkdirSync(output, { recursive: true })
 fs.writeFileSync(path.join(output, 'source-registry.json'), JSON.stringify(registry, null, 2) + '\n')
+fs.writeFileSync(path.join(output, 'local-source-manifest.json'), JSON.stringify({ generatedAt: registry.generatedAt, sources: files }, null, 2) + '\n')
 fs.writeFileSync(path.join(output, 'MASTER-LEDGER.json'), JSON.stringify({ version: 2, total: 1050, generatedAt: new Date().toISOString(), requirements }, null, 2) + '\n')
 const implemented = requirements.filter((item) => item.status === 'IMPLEMENTED').length
 const markdown = ['# Proscriptio Master Completion Ledger', '', 'Generated from the 1,050-point completion plan.', '', `- Total requirements: **${requirements.length}**`, `- Implemented baseline: **${implemented}**`, `- Remaining requirements: **${requirements.length - implemented}**`, `- Attachment sources indexed: **${files.length}**`, '', '| ID | Status | Feature refs | Evidence |', '|---:|---|---|---|', ...requirements.map((item) => `| ${item.id} | ${item.status} | ${item.featureRefs.join(', ') || '—'} | ${item.implementationEvidence.join(', ') || '—'} |`), ''].join('\n')
