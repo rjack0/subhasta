@@ -1,12 +1,25 @@
 # Subhasta / CLO
 
+## Master completion ledger
+
+The implementation ledger is executable and repository-local:
+
+- `docs/MASTER-LEDGER.json` contains 1,050 atomic requirement records.
+- `docs/MASTER-LEDGER.md` is the review projection.
+- `docs/source-registry.json` records indexed attachment sources, hashes, and source families.
+- `docs/source-extracts/` preserves the original pasted text used for intake.
+- `npm run ledger:build` regenerates the registry and ledger from the local attachment directory.
+- `npm run ledger:check` verifies the persisted ledger contract.
+
+The ledger distinguishes `IMPLEMENTED`, `TESTED`, and `VERIFIED`; scaffolding is not automatically treated as complete.
+
 Subhasta is an Electron litigation operating environment. CLO is the primary shell; Field Atlas and Cicero are secondary tools mounted from the same desktop navigation. The repository currently contains a seeded local case store and a functional first implementation of evidence staging, SHA-256 provenance, extracted text, audit history, proposition creation, draft building, validation gating, and contextual imports.
 
 The primary seeded matter is the supplied `1540_Vine_Camden_Litigation_War_Room.xlsx` baseline. Its 287-unit matrix, 41 legal fronts, evidence registry, critical clocks, authorities, property facts, and handling rules are preserved in `fixtures/camden-1540-vine.json` and surfaced through the Camden `COVERAGE` route. Workbook leads remain context until primary evidence is committed.
 
 ## Current quality gate
 
-The build is measured against [the hyper-precise CLO acceptance rubric](docs/CLO-RUBRIC.md). The current honest score and unresolved work are maintained in [the status ledger](docs/CLO-STATUS.md). The current ledger is `90/100 A-`; remaining deductions are OCR, deeper domain mutations, UI automation, and pixel-level visual auditing.
+The build is measured against [the hyper-precise CLO acceptance rubric](docs/CLO-RUBRIC.md). The current implementation tranche is summarized in [the status ledger](docs/CLO-STATUS.md); the full completion ledger is the 1,050-item master ledger described above. The master ledger is the authoritative completion count.
 
 ## Desktop structure
 

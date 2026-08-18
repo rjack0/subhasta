@@ -14,7 +14,10 @@
     "test:constitution": "node tests/constitution.test.cjs",
     "test:camden": "node tests/camden.test.cjs",
     "test:performance": "node tests/performance.test.cjs",
-    "test": "npm run test:store && npm run test:constitution && npm run test:camden && npm run test:performance",
+    "test:ledger": "node tests/ledger.test.cjs",
+    "ledger:build": "node scripts/build-master-ledger.cjs",
+    "ledger:check": "node tests/ledger.test.cjs",
+    "test": "npm run test:store && npm run test:constitution && npm run test:camden && npm run test:ledger && npm run test:performance",
     "capture:screenshots": "electron scripts/capture-screenshots.cjs"
   }
 }

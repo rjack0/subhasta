@@ -4,6 +4,7 @@ const path = require('node:path')
 const { spawnSync } = require('node:child_process')
 const { Worker } = require('node:worker_threads')
 const camdenFixture = require('../fixtures/camden-1540-vine.json')
+const { makeLedgerState, sourceRegistry } = require('./ledger.cjs')
 
 const now = () => new Date().toISOString()
 const id = (prefix) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`
@@ -13,11 +14,13 @@ function normalize(data) {
   const normalized = { ...data, version: Math.max(Number(data.version || 0), 2) }
   for (const name of collectionNames) if (!Array.isArray(normalized[name])) normalized[name] = []
   normalized.audit = normalized.audit || []
+  normalized.ledger = normalized.ledger || makeLedgerState()
+  normalized.sourceRegistry = normalized.sourceRegistry || sourceRegistry()
   return normalized
 }
 
 function findObject(data, type, objectId) {
-  const collection = { fact: 'facts', evidence: 'evidence', law: 'law', claim: 'claims', element: 'elements', procedure: 'procedure', draft: 'drafts', proposition: 'propositions', deadline: 'deadlines', person: 'people', event: 'events' }[type]
+  const collection = { fact: 'facts', evidence: 'evidence', law: 'law', authority: 'authorities', claim: 'claims', legalClaim: 'legalClaims', element: 'elements', legalElement: 'legalElements', procedure: 'procedure', draft: 'drafts', proposition: 'propositions', deadline: 'deadlines', person: 'people', event: 'events', organization: 'organizations', unit: 'units', notice: 'notices', filing: 'courtFilings' }[type]
   return collection ? data[collection].find((item) => item.id === objectId) : null
 }
 
@@ -77,15 +80,20 @@ const seed = () => {
   context: [],
   audit: [{ id: id('audit'), at: now(), action: 'SEEDED MATTER', object: 'matter-001' }]
   })
+  data.ledger = makeLedgerState()
+  data.sourceRegistry = sourceRegistry()
   const rows = (sheet) => camdenFixture.sheets[sheet]?.rows || []
   const source = camdenFixture.sourceFile
   const parseLinks = (value) => String(value || '').split(',').map((item) => item.trim()).filter(Boolean)
   data.matter = { id: 'matter-camden-vine', name: '1540 N. Vine / Vinyl Hollywood', subtitle: 'Camden transition · Los Angeles · controlled war room', status: 'ACTIVE', address: '1540 N. Vine Street, Los Angeles, CA' }
   data.units = rows('Unit Matrix').map((row) => ({ id: row['Claimant ID'] || `unit-${row.sourceRow}`, matterId: data.matter.id, unit: row['Apt / Unit'], claimantId: row['Claimant ID'], status: row['Claim status'] || 'OPEN', source: row['Public unit info source'], publicRecord: row, createdAt: now(), updatedAt: now() }))
   data.legalClaims = rows('Legal Fronts').map((row) => ({ id: row['Front ID'], matterId: data.matter.id, title: row['Front / theory'], authority: row.Authority, status: row['Camden status'], trigger: row['Exact trigger / elements'], remedy: row['Potential legal effect / remedy'], priority: row.Priority, defendants: row['Primary defendant(s) if facts fit'], defense: row['Likely defense'], proofNeeded: row['Plaintiff-side answer / proof needed'], source: row['Source URL'], sourceRow: row.sourceRow, createdAt: now(), updatedAt: now() }))
+  data.legalElements = data.legalClaims.flatMap((claim) => String(claim.trigger || '').split(/;|\.|\n/).map((text, index) => text.trim()).filter(Boolean).slice(0, 8).map((text, index) => ({ id: `${claim.id}-element-${index + 1}`, claimId: claim.id, title: text, status: 'HYPOTHESIS', matterId: data.matter.id, createdAt: now(), updatedAt: now() })))
+  data.elementRequirements = data.legalClaims.map((claim) => ({ id: `${claim.id}-proof`, claimId: claim.id, requirement: claim.proofNeeded, evidenceRequired: true, source: claim.source, status: 'OPEN', matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
   data.evidence = data.evidence.concat(rows('Evidence Registry').map((row) => ({ id: row['Evidence ID'], name: row['Evidence object'], type: 'WAR_ROOM_REGISTER', hash: null, source: row['Custodian/source'], status: row['Current state'], links: parseLinks(row['Linked fronts']), preservationRisk: row['Preservation risk'], extractionRequest: row['Exact extraction / request'], sourceUrl: row['Source URL'], sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() })))
   data.procedure = data.procedure.concat(rows('Critical Clocks').map((row) => ({ id: row['Clock ID'], title: row.Trigger, date: row['Duration / deadline'], type: 'LEGAL_CLOCK', status: row['Current state'], source: row['Source URL'], consequence: row['Legal consequence / decision'], triggerProof: row['How to establish trigger'], sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() })))
   data.law = data.law.concat(rows('Authorities').map((row) => ({ id: `authority-${row.sourceRow}`, title: row.Authority, jurisdiction: 'CALIFORNIA / LOS ANGELES', status: row['Important limitation']?.includes('unknown') ? 'HYPOTHESIS' : 'VERIFIED', text: row['Exact proposition for this case'], proposition: row['Exact proposition for this case'], use: row.Use, limitation: row['Important limitation'], source: row['Source URL'], sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() })))
+  data.authorities = data.law.map((authority) => ({ ...authority, objectType: 'AUTHORITY' }))
   data.facts = data.facts.concat(rows('Property Facts').map((row) => ({ id: row['Fact ID'], title: row['Property-specific fact'], detail: row['Why it matters'], status: row.Status, source: row['Source URL'], verification: row['Exact verification / next record'], sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() })))
   data.context = [{ id: 'ctx-camden-workbook', type: 'WAR_ROOM_WORKBOOK', status: 'CONTEXT_ONLY', source, sourceWorkbook: camdenFixture.sourceWorkbook, sheetCounts: Object.fromEntries(Object.entries(camdenFixture.sheets).map(([key, value]) => [key, value.rows.length])), handlingRules: rows('Read Me'), lastSourceCheck: '2026-08-17', sourceRegistry: [
     { id: 'src-lahd', entity: 'LAHD', type: 'OFFICIAL ENFORCEMENT PORTAL', status: 'ACCESSIBLE / PROPERTY RECORD REQUIRED', url: 'https://housing.lacity.gov/residents/just-cause-for-eviction-ordinance-jco' },
@@ -129,7 +137,25 @@ async function createStore(filePath) {
   return {
     snapshot: () => data,
     async persist() { if (sqlite) writeSqlite(filePath, data); else await fs.writeFile(filePath, JSON.stringify(data, null, 2)) },
-    async update(patch) { data = { ...data, ...patch }; data.audit.push({ id: id('audit'), at: now(), action: 'UPDATE', object: 'matter-001' }); await this.persist(); return data },
+    async update(patch) {
+      if (!patch || typeof patch !== 'object' || Array.isArray(patch)) throw new Error('Invalid state patch')
+      data = { ...data, ...patch }
+      data.audit.push({ id: id('audit'), at: now(), action: 'UPDATE', object: data.matter.id })
+      await this.persist()
+      return data
+    },
+    async updateRequirement(requirementId, status, evidence = {}) {
+      const allowed = new Set(['UNREAD', 'PARSED', 'MAPPED', 'IMPLEMENTED', 'TESTED', 'VERIFIED', 'DEFERRED', 'REJECTED'])
+      const item = data.ledger.requirements.find((requirement) => requirement.id === String(requirementId).padStart(4, '0'))
+      if (!item) throw new Error('Requirement does not exist')
+      if (!allowed.has(status)) throw new Error('Invalid requirement status')
+      item.status = status
+      item.updatedAt = now()
+      for (const key of ['sourceRefs', 'featureRefs', 'implementationEvidence', 'testEvidence', 'screenshotEvidence']) if (Array.isArray(evidence[key])) item[key] = evidence[key]
+      data.audit.push({ id: id('audit'), at: now(), action: `REQUIREMENT ${status}`, object: item.id })
+      await this.persist()
+      return data
+    },
     async applyAction(action, payload = {}) {
       if (action === 'create-proposition') {
         const authorityId = payload.authorityId || data.law[0]?.id
@@ -217,7 +243,27 @@ async function createStore(filePath) {
       return { id: id('stage'), name: 'Clipboard text', originalPath: null, bytes: bytes.length, hash: `sha256:${hash}`, type: 'TEXT', source: 'Clipboard import', status: 'STAGED', extractedText: text, custodian: null, originalTimestamps: null }
     },
     async commitEvidence(staged) {
-      const committed = staged.filter((item) => !data.evidence.some((existing) => existing.hash && existing.hash === item.hash)).map((item) => ({ ...item, id: id('ev'), status: 'VERIFIED', links: [], linkedEvents: [], linkedPeople: [], linkedSystems: [], linkedElements: [], corroboration: 'UNREVIEWED', contradiction: null, importedAt: now(), createdAt: now() }))
+      if (!Array.isArray(staged) || staged.some((item) => !item || item.status !== 'STAGED' || !/^sha256:[a-f0-9]{64}$/.test(item.hash))) throw new Error('Evidence must be staged with a valid SHA-256 hash')
+      for (const item of staged) {
+        if (item.originalPath) {
+          const bytes = await fs.readFile(item.originalPath)
+          const digest = crypto.createHash('sha256').update(bytes).digest('hex')
+          if (item.hash !== `sha256:${digest}`) throw new Error(`Evidence hash mismatch for ${item.name || item.originalPath}`)
+        } else if (item.source === 'Clipboard import') {
+          const digest = crypto.createHash('sha256').update(String(item.extractedText || ''), 'utf8').digest('hex')
+          if (item.hash !== `sha256:${digest}`) throw new Error('Clipboard evidence hash mismatch')
+        }
+      }
+      const evidenceDirectory = path.join(path.dirname(filePath), 'evidence-store')
+      await fs.mkdir(evidenceDirectory, { recursive: true })
+      const committed = []
+      for (const item of staged) {
+        if (data.evidence.some((existing) => existing.hash && existing.hash === item.hash)) continue
+        const storedPath = path.join(evidenceDirectory, item.hash.slice('sha256:'.length) + (item.type === 'TEXT' ? '.txt' : path.extname(item.originalPath || '') || '.bin'))
+        if (item.originalPath) await fs.copyFile(item.originalPath, storedPath)
+        else await fs.writeFile(storedPath, String(item.extractedText || ''), 'utf8')
+        committed.push({ ...item, id: id('ev'), status: 'VERIFIED', storedPath, links: [], linkedEvents: [], linkedPeople: [], linkedSystems: [], linkedElements: [], corroboration: 'UNREVIEWED', contradiction: null, importedAt: now(), createdAt: now(), updatedAt: now(), matterId: data.matter.id })
+      }
       const duplicates = staged.filter((item) => data.evidence.some((existing) => existing.hash && existing.hash === item.hash)).map((item) => ({ ...item, status: 'DUPLICATE' }))
       data.extractedText.push(...committed.filter((item) => item.extractedText).map((item) => ({ id: id('text'), evidenceId: item.id, text: item.extractedText, createdAt: now() })))
       data.evidence.push(...committed)
@@ -228,7 +274,17 @@ async function createStore(filePath) {
       const active = data.agentJobs.filter((job) => job.status === 'RUNNING').length
       return { db: 'VERIFIED', index: 'READY', agents: active, jobs: data.agentJobs.filter((job) => job.status !== 'COMPLETE').length, completedJobs: data.agentJobs.filter((job) => job.status === 'COMPLETE').length }
     },
-    async addContext(record) { data.context.push({ ...record, id: id('ctx'), createdAt: now(), status: 'CONTEXT_ONLY' }); await this.persist(); return data }
+    async addContext(record) {
+      if (!record || typeof record !== 'object' || Array.isArray(record)) throw new Error('Context record must be an object')
+      data.context.push({ ...record, id: id('ctx'), createdAt: now(), updatedAt: now(), status: 'CONTEXT_ONLY', matterId: data.matter.id })
+      data.audit.push({ id: id('audit'), at: now(), action: 'IMPORT AS CONTEXT', object: data.context.at(-1).id })
+      await this.persist()
+      return data
+    },
+    ledgerSummary() {
+      const counts = data.ledger.requirements.reduce((result, item) => { result[item.status] = (result[item.status] || 0) + 1; return result }, {})
+      return { total: data.ledger.requirements.length, counts, sourceCount: data.ledger.sourceCount, checksum: data.ledger.checksum }
+    }
   }
 }
 

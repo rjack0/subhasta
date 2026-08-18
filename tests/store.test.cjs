@@ -27,6 +27,7 @@ async function main() {
 
     await store.commitEvidence([staged])
     assert.equal(store.snapshot().evidence.at(-1).status, 'VERIFIED')
+    assert.ok(await fs.stat(store.snapshot().evidence.at(-1).storedPath))
     assert.equal(store.health().completedJobs, 1)
     assert.equal(store.snapshot().extractedText.at(-1).evidenceId, store.snapshot().evidence.at(-1).id)
     const evidenceId = store.snapshot().evidence.at(-1).id
@@ -48,6 +49,9 @@ async function main() {
     await store.applyAction('validate-filing')
     assert.equal(store.snapshot().drafts[0].validation, 'FAILED')
     await assert.rejects(() => store.applyAction('export-filing'), /validation has not passed/)
+
+    const forged = { ...staged, hash: `sha256:${'0'.repeat(64)}` }
+    await assert.rejects(() => store.commitEvidence([forged]), /hash mismatch/)
 
     await store.update({ elements: store.snapshot().elements.map((element) => ({ ...element, status: 'COMPLETE', proof: 100, missing: null })) })
     await store.applyAction('validate-filing')

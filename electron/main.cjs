@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron')
 const path = require('node:path')
+const fs = require('node:fs/promises')
 const { clipboard } = require('electron')
 const { createStore } = require('./store.cjs')
 
@@ -28,12 +29,19 @@ function createWindow() {
 
 function registerIpc() {
   ipcMain.handle('case:state', () => store.snapshot())
-  ipcMain.handle('case:save', (_, patch) => store.update(patch))
+  ipcMain.handle('case:save', (_, patch) => {
+    if (!patch || typeof patch !== 'object' || Array.isArray(patch)) throw new Error('Invalid state patch')
+    const allowed = new Set(['matter', 'strategy'])
+    if (Object.keys(patch).some((key) => !allowed.has(key))) throw new Error('State patch contains a protected collection')
+    return store.update(patch)
+  })
   ipcMain.handle('case:action', (_, action, payload) => {
     if (typeof action !== 'string' || !/^[a-z-]+$/.test(action)) throw new Error('Invalid case action')
     return store.applyAction(action, payload && typeof payload === 'object' ? payload : {})
   })
   ipcMain.handle('case:search', (_, query) => store.search(query))
+  ipcMain.handle('ledger:state', () => store.ledgerSummary())
+  ipcMain.handle('ledger:update', (_, requirementId, status, evidence) => store.updateRequirement(requirementId, status, evidence))
   ipcMain.handle('evidence:link', (_, evidenceId, targetType, targetId) => store.linkEvidence(evidenceId, targetType, targetId))
   ipcMain.handle('procedure:derive-deadlines', () => store.deriveDeadlines())
   ipcMain.handle('evidence:choose-files', async () => {
@@ -44,7 +52,7 @@ function registerIpc() {
   ipcMain.handle('evidence:choose-directory', async () => {
     const result = await dialog.showOpenDialog(mainWindow, { properties: ['openDirectory'] })
     if (result.canceled) return []
-    const entries = await require('node:fs/promises').readdir(result.filePaths[0], { withFileTypes: true })
+    const entries = await fs.readdir(result.filePaths[0], { withFileTypes: true })
     const files = entries.filter((entry) => entry.isFile()).map((entry) => path.join(result.filePaths[0], entry.name))
     return Promise.all(files.map((filePath) => store.stageEvidence(filePath)))
   })

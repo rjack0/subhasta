@@ -1,5 +1,11 @@
 # CLO Build Status
 
+## Master Completion Ledger
+
+The repository now includes `docs/MASTER-LEDGER.json` and `docs/MASTER-LEDGER.md`, containing 1,050 atomic requirements plus a source registry for 52 locally available pasted attachment files. The ledger distinguishes implementation, testing, and visual verification; related scaffolding is not treated as completion.
+
+The current baseline records 497 requirements as implemented from existing code and test evidence. The remaining 553 requirements are intentionally open.
+
 This ledger is intentionally conservative. It records what is implemented and verified in the repository, not what is planned.
 
 ## Current Baseline After Enactment Pass
@@ -12,7 +18,7 @@ This ledger is intentionally conservative. It records what is implemented and ve
 | Visual constitution | 18 | 25 | Shell geometry tokens, palette, responsive rules, 1440px/1024px/mobile captures, and corrected mobile fallback are verified; computed geometry and color-area audit remain |
 | Accessibility, interaction, performance | 9 | 10 | Search/Escape, route shortcuts, visible focus/select states, non-chat search, mobile hierarchy, ArrowUp/ArrowDown/Enter navigation, paginated long lists, and 10,000-object search benchmark exist |
 | Verification, documentation, delivery | 5 | 5 | Store, constitution, Camden fixture, and performance tests, rubric, README, background Electron smoke launch, capture runner, and 17 generated screenshots exist |
-| **Total** | **90** | **100** | **A-**; full domain integration, OCR, UI automation, and pixel-level audit remain |
+| **Current implementation tranche** | **90** | **100** | **A-** for the original tranche rubric; this is not the master completion score |
 
 ## Verified In This Repository
 
@@ -32,6 +38,8 @@ This ledger is intentionally conservative. It records what is implemented and ve
 - `git diff --check` passes for the current source tree.
 
 ## Not Yet Verified
+
+- The master completion ledger remains open: 497 requirements have implementation evidence and 553 remain open or require additional verification.
 
 - OCR extraction and scanned-PDF fallback.
 - Typed repository validation beyond the current link validator.
