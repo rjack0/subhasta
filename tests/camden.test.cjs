@@ -35,6 +35,8 @@ async function main() {
       assert.ok(activated.machineActions.some((item) => item.activationId === 'AS-1' && item.type === 'ACTIVATION'))
       const linked = await store.applyAction('link-machine-front', { frontId: 'MF-1', targetType: 'evidenceHold', targetId: 'EH-2' })
       assert.ok(linked.machineLinks.some((item) => item.frontId === 'MF-1' && item.targetId === 'EH-2'))
+      const authorityLinked = await store.applyAction('link-machine-front', { frontId: 'MF-1', targetType: 'machineAuthority', targetId: 'MP-2' })
+      assert.ok(authorityLinked.machineLinks.some((item) => item.frontId === 'MF-1' && item.targetId === 'MP-2' && item.targetType === 'machineAuthority'))
       const unitLinked = await store.applyAction('link-machine-unit', { unitId: data.unitMatrixDetailed[0].id, targetType: 'machineFront', targetId: 'MF-1' })
       assert.ok(unitLinked.machineLinks.some((item) => item.unitId === data.unitMatrixDetailed[0].id && item.targetId === 'MF-1'))
       const reviewed = await store.applyAction('review-machine-source', { sourceId: 'SC-2' })
