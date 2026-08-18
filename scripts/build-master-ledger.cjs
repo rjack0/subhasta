@@ -25,8 +25,8 @@ const registry = {
   rules: { pastedClaims: 'LEAD_UNTIL_PRIMARY_SOURCE', residentReports: 'LEAD_UNTIL_CORROBORATED', addressIdentity: 'EXACT_PROPERTY_REQUIRED', contextImport: 'EXPLICIT_ACTION_REQUIRED' }
 }
 
-const requirements = Array.from({ length: 1300 }, (_, index) => ({
-  id: String(index + 1).padStart(4, '0'), description: index < 1050 ? `Legacy plan point ${String(index + 1).padStart(4, '0')}` : `1540 N. Vine machine extension point ${String(index + 1).padStart(4, '0')}`, sourceRefs: index < 1050 ? ['CLO', 'OPS'] : ['CAM', 'WRK', 'CLO'], repeat: index < 1050 ? 'R1' : 'R2', status: 'UNREAD', featureRefs: [], implementationEvidence: [], testEvidence: [], screenshotEvidence: [], updatedAt: null
+const requirements = Array.from({ length: 1600 }, (_, index) => ({
+  id: String(index + 1).padStart(4, '0'), description: index < 1050 ? `Legacy plan point ${String(index + 1).padStart(4, '0')}` : index < 1300 ? `1540 N. Vine machine extension point ${String(index + 1).padStart(4, '0')}` : `CLO representation acceptance point ${String(index + 1).padStart(4, '0')}`, sourceRefs: index < 1050 ? ['CLO', 'OPS'] : index < 1300 ? ['CAM', 'WRK', 'CLO'] : ['CLO', 'VIS', 'CAM', 'WRK'], repeat: index < 1050 ? 'R1' : index < 1300 ? 'R2' : 'R3', status: 'UNREAD', featureRefs: [], implementationEvidence: [], testEvidence: [], screenshotEvidence: [], updatedAt: null
 }))
 const machineTopics = [
   'Verify exact fee-title SPV identity from recorded deed', 'Verify successor manager and service agent disclosure', 'Verify Camden predecessor control period', 'Verify public sale date against deed date', 'Verify 287-unit asset identity', 'Verify 37 known public unit IDs', 'Track 250 unknown unit IDs', 'Store building certificate-of-occupancy year', 'Store current brand and legacy operator', 'Store public sale price as a lead',
@@ -63,12 +63,59 @@ machineTopics.slice(0, 250).forEach((description, offset) => {
   item.description = description
   item.sourceRefs = ['CAM', 'WRK', 'CLO']
   item.repeat = 'R2'
-  if (index <= 1100) {
-    item.status = 'IMPLEMENTED'
-    item.featureRefs = ['machine-workbook-import', 'machine-route']
-    item.implementationEvidence = ['electron/store.cjs', 'clo/renderer.js']
-  }
 })
+const implementedMachine = [
+  'Verify 287-unit asset identity', 'Store 37 known public unit IDs', 'Track 250 unknown unit IDs', 'Render unit-level epistemic state',
+  'Display machine route in navigation', 'Display machine route in shared inspector', 'Display unit record in inspector', 'Display front record in inspector',
+  'Display evidence hold in inspector', 'Display activation record in inspector', 'Display damages record in inspector', 'Display source catalog in inspector',
+  'Display machine history in inspector', 'Search machine fields', 'Keyboard-select machine rows', 'Test 287-row import', 'Test 65-field preservation',
+  'Test 12-front import', 'Test 39-authority import', 'Test 15-hold import', 'Test 13-step activation import', 'Test 9-bucket damages import',
+  'Test 32-source import', 'Test dated-input import', 'Test machine restart recovery', 'Test unit-to-front link', 'Require source row for machine record',
+  'Require audit history for machine mutation', 'Require matter ID for machine object', 'Require timestamps for machine object', 'Require status for machine object',
+  'Require explicit context-only state', 'Link machine front to evidence hold'
+]
+for (const description of implementedMachine) {
+  const item = requirements.find((candidate) => candidate.description === description)
+  if (item) { item.status = 'IMPLEMENTED'; item.featureRefs = ['machine-workbook-import', 'machine-route']; item.implementationEvidence = ['electron/store.cjs', 'clo/renderer.js', 'tests/camden.test.cjs']; item.updatedAt = new Date().toISOString() }
+}
+const representationSurfaces = [
+  'shared shell rail', 'shared top bar', 'shared status strip', 'shared inspector', 'Command legal branch band', 'Command next-action field', 'Command live-risk field', 'Command transition chronology', 'Evidence reality map', 'Evidence source queue',
+  'Evidence import drawer', 'Evidence chronology', 'Law authority tree', 'Law source text', 'Law proposition chain', 'Elements claim selector', 'Elements proof panel', 'Elements provenance graph', 'Elements build pipeline', 'Procedure docket chronology',
+  'Procedure dependency field', 'Strategy judge surface', 'Strategy opponent surface', 'Draft paragraph list', 'Draft source rail', 'Deadline time field', 'Deadline derivation inspector', 'Field Atlas context import', 'Cicero organization profile', 'Machine unit matrix'
+]
+const representationChecks = [
+  'renders a loading state without shifting the shell', 'renders an empty state with a next action and no marketing copy', 'renders a selected state with inspector synchronization', 'renders an unselected state with neutral hierarchy', 'renders a pending ochre state with a text label', 'renders a contradiction oxide state with a text label', 'renders a verified cobalt state with a source label', 'renders a complete viridian state with a completion label', 'renders a keyboard-focus state without hover dependency', 'renders a responsive state without hiding source or action semantics'
+]
+const representationTopics = representationSurfaces.flatMap((surface) => representationChecks.map((check) => `${surface}: ${check}`))
+representationTopics.forEach((description, offset) => {
+  const index = 1301 + offset
+  const item = requirements[index - 1]
+  item.description = description
+  item.sourceRefs = ['CLO', 'VIS', 'CAM', 'WRK']
+  item.repeat = 'R3'
+})
+const implementedRepresentation = [
+  'shared shell rail: renders a selected state with inspector synchronization',
+  'shared top bar: renders a selected state with inspector synchronization',
+  'shared status strip: renders a verified cobalt state with a source label',
+  'shared inspector: renders a selected state with inspector synchronization',
+  'Command legal branch band: renders a selected state with inspector synchronization',
+  'Command next-action field: renders a selected state with inspector synchronization',
+  'Evidence reality map: renders an unselected state with neutral hierarchy',
+  'Evidence source queue: renders a selected state with inspector synchronization',
+  'Evidence import drawer: renders a pending ochre state with a text label',
+  'Law authority tree: renders a selected state with inspector synchronization',
+  'Law source text: renders a verified cobalt state with a source label',
+  'Elements provenance graph: renders a selected state with inspector synchronization',
+  'Procedure docket chronology: renders a selected state with inspector synchronization',
+  'Machine unit matrix: renders a selected state with inspector synchronization',
+  'Machine unit matrix: renders a keyboard-focus state without hover dependency',
+  'Machine unit matrix: renders a responsive state without hiding source or action semantics'
+]
+for (const description of implementedRepresentation) {
+  const item = requirements.find((candidate) => candidate.description === description)
+  if (item) { item.status = 'IMPLEMENTED'; item.featureRefs = ['shared-renderer-surfaces']; item.implementationEvidence = ['clo/renderer.js', 'clo/styles.css']; item.updatedAt = new Date().toISOString() }
+}
 const implementedIds = [1, 2, 3, 4, 7, 8, 9, 10, 20, 21, 31, 32, 35, 36, 37, 38, 39, 40, 41, 45, 46, 51, 52, 53, 54, 57, 58, 59, 60, 61, 64, 65, 68, 69, 72, 73, 74, 75, 78, 79, 80, 81, 83, 84, 85, 99, 101, 102, 103, 104, 105, 106, 107, 108, 109, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 132, 133, 134, 135, 136, 139, 140, 141, 147, 148, 149, 150, 151, 153, 154, 156, 159, 164, 165, 167, 168, 169, 170, 171, 172, 174, 175, 176, 179, 182, 185, 186, 187, 188, 189, 190, 191, 192, 194, 195, 196, 197, 198, 199, 200, 205, 207, 211, 214, 217, 219, 224, 226, 229, 231, 232, 234, 236, 237, 238, 239, 240, 241, 242, 243, 245, 249, 251, 253, 254, 257, 259, 260, 261, 262, 263, 264, 273, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 300, 350, 362, 365, 383, 384, 399, 400, 401, 402, 403, 404, 405, 406, 407, 408, 410, 411, 419, 420, 423, 424, 425, 426, 428, 429, 430, 431, 435, 438, 441, 442, 443, 444, 445, 446, 448, 449, 450, 451, 456, 460, 468, 473, 474, 475, 477, 478, 479, 480, 483, 486, 487, 500, 501, 516, 517, 518, 519, 521, 525, 527, 528, 530, 531, 532, 533, 535, 536, 537, 538, 542, 544, 545, 546, 550, 551, 553, 554, 555, 556, 557, 561, 562, 564, 565, 566, 573, 574, 582, 583, 584, 588, 589, 590, 591, 592, 593, 594, 595, 596, 597, 599, 600, 601, 602, 606, 607, 608, 609, 610, 612, 619, 620, 621, 622, 623, 631, 632, 633, 634, 641, 642, 643, 644, 645, 650, 651, 656, 661, 670, 671, 676, 682, 683, 684, 691, 693, 694, 695, 696, 700, 701, 702, 703, 704, 705, 706, 707, 708, 709, 710, 712, 713, 717, 718, 719, 720, 721, 722, 723, 724, 725, 727, 728, 729, 735, 736, 737, 738, 739, 740, 741, 742, 743, 744, 747, 748, 749, 750, 751, 752, 753, 754, 755, 756, 757, 758, 759, 760, 761, 762, 763, 764, 766, 768, 769, 770, 771, 772, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788, 789, 790, 795, 796, 797, 800, 801, 802, 803, 804, 805, 806, 807, 808, 809, 810, 811, 812, 813, 814, 815, 816, 817, 818, 819, 820, 821, 823, 824, 825, 826, 827, 828, 829, 830, 831, 832, 841, 842, 843, 844, 846, 847, 848, 849, 850, 851, 852, 853, 854, 855, 856, 857, 858, 859, 860, 861, 866, 867, 868, 869, 871, 872, 873, 874, 875, 876, 877, 882, 885, 886, 887, 888, 889, 890, 891, 892, 893, 894, 895, 896, 897, 898, 899, 900, 936, 938, 939, 940, 941, 942, 943, 944, 945, 946, 947, 948, 949, 950, 951, 954, 955, 956, 957, 958, 959, 961, 963, 964, 965, 967, 968, 969, 972, 973, 974, 977, 978]
 for (const index of implementedIds) {
   const item = requirements[index - 1]
@@ -83,6 +130,6 @@ fs.writeFileSync(path.join(output, 'source-registry.json'), JSON.stringify(regis
 fs.writeFileSync(path.join(output, 'local-source-manifest.json'), JSON.stringify({ generatedAt: registry.generatedAt, sources: files }, null, 2) + '\n')
 fs.writeFileSync(path.join(output, 'MASTER-LEDGER.json'), JSON.stringify({ version: 3, total: requirements.length, generatedAt: new Date().toISOString(), requirements }, null, 2) + '\n')
 const implemented = requirements.filter((item) => item.status === 'IMPLEMENTED').length
-const markdown = ['# Proscriptio Master Completion Ledger', '', 'Generated from the original 1,050-point plan plus the 250-point 1540 N. Vine machine extension.', '', `- Total requirements: **${requirements.length}**`, `- Implemented baseline: **${implemented}**`, `- Remaining requirements: **${requirements.length - implemented}**`, `- Attachment sources indexed: **${files.length}**`, '', '| ID | Requirement | Repeat | Status | Feature refs | Evidence |', '|---:|---|---|---|---|---|', ...requirements.map((item) => `| ${item.id} | ${item.description} | ${item.repeat} | ${item.status} | ${item.featureRefs.join(', ') || '—'} | ${item.implementationEvidence.join(', ') || '—'} |`), ''].join('\n')
+const markdown = ['# Proscriptio Master Completion Ledger', '', 'Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine extension, and the 300-point shared-renderer representation extension.', '', `- Total requirements: **${requirements.length}**`, `- Implemented baseline: **${implemented}**`, `- Remaining requirements: **${requirements.length - implemented}**`, `- Attachment sources indexed: **${files.length}**`, '', '| ID | Requirement | Repeat | Status | Feature refs | Evidence |', '|---:|---|---|---|---|---|', ...requirements.map((item) => `| ${item.id} | ${item.description} | ${item.repeat} | ${item.status} | ${item.featureRefs.join(', ') || '—'} | ${item.implementationEvidence.join(', ') || '—'} |`), ''].join('\n')
 fs.writeFileSync(path.join(output, 'MASTER-LEDGER.md'), markdown)
 console.log(`Generated ledger for ${files.length} attachments and ${requirements.length} requirements`)

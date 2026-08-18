@@ -9,11 +9,11 @@ async function main() {
   try {
     const store = await createStore(filePath)
     const state = store.snapshot()
-    assert.equal(state.ledger.requirements.length, 1300)
+    assert.equal(state.ledger.requirements.length, 1600)
     assert.ok(state.sourceRegistry.families.includes('CLO'))
     assert.ok(state.sourceRegistry.attachmentCount >= 1)
     assert.ok(state.sourceRegistry.sources.every((source) => source.sha256 && !source.filename && !source.textPath))
-    assert.equal(store.ledgerSummary().total, 1300)
+    assert.equal(store.ledgerSummary().total, 1600)
     await store.updateRequirement('0001', 'VERIFIED', { testEvidence: ['ledger.test.cjs'] })
     assert.equal(store.snapshot().ledger.requirements[0].status, 'VERIFIED')
     await assert.rejects(() => store.updateRequirement('0001', 'INVALID'), /Invalid requirement status/)

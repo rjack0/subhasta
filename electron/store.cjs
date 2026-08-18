@@ -11,7 +11,7 @@ const { makeLedgerState, sourceRegistry } = require('./ledger.cjs')
 
 const now = () => new Date().toISOString()
 const id = (prefix) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`
-const collectionNames = ['people', 'organizations', 'properties', 'units', 'incidents', 'workOrders', 'vendors', 'telemetry', 'notices', 'extractedText', 'authorities', 'propositions', 'legalClaims', 'legalElements', 'elementRequirements', 'evidenceLinks', 'propositionLinks', 'contradictions', 'evidenceGaps', 'proceduralEvents', 'courtFilings', 'docketEntries', 'deadlines', 'paragraphProvenance', 'judgeProfiles', 'opponentProfiles', 'agentJobs', 'facts', 'evidence', 'law', 'claims', 'elements', 'procedure', 'drafts', 'context', 'audit', 'events', 'machineFronts', 'unitMatrixDetailed', 'machineAuthorities', 'evidenceHolds', 'activationSequence', 'damagesModel', 'sourceCatalog', 'caseInputs']
+const collectionNames = ['people', 'organizations', 'properties', 'units', 'incidents', 'workOrders', 'vendors', 'telemetry', 'notices', 'extractedText', 'authorities', 'propositions', 'legalClaims', 'legalElements', 'elementRequirements', 'evidenceLinks', 'propositionLinks', 'contradictions', 'evidenceGaps', 'proceduralEvents', 'courtFilings', 'docketEntries', 'deadlines', 'paragraphProvenance', 'judgeProfiles', 'opponentProfiles', 'agentJobs', 'facts', 'evidence', 'law', 'claims', 'elements', 'procedure', 'drafts', 'context', 'audit', 'events', 'machineFronts', 'unitMatrixDetailed', 'machineAuthorities', 'evidenceHolds', 'activationSequence', 'damagesModel', 'sourceCatalog', 'caseInputs', 'machineLinks', 'machineActions']
 
 function normalize(data) {
   const normalized = { ...data, version: Math.max(Number(data.version || 0), 2) }
@@ -23,7 +23,7 @@ function normalize(data) {
 }
 
 function findObject(data, type, objectId) {
-  const collection = { fact: 'facts', evidence: 'evidence', law: 'law', authority: 'authorities', claim: 'claims', legalClaim: 'legalClaims', element: 'elements', legalElement: 'legalElements', procedure: 'procedure', draft: 'drafts', proposition: 'propositions', deadline: 'deadlines', person: 'people', event: 'events', organization: 'organizations', unit: 'units', notice: 'notices', filing: 'courtFilings' }[type]
+  const collection = { fact: 'facts', evidence: 'evidence', law: 'law', authority: 'authorities', claim: 'claims', legalClaim: 'legalClaims', machineFront: 'machineFronts', element: 'elements', legalElement: 'legalElements', procedure: 'procedure', draft: 'drafts', proposition: 'propositions', deadline: 'deadlines', person: 'people', event: 'events', organization: 'organizations', unit: 'units', machineUnit: 'unitMatrixDetailed', notice: 'notices', filing: 'courtFilings', evidenceHold: 'evidenceHolds', activation: 'activationSequence', damage: 'damagesModel', source: 'sourceCatalog' }[type]
   return collection ? data[collection].find((item) => item.id === objectId) : null
 }
 
@@ -134,6 +134,8 @@ const seed = () => {
   data.sourceCatalog = machineRows('Sources').map((row) => ({ id: `SC-${row.sourceRow}`, category: row.Category, name: row.Source, url: row.URL, use: row.Use, status: 'LEAD_UNTIL_VERIFIED', sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
   data.caseInputs = machineRows('Inputs').map((row) => ({ id: `IN-${row.sourceRow}`, key: row.Key, value: row.Value, asOf: row['As of'], source: row.Source, status: 'CONTEXT_ONLY', sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
   data.context.push({ id: 'ctx-1540-machine-workbook', type: 'PROPERTY_SPECIFIC_LITIGATION_MACHINE', status: 'CONTEXT_ONLY', source: machineFixture.sourceFile, sourceWorkbook: machineFixture.sourceWorkbook, sheetCounts: data.machine.sheetCounts, researchState: machineFixture.researchState, handlingRule: machineFixture.handlingRule, createdAt: now(), updatedAt: now(), matterId: data.matter.id })
+  data.machineLinks = []
+  data.machineActions = []
   data.audit.push({ id: id('audit'), at: now(), action: 'IMPORTED CAMDEN WAR ROOM FIXTURE', object: data.matter.id })
   return data
 }
@@ -215,6 +217,47 @@ async function createStore(filePath) {
         const target = data.evidence.find((item) => item.id === payload.id)
         if (target) target.status = target.status === 'HYPOTHESIS' ? 'PENDING' : target.status
         data.audit.push({ id: id('audit'), at: now(), action: 'OPEN ACTION', object: payload.id || 'none' })
+      } else if (action === 'link-machine-front') {
+        const front = data.machineFronts.find((item) => item.id === payload.frontId)
+        if (!front || !findObject(data, payload.targetType, payload.targetId)) throw new Error('Machine link target does not exist')
+        const link = { id: id('machine-link'), frontId: front.id, targetType: payload.targetType, targetId: payload.targetId, relation: payload.relation || 'PROOF', createdAt: now(), updatedAt: now(), matterId: data.matter.id }
+        if (!data.machineLinks.some((item) => item.frontId === link.frontId && item.targetType === link.targetType && item.targetId === link.targetId)) data.machineLinks.push(link)
+        data.audit.push({ id: id('audit'), at: now(), action: 'LINK MACHINE FRONT', object: link.id })
+      } else if (action === 'link-machine-unit') {
+        const unit = data.unitMatrixDetailed.find((item) => item.id === payload.unitId)
+        if (!unit || !findObject(data, payload.targetType, payload.targetId)) throw new Error('Machine unit link target does not exist')
+        const link = { id: id('machine-link'), unitId: unit.id, targetType: payload.targetType, targetId: payload.targetId, relation: payload.relation || 'PROOF', createdAt: now(), updatedAt: now(), matterId: data.matter.id }
+        if (!data.machineLinks.some((item) => item.unitId === link.unitId && item.targetType === link.targetType && item.targetId === link.targetId)) data.machineLinks.push(link)
+        data.audit.push({ id: id('audit'), at: now(), action: 'LINK MACHINE UNIT', object: link.id })
+      } else if (action === 'review-machine-source') {
+        const source = data.sourceCatalog.find((item) => item.id === payload.sourceId)
+        if (!source) throw new Error('Machine source does not exist')
+        source.reviewStatus = payload.reviewStatus || 'REVIEWED_UNVERIFIED'
+        source.reviewedAt = now()
+        source.reviewNote = payload.note || 'Reviewed as a lead; primary record still required.'
+        data.machineActions.push({ id: id('machine-action'), type: 'SOURCE_REVIEW', sourceId: source.id, status: source.reviewStatus, createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'REVIEW MACHINE SOURCE', object: source.id })
+      } else if (action === 'create-machine-deadline') {
+        const title = String(payload.title || '').trim()
+        const date = String(payload.date || '').trim()
+        if (!title || !/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error('Machine deadline requires a title and YYYY-MM-DD date')
+        const deadline = { id: id('machine-deadline'), title, date, status: 'PENDING', source: payload.source || 'Machine activation record', machineActionId: payload.machineActionId || null, matterId: data.matter.id, createdAt: now(), updatedAt: now() }
+        data.deadlines.push(deadline)
+        data.machineActions.push({ id: id('machine-action'), type: 'DEADLINE', deadlineId: deadline.id, status: 'CREATED', createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'CREATE MACHINE DEADLINE', object: deadline.id })
+      } else if (action === 'create-preservation-hold') {
+        const hold = data.evidenceHolds.find((item) => item.id === payload.holdId)
+        if (!hold) throw new Error('Preservation hold does not exist')
+        const gap = { id: id('gap'), title: `Preserve ${hold.custodian}`, detail: hold.nativeForm, status: 'OPEN', source: hold.acquisitionPath, evidenceHoldId: hold.id, priority: hold.priority, matterId: data.matter.id, createdAt: now(), updatedAt: now() }
+        if (!data.evidenceGaps.some((item) => item.evidenceHoldId === hold.id)) data.evidenceGaps.push(gap)
+        if (!data.machineActions.some((item) => item.type === 'PRESERVATION_HOLD' && item.holdId === hold.id)) data.machineActions.push({ id: id('machine-action'), type: 'PRESERVATION_HOLD', holdId: hold.id, output: gap.id, status: 'OPEN', createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'CREATE PRESERVATION HOLD', object: gap.id })
+      } else if (action === 'record-activation') {
+        const activation = data.activationSequence.find((item) => item.id === payload.activationId)
+        if (!activation) throw new Error('Activation step does not exist')
+        const event = { id: id('machine-action'), type: 'ACTIVATION', activationId: activation.id, output: payload.output || activation.output, status: 'RECORDED', recordedAt: now(), createdAt: now(), matterId: data.matter.id }
+        if (!data.machineActions.some((item) => item.type === 'ACTIVATION' && item.activationId === activation.id)) data.machineActions.push(event)
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD ACTIVATION', object: event.id })
       } else {
         throw new Error(`Unknown case action: ${action}`)
       }
@@ -224,7 +267,7 @@ async function createStore(filePath) {
     search(query) {
       const needle = String(query || '').trim().toLowerCase()
       if (!needle) return []
-      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', DEADLINES: 'deadlines' }
+      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', DEADLINES: 'deadlines', 'MACHINE FRONTS': 'machineFronts', 'MACHINE UNITS': 'unitMatrixDetailed', 'EVIDENCE HOLDS': 'evidenceHolds', SOURCES: 'sourceCatalog' }
       return Object.entries(groups).flatMap(([type, collection]) => data[collection].filter((item) => JSON.stringify(item).toLowerCase().includes(needle)).slice(0, 20).map((item) => ({ id: item.id, type, name: item.title || item.name || item.filename || item.id, status: item.status || 'ACTIVE', source: item.source || item.provenance || 'Matter store', matterId: data.matter.id })))
     },
     async linkEvidence(evidenceId, targetType, targetId) {

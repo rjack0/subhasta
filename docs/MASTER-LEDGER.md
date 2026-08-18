@@ -1,10 +1,10 @@
 # Proscriptio Master Completion Ledger
 
-Generated from the original 1,050-point plan plus the 250-point 1540 N. Vine machine extension.
+Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine extension, and the 300-point shared-renderer representation extension.
 
-- Total requirements: **1300**
-- Implemented baseline: **547**
-- Remaining requirements: **753**
+- Total requirements: **1600**
+- Implemented baseline: **539**
+- Remaining requirements: **1061**
 - Attachment sources indexed: **62**
 
 | ID | Requirement | Repeat | Status | Feature refs | Evidence |
@@ -1059,56 +1059,56 @@ Generated from the original 1,050-point plan plus the 250-point 1540 N. Vine mac
 | 1048 | Legacy plan point 1048 | R1 | UNREAD | — | — |
 | 1049 | Legacy plan point 1049 | R1 | UNREAD | — | — |
 | 1050 | Legacy plan point 1050 | R1 | UNREAD | — | — |
-| 1051 | Verify exact fee-title SPV identity from recorded deed | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1052 | Verify successor manager and service agent disclosure | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1053 | Verify Camden predecessor control period | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1054 | Verify public sale date against deed date | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1055 | Verify 287-unit asset identity | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1056 | Verify 37 known public unit IDs | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1057 | Track 250 unknown unit IDs | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1058 | Store building certificate-of-occupancy year | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1059 | Store current brand and legacy operator | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1060 | Store public sale price as a lead | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1061 | Store buyer public description as a lead | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1062 | Store title-SPV uncertainty | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1063 | Store current manager public signal | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1064 | Store other management-layer uncertainty | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1065 | Store occupancy start | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1066 | Store lease start | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1067 | Store lease end | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1068 | Store security deposit amount | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1069 | Store transfer-notice state | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1070 | Store successor-disclosure state | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1071 | Store JCO eligibility | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1072 | Store FMR nonpayment threshold | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1073 | Store arrears | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1074 | Store UD notice date | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1075 | Store LAHD filing date | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1076 | Store RTC notice state | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1077 | Store hot-water incident count | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1078 | Store measured-temperature evidence | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1079 | Store work-order IDs | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1080 | Store neighbor matches | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1081 | Store BMS alarm link | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1082 | Store Smart Water data link | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1083 | Store vendor dispatch link | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1084 | Store LAHD order state | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1085 | Store urgent two-day order state | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1086 | Store REAP state | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1087 | Store Civil Code section 1942.4 clock state | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1088 | Store elevator incidents | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1089 | Store fire-door issues | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1090 | Store amenity outage | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1091 | Store protected activity | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1092 | Store retaliation 180-day window | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1093 | Store TAHO written notice | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1094 | Store accommodation request | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1095 | Store RealPage property coverage | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1096 | Store RMS activation period | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1097 | Store pricing-log evidence | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1098 | Store rent-abatement input | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1099 | Store consequential cost | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
-| 1100 | Store TAHO compensatory input | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js |
+| 1051 | Verify exact fee-title SPV identity from recorded deed | R2 | UNREAD | — | — |
+| 1052 | Verify successor manager and service agent disclosure | R2 | UNREAD | — | — |
+| 1053 | Verify Camden predecessor control period | R2 | UNREAD | — | — |
+| 1054 | Verify public sale date against deed date | R2 | UNREAD | — | — |
+| 1055 | Verify 287-unit asset identity | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1056 | Verify 37 known public unit IDs | R2 | UNREAD | — | — |
+| 1057 | Track 250 unknown unit IDs | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1058 | Store building certificate-of-occupancy year | R2 | UNREAD | — | — |
+| 1059 | Store current brand and legacy operator | R2 | UNREAD | — | — |
+| 1060 | Store public sale price as a lead | R2 | UNREAD | — | — |
+| 1061 | Store buyer public description as a lead | R2 | UNREAD | — | — |
+| 1062 | Store title-SPV uncertainty | R2 | UNREAD | — | — |
+| 1063 | Store current manager public signal | R2 | UNREAD | — | — |
+| 1064 | Store other management-layer uncertainty | R2 | UNREAD | — | — |
+| 1065 | Store occupancy start | R2 | UNREAD | — | — |
+| 1066 | Store lease start | R2 | UNREAD | — | — |
+| 1067 | Store lease end | R2 | UNREAD | — | — |
+| 1068 | Store security deposit amount | R2 | UNREAD | — | — |
+| 1069 | Store transfer-notice state | R2 | UNREAD | — | — |
+| 1070 | Store successor-disclosure state | R2 | UNREAD | — | — |
+| 1071 | Store JCO eligibility | R2 | UNREAD | — | — |
+| 1072 | Store FMR nonpayment threshold | R2 | UNREAD | — | — |
+| 1073 | Store arrears | R2 | UNREAD | — | — |
+| 1074 | Store UD notice date | R2 | UNREAD | — | — |
+| 1075 | Store LAHD filing date | R2 | UNREAD | — | — |
+| 1076 | Store RTC notice state | R2 | UNREAD | — | — |
+| 1077 | Store hot-water incident count | R2 | UNREAD | — | — |
+| 1078 | Store measured-temperature evidence | R2 | UNREAD | — | — |
+| 1079 | Store work-order IDs | R2 | UNREAD | — | — |
+| 1080 | Store neighbor matches | R2 | UNREAD | — | — |
+| 1081 | Store BMS alarm link | R2 | UNREAD | — | — |
+| 1082 | Store Smart Water data link | R2 | UNREAD | — | — |
+| 1083 | Store vendor dispatch link | R2 | UNREAD | — | — |
+| 1084 | Store LAHD order state | R2 | UNREAD | — | — |
+| 1085 | Store urgent two-day order state | R2 | UNREAD | — | — |
+| 1086 | Store REAP state | R2 | UNREAD | — | — |
+| 1087 | Store Civil Code section 1942.4 clock state | R2 | UNREAD | — | — |
+| 1088 | Store elevator incidents | R2 | UNREAD | — | — |
+| 1089 | Store fire-door issues | R2 | UNREAD | — | — |
+| 1090 | Store amenity outage | R2 | UNREAD | — | — |
+| 1091 | Store protected activity | R2 | UNREAD | — | — |
+| 1092 | Store retaliation 180-day window | R2 | UNREAD | — | — |
+| 1093 | Store TAHO written notice | R2 | UNREAD | — | — |
+| 1094 | Store accommodation request | R2 | UNREAD | — | — |
+| 1095 | Store RealPage property coverage | R2 | UNREAD | — | — |
+| 1096 | Store RMS activation period | R2 | UNREAD | — | — |
+| 1097 | Store pricing-log evidence | R2 | UNREAD | — | — |
+| 1098 | Store rent-abatement input | R2 | UNREAD | — | — |
+| 1099 | Store consequential cost | R2 | UNREAD | — | — |
+| 1100 | Store TAHO compensatory input | R2 | UNREAD | — | — |
 | 1101 | Store deposit claim input | R2 | UNREAD | — | — |
 | 1102 | Store antitrust overcharge input | R2 | UNREAD | — | — |
 | 1103 | Store anti-double-counting notes | R2 | UNREAD | — | — |
@@ -1117,7 +1117,7 @@ Generated from the original 1,050-point plan plus the 250-point 1540 N. Vine mac
 | 1106 | Store row confidence | R2 | UNREAD | — | — |
 | 1107 | Store fastest-fill action | R2 | UNREAD | — | — |
 | 1108 | Store primary custodian | R2 | UNREAD | — | — |
-| 1109 | Render unit-level epistemic state | R2 | UNREAD | — | — |
+| 1109 | Render unit-level epistemic state | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
 | 1110 | Render unit-level proof percentage | R2 | UNREAD | — | — |
 | 1111 | Render hot-water front trigger | R2 | UNREAD | — | — |
 | 1112 | Render hot-water present state | R2 | UNREAD | — | — |
@@ -1256,18 +1256,18 @@ Generated from the original 1,050-point plan plus the 250-point 1540 N. Vine mac
 | 1245 | Detect jurisdiction mismatch | R2 | UNREAD | — | — |
 | 1246 | Detect source status mismatch | R2 | UNREAD | — | — |
 | 1247 | Link machine front to authority | R2 | UNREAD | — | — |
-| 1248 | Link machine front to evidence hold | R2 | UNREAD | — | — |
+| 1248 | Link machine front to evidence hold | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
 | 1249 | Link unit field to proof requirement | R2 | UNREAD | — | — |
 | 1250 | Link damages input to source | R2 | UNREAD | — | — |
-| 1251 | Display machine route in navigation | R2 | UNREAD | — | — |
-| 1252 | Display machine route in shared inspector | R2 | UNREAD | — | — |
-| 1253 | Display unit record in inspector | R2 | UNREAD | — | — |
-| 1254 | Display front record in inspector | R2 | UNREAD | — | — |
-| 1255 | Display evidence hold in inspector | R2 | UNREAD | — | — |
-| 1256 | Display activation record in inspector | R2 | UNREAD | — | — |
-| 1257 | Display damages record in inspector | R2 | UNREAD | — | — |
-| 1258 | Display source catalog in inspector | R2 | UNREAD | — | — |
-| 1259 | Display machine history in inspector | R2 | UNREAD | — | — |
+| 1251 | Display machine route in navigation | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1252 | Display machine route in shared inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1253 | Display unit record in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1254 | Display front record in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1255 | Display evidence hold in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1256 | Display activation record in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1257 | Display damages record in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1258 | Display source catalog in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1259 | Display machine history in inspector | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
 | 1260 | Display machine contradiction state | R2 | UNREAD | — | — |
 | 1261 | Filter machine fronts by status | R2 | UNREAD | — | — |
 | 1262 | Filter evidence holds by priority | R2 | UNREAD | — | — |
@@ -1275,26 +1275,26 @@ Generated from the original 1,050-point plan plus the 250-point 1540 N. Vine mac
 | 1264 | Filter units by confidence | R2 | UNREAD | — | — |
 | 1265 | Filter activation sequence by order | R2 | UNREAD | — | — |
 | 1266 | Filter damages by bucket | R2 | UNREAD | — | — |
-| 1267 | Search machine fields | R2 | UNREAD | — | — |
+| 1267 | Search machine fields | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
 | 1268 | Search machine sources | R2 | UNREAD | — | — |
-| 1269 | Keyboard-select machine rows | R2 | UNREAD | — | — |
+| 1269 | Keyboard-select machine rows | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
 | 1270 | Capture machine-route screenshot | R2 | UNREAD | — | — |
-| 1271 | Test 287-row import | R2 | UNREAD | — | — |
-| 1272 | Test 65-field preservation | R2 | UNREAD | — | — |
-| 1273 | Test 12-front import | R2 | UNREAD | — | — |
-| 1274 | Test 39-authority import | R2 | UNREAD | — | — |
-| 1275 | Test 15-hold import | R2 | UNREAD | — | — |
-| 1276 | Test 13-step activation import | R2 | UNREAD | — | — |
-| 1277 | Test 9-bucket damages import | R2 | UNREAD | — | — |
-| 1278 | Test 32-source import | R2 | UNREAD | — | — |
-| 1279 | Test dated-input import | R2 | UNREAD | — | — |
-| 1280 | Test machine restart recovery | R2 | UNREAD | — | — |
+| 1271 | Test 287-row import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1272 | Test 65-field preservation | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1273 | Test 12-front import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1274 | Test 39-authority import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1275 | Test 15-hold import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1276 | Test 13-step activation import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1277 | Test 9-bucket damages import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1278 | Test 32-source import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1279 | Test dated-input import | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1280 | Test machine restart recovery | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
 | 1281 | Test source lead state | R2 | UNREAD | — | — |
 | 1282 | Test alleged state | R2 | UNREAD | — | — |
 | 1283 | Test inference state | R2 | UNREAD | — | — |
 | 1284 | Test unknown state | R2 | UNREAD | — | — |
 | 1285 | Test exact-address guard | R2 | UNREAD | — | — |
-| 1286 | Test unit-to-front link | R2 | UNREAD | — | — |
+| 1286 | Test unit-to-front link | R2 | IMPLEMENTED | machine-workbook-import, machine-route | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
 | 1287 | Test front-to-authority link | R2 | UNREAD | — | — |
 | 1288 | Test hold-to-evidence link | R2 | UNREAD | — | — |
 | 1289 | Test damages provenance | R2 | UNREAD | — | — |
@@ -1309,3 +1309,303 @@ Generated from the original 1,050-point plan plus the 250-point 1540 N. Vine mac
 | 1298 | Prevent parent-company assumption | R2 | UNREAD | — | — |
 | 1299 | Prevent defense suppression | R2 | UNREAD | — | — |
 | 1300 | Prevent unsupported remedy claim | R2 | UNREAD | — | — |
+| 1301 | shared shell rail: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1302 | shared shell rail: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1303 | shared shell rail: renders a selected state with inspector synchronization | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
+| 1304 | shared shell rail: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1305 | shared shell rail: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1306 | shared shell rail: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1307 | shared shell rail: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1308 | shared shell rail: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1309 | shared shell rail: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1310 | shared shell rail: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1311 | shared top bar: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1312 | shared top bar: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1313 | shared top bar: renders a selected state with inspector synchronization | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
+| 1314 | shared top bar: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1315 | shared top bar: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1316 | shared top bar: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1317 | shared top bar: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1318 | shared top bar: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1319 | shared top bar: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1320 | shared top bar: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1321 | shared status strip: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1322 | shared status strip: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1323 | shared status strip: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1324 | shared status strip: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1325 | shared status strip: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1326 | shared status strip: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1327 | shared status strip: renders a verified cobalt state with a source label | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
+| 1328 | shared status strip: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1329 | shared status strip: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1330 | shared status strip: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1331 | shared inspector: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1332 | shared inspector: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1333 | shared inspector: renders a selected state with inspector synchronization | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
+| 1334 | shared inspector: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1335 | shared inspector: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1336 | shared inspector: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1337 | shared inspector: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1338 | shared inspector: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1339 | shared inspector: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1340 | shared inspector: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1341 | Command legal branch band: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1342 | Command legal branch band: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1343 | Command legal branch band: renders a selected state with inspector synchronization | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
+| 1344 | Command legal branch band: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1345 | Command legal branch band: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1346 | Command legal branch band: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1347 | Command legal branch band: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1348 | Command legal branch band: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1349 | Command legal branch band: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1350 | Command legal branch band: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1351 | Command next-action field: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1352 | Command next-action field: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1353 | Command next-action field: renders a selected state with inspector synchronization | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
+| 1354 | Command next-action field: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1355 | Command next-action field: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1356 | Command next-action field: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1357 | Command next-action field: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1358 | Command next-action field: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1359 | Command next-action field: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1360 | Command next-action field: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1361 | Command live-risk field: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1362 | Command live-risk field: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1363 | Command live-risk field: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1364 | Command live-risk field: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1365 | Command live-risk field: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1366 | Command live-risk field: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1367 | Command live-risk field: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1368 | Command live-risk field: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1369 | Command live-risk field: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1370 | Command live-risk field: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1371 | Command transition chronology: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1372 | Command transition chronology: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1373 | Command transition chronology: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1374 | Command transition chronology: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1375 | Command transition chronology: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1376 | Command transition chronology: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1377 | Command transition chronology: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1378 | Command transition chronology: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1379 | Command transition chronology: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1380 | Command transition chronology: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1381 | Evidence reality map: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1382 | Evidence reality map: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1383 | Evidence reality map: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1384 | Evidence reality map: renders an unselected state with neutral hierarchy | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
+| 1385 | Evidence reality map: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1386 | Evidence reality map: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1387 | Evidence reality map: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1388 | Evidence reality map: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1389 | Evidence reality map: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1390 | Evidence reality map: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1391 | Evidence source queue: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1392 | Evidence source queue: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1393 | Evidence source queue: renders a selected state with inspector synchronization | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
+| 1394 | Evidence source queue: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1395 | Evidence source queue: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1396 | Evidence source queue: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1397 | Evidence source queue: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1398 | Evidence source queue: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1399 | Evidence source queue: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1400 | Evidence source queue: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1401 | Evidence import drawer: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1402 | Evidence import drawer: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1403 | Evidence import drawer: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1404 | Evidence import drawer: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1405 | Evidence import drawer: renders a pending ochre state with a text label | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
+| 1406 | Evidence import drawer: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1407 | Evidence import drawer: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1408 | Evidence import drawer: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1409 | Evidence import drawer: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1410 | Evidence import drawer: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1411 | Evidence chronology: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1412 | Evidence chronology: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1413 | Evidence chronology: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1414 | Evidence chronology: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1415 | Evidence chronology: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1416 | Evidence chronology: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1417 | Evidence chronology: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1418 | Evidence chronology: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1419 | Evidence chronology: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1420 | Evidence chronology: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1421 | Law authority tree: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1422 | Law authority tree: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1423 | Law authority tree: renders a selected state with inspector synchronization | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
+| 1424 | Law authority tree: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1425 | Law authority tree: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1426 | Law authority tree: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1427 | Law authority tree: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1428 | Law authority tree: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1429 | Law authority tree: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1430 | Law authority tree: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1431 | Law source text: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1432 | Law source text: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1433 | Law source text: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1434 | Law source text: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1435 | Law source text: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1436 | Law source text: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1437 | Law source text: renders a verified cobalt state with a source label | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
+| 1438 | Law source text: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1439 | Law source text: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1440 | Law source text: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1441 | Law proposition chain: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1442 | Law proposition chain: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1443 | Law proposition chain: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1444 | Law proposition chain: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1445 | Law proposition chain: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1446 | Law proposition chain: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1447 | Law proposition chain: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1448 | Law proposition chain: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1449 | Law proposition chain: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1450 | Law proposition chain: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1451 | Elements claim selector: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1452 | Elements claim selector: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1453 | Elements claim selector: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1454 | Elements claim selector: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1455 | Elements claim selector: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1456 | Elements claim selector: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1457 | Elements claim selector: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1458 | Elements claim selector: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1459 | Elements claim selector: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1460 | Elements claim selector: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1461 | Elements proof panel: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1462 | Elements proof panel: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1463 | Elements proof panel: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1464 | Elements proof panel: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1465 | Elements proof panel: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1466 | Elements proof panel: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1467 | Elements proof panel: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1468 | Elements proof panel: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1469 | Elements proof panel: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1470 | Elements proof panel: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1471 | Elements provenance graph: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1472 | Elements provenance graph: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1473 | Elements provenance graph: renders a selected state with inspector synchronization | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
+| 1474 | Elements provenance graph: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1475 | Elements provenance graph: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1476 | Elements provenance graph: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1477 | Elements provenance graph: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1478 | Elements provenance graph: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1479 | Elements provenance graph: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1480 | Elements provenance graph: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1481 | Elements build pipeline: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1482 | Elements build pipeline: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1483 | Elements build pipeline: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1484 | Elements build pipeline: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1485 | Elements build pipeline: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1486 | Elements build pipeline: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1487 | Elements build pipeline: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1488 | Elements build pipeline: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1489 | Elements build pipeline: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1490 | Elements build pipeline: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1491 | Procedure docket chronology: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1492 | Procedure docket chronology: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1493 | Procedure docket chronology: renders a selected state with inspector synchronization | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
+| 1494 | Procedure docket chronology: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1495 | Procedure docket chronology: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1496 | Procedure docket chronology: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1497 | Procedure docket chronology: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1498 | Procedure docket chronology: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1499 | Procedure docket chronology: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1500 | Procedure docket chronology: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1501 | Procedure dependency field: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1502 | Procedure dependency field: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1503 | Procedure dependency field: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1504 | Procedure dependency field: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1505 | Procedure dependency field: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1506 | Procedure dependency field: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1507 | Procedure dependency field: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1508 | Procedure dependency field: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1509 | Procedure dependency field: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1510 | Procedure dependency field: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1511 | Strategy judge surface: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1512 | Strategy judge surface: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1513 | Strategy judge surface: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1514 | Strategy judge surface: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1515 | Strategy judge surface: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1516 | Strategy judge surface: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1517 | Strategy judge surface: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1518 | Strategy judge surface: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1519 | Strategy judge surface: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1520 | Strategy judge surface: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1521 | Strategy opponent surface: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1522 | Strategy opponent surface: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1523 | Strategy opponent surface: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1524 | Strategy opponent surface: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1525 | Strategy opponent surface: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1526 | Strategy opponent surface: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1527 | Strategy opponent surface: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1528 | Strategy opponent surface: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1529 | Strategy opponent surface: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1530 | Strategy opponent surface: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1531 | Draft paragraph list: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1532 | Draft paragraph list: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1533 | Draft paragraph list: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1534 | Draft paragraph list: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1535 | Draft paragraph list: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1536 | Draft paragraph list: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1537 | Draft paragraph list: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1538 | Draft paragraph list: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1539 | Draft paragraph list: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1540 | Draft paragraph list: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1541 | Draft source rail: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1542 | Draft source rail: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1543 | Draft source rail: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1544 | Draft source rail: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1545 | Draft source rail: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1546 | Draft source rail: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1547 | Draft source rail: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1548 | Draft source rail: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1549 | Draft source rail: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1550 | Draft source rail: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1551 | Deadline time field: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1552 | Deadline time field: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1553 | Deadline time field: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1554 | Deadline time field: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1555 | Deadline time field: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1556 | Deadline time field: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1557 | Deadline time field: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1558 | Deadline time field: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1559 | Deadline time field: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1560 | Deadline time field: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1561 | Deadline derivation inspector: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1562 | Deadline derivation inspector: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1563 | Deadline derivation inspector: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1564 | Deadline derivation inspector: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1565 | Deadline derivation inspector: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1566 | Deadline derivation inspector: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1567 | Deadline derivation inspector: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1568 | Deadline derivation inspector: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1569 | Deadline derivation inspector: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1570 | Deadline derivation inspector: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1571 | Field Atlas context import: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1572 | Field Atlas context import: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1573 | Field Atlas context import: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1574 | Field Atlas context import: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1575 | Field Atlas context import: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1576 | Field Atlas context import: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1577 | Field Atlas context import: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1578 | Field Atlas context import: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1579 | Field Atlas context import: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1580 | Field Atlas context import: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1581 | Cicero organization profile: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1582 | Cicero organization profile: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1583 | Cicero organization profile: renders a selected state with inspector synchronization | R3 | UNREAD | — | — |
+| 1584 | Cicero organization profile: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1585 | Cicero organization profile: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1586 | Cicero organization profile: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1587 | Cicero organization profile: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1588 | Cicero organization profile: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1589 | Cicero organization profile: renders a keyboard-focus state without hover dependency | R3 | UNREAD | — | — |
+| 1590 | Cicero organization profile: renders a responsive state without hiding source or action semantics | R3 | UNREAD | — | — |
+| 1591 | Machine unit matrix: renders a loading state without shifting the shell | R3 | UNREAD | — | — |
+| 1592 | Machine unit matrix: renders an empty state with a next action and no marketing copy | R3 | UNREAD | — | — |
+| 1593 | Machine unit matrix: renders a selected state with inspector synchronization | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
+| 1594 | Machine unit matrix: renders an unselected state with neutral hierarchy | R3 | UNREAD | — | — |
+| 1595 | Machine unit matrix: renders a pending ochre state with a text label | R3 | UNREAD | — | — |
+| 1596 | Machine unit matrix: renders a contradiction oxide state with a text label | R3 | UNREAD | — | — |
+| 1597 | Machine unit matrix: renders a verified cobalt state with a source label | R3 | UNREAD | — | — |
+| 1598 | Machine unit matrix: renders a complete viridian state with a completion label | R3 | UNREAD | — | — |
+| 1599 | Machine unit matrix: renders a keyboard-focus state without hover dependency | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |
+| 1600 | Machine unit matrix: renders a responsive state without hiding source or action semantics | R3 | IMPLEMENTED | shared-renderer-surfaces | clo/renderer.js, clo/styles.css |

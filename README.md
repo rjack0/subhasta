@@ -4,7 +4,7 @@
 
 The implementation ledger is executable and repository-local:
 
-- `docs/MASTER-LEDGER.json` contains 1,300 atomic requirement records: the original 1,050 plus a 250-point 1540 N. Vine machine extension.
+- `docs/MASTER-LEDGER.json` contains 1,600 atomic requirement records: the original 1,050, a 250-point 1540 N. Vine machine extension, and a 300-point shared-renderer representation extension.
 - `docs/MASTER-LEDGER.md` is the review projection.
 - `docs/source-registry.json` records indexed attachment sources, hashes, and source families.
 - `docs/source-extracts/` preserves the original pasted text used for intake.
