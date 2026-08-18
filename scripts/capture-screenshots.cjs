@@ -3,7 +3,7 @@ const fs = require('node:fs/promises')
 const path = require('node:path')
 const { createStore } = require('../electron/store.cjs')
 
-const routes = ['command', 'evidence', 'law', 'elements', 'procedure', 'strategy', 'drafts', 'deadlines', 'coverage', 'field-atlas', 'cicero']
+const routes = ['command', 'evidence', 'law', 'elements', 'procedure', 'strategy', 'drafts', 'deadlines', 'coverage', 'machine', 'field-atlas', 'cicero']
 const responsive = [{ name: 'shell-1024', width: 1024, height: 900 }, { name: 'shell-mobile', width: 390, height: 844 }]
 const outputDir = path.join(__dirname, '..', 'artifacts', 'screenshots')
 
@@ -38,6 +38,9 @@ async function main() {
   await window.webContents.executeJavaScript('document.querySelector(`[data-route="command"]`)?.click(); document.querySelector(`[data-select]`)?.click()')
   await new Promise((resolve) => setTimeout(resolve, 100))
   await captureState('inspector-selected')
+  await window.webContents.executeJavaScript('document.querySelector(`[data-route="machine"]`)?.click(); document.querySelector(`[data-select]`)?.click()')
+  await new Promise((resolve) => setTimeout(resolve, 100))
+  await captureState('machine-inspector-selected')
   await window.webContents.executeJavaScript('document.querySelector(`[data-route="evidence"]`)?.click(); document.querySelector(`#import-evidence`)?.click()')
   await new Promise((resolve) => setTimeout(resolve, 100))
   await captureState('evidence-import-drawer')
