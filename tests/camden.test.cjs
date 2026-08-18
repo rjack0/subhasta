@@ -20,6 +20,16 @@ async function main() {
     assert.equal(data.legalElements.length > 0, true)
     assert.equal(data.elementRequirements.length, 41)
     assert.equal(data.authorities.length, data.law.length)
+    if (data.machine?.sourceWorkbook) {
+      assert.equal(data.unitMatrixDetailed.length, 287)
+      assert.equal(data.machineFronts.length, 12)
+      assert.equal(data.machineAuthorities.length, 39)
+      assert.equal(data.evidenceHolds.length, 15)
+      assert.equal(data.activationSequence.length, 13)
+      assert.equal(data.damagesModel.length, 9)
+      assert.equal(data.sourceCatalog.length, 32)
+      assert.equal(data.caseInputs.length, 13)
+    }
     assert.ok(data.context.some((item) => item.type === 'WAR_ROOM_WORKBOOK'))
     assert.ok(data.evidence.some((item) => item.id === 'EV-001' && item.status === 'MISSING'))
     assert.ok(data.procedure.some((item) => item.id === 'CL-003' && item.status.includes('ACTIVE')))

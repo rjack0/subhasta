@@ -1,14 +1,17 @@
 const fs = require('node:fs/promises')
 const crypto = require('node:crypto')
+const zlib = require('node:zlib')
 const path = require('node:path')
 const { spawnSync } = require('node:child_process')
 const { Worker } = require('node:worker_threads')
 const camdenFixture = require('../fixtures/camden-1540-vine.json')
+let machineFixture = { schemaVersion: 1, sourceFile: null, sourceWorkbook: null, researchState: null, handlingRule: 'Optional local property-specific fixture.', sheets: {} }
+try { machineFixture = require('../fixtures/camden-1540-vine-machine.json') } catch {}
 const { makeLedgerState, sourceRegistry } = require('./ledger.cjs')
 
 const now = () => new Date().toISOString()
 const id = (prefix) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`
-const collectionNames = ['people', 'organizations', 'properties', 'units', 'events', 'incidents', 'workOrders', 'vendors', 'telemetry', 'notices', 'extractedText', 'authorities', 'propositions', 'legalClaims', 'legalElements', 'elementRequirements', 'evidenceLinks', 'propositionLinks', 'contradictions', 'evidenceGaps', 'proceduralEvents', 'courtFilings', 'docketEntries', 'deadlines', 'paragraphProvenance', 'judgeProfiles', 'opponentProfiles', 'agentJobs', 'facts', 'evidence', 'law', 'claims', 'elements', 'procedure', 'drafts', 'context', 'audit']
+const collectionNames = ['people', 'organizations', 'properties', 'units', 'incidents', 'workOrders', 'vendors', 'telemetry', 'notices', 'extractedText', 'authorities', 'propositions', 'legalClaims', 'legalElements', 'elementRequirements', 'evidenceLinks', 'propositionLinks', 'contradictions', 'evidenceGaps', 'proceduralEvents', 'courtFilings', 'docketEntries', 'deadlines', 'paragraphProvenance', 'judgeProfiles', 'opponentProfiles', 'agentJobs', 'facts', 'evidence', 'law', 'claims', 'elements', 'procedure', 'drafts', 'context', 'audit', 'events', 'machineFronts', 'unitMatrixDetailed', 'machineAuthorities', 'evidenceHolds', 'activationSequence', 'damagesModel', 'sourceCatalog', 'caseInputs']
 
 function normalize(data) {
   const normalized = { ...data, version: Math.max(Number(data.version || 0), 2) }
@@ -27,11 +30,13 @@ function findObject(data, type, objectId) {
 function readSqlite(filePath) {
   const result = spawnSync('sqlite3', [filePath, 'SELECT payload FROM case_state WHERE id = 1;'], { encoding: 'utf8' })
   if (result.status !== 0 || !result.stdout.trim()) return null
-  return JSON.parse(result.stdout.trim())
+  const payload = result.stdout.trim()
+  if (payload.startsWith('gz:')) return JSON.parse(zlib.inflateSync(Buffer.from(payload.slice(3), 'base64')).toString('utf8'))
+  return JSON.parse(payload)
 }
 
 function writeSqlite(filePath, data) {
-  const payload = JSON.stringify(data).replaceAll("'", "''")
+  const payload = `gz:${zlib.deflateSync(Buffer.from(JSON.stringify(data), 'utf8')).toString('base64')}`.replaceAll("'", "''")
   const sql = `CREATE TABLE IF NOT EXISTS case_state (id INTEGER PRIMARY KEY, payload TEXT NOT NULL); INSERT OR REPLACE INTO case_state (id, payload) VALUES (1, '${payload}');`
   const result = spawnSync('sqlite3', [filePath], { input: sql, encoding: 'utf8' })
   if (result.status !== 0) throw new Error(result.stderr || 'SQLite persistence failed')
@@ -118,6 +123,17 @@ const seed = () => {
     { id: 'event-owner-clock', title: 'Successor disclosure clock', date: '2026-08-20', status: 'LIVE AUDIT', source: 'War-room critical clock CL-001', linkedOrganizations: ['org-blackrock'] },
     { id: 'event-realpage-clock', title: 'RealPage exclusion/objection deadline', date: '2026-09-01', status: 'LIVE AUDIT', source: 'War-room critical clock CL-003', linkedOrganizations: ['org-realpage'] }
   ]
+  const machineRows = (sheet) => machineFixture.sheets[sheet]?.rows || []
+  data.machine = { schemaVersion: machineFixture.schemaVersion, sourceFile: machineFixture.sourceFile, sourceWorkbook: machineFixture.sourceWorkbook, researchState: machineFixture.researchState, handlingRule: machineFixture.handlingRule, sheetCounts: Object.fromEntries(Object.entries(machineFixture.sheets).map(([key, value]) => [key, value.rows.length])), importedAt: now() }
+  data.unitMatrixDetailed = machineRows('287 Unit Matrix').map((row) => ({ id: row.Record_ID, unit: row.Unit, status: row.Unit_ID_Status, floor: row.Floor_Inferred, floorConfidence: row.Floor_Confidence, floorplan: row.Floorplan, bedrooms: row.Beds, bathrooms: row.Baths, squareFeet: row.SqFt, baseRent: row.Current_Base_Rent, sourceStatus: row.Source_Status, confidence: row.Confidence, fastestFill: row.Fastest_Fill, custodian: row.Primary_Custodian, publicRecord: row, sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.machineFronts = machineRows('12 Fronts').map((row) => ({ id: `MF-${row.Front}`, title: row['Independent legal/administrative theory'], trigger: row['Exact trigger / elements'], presentState: row['1540 N Vine present state'], defense: row['Principal defense'], proofNeeded: row['Plaintiff-side counter / proof'], remedy: row['Primary remedy / effect'], status: row.Status, sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.machineAuthorities = machineRows('Law & Precedent').map((row) => ({ id: `MP-${row.sourceRow}`, authority: row.Authority, type: row.Type, operativePoint: row['Exact operative point'], caseUse: row['1540-specific use'], status: row['Status / limit'], source: row['Source URL'], sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.evidenceHolds = machineRows('Evidence Hold').map((row) => ({ id: `EH-${row.sourceRow}`, priority: row.Priority, custodian: row['Custodian / system'], nativeForm: row['Preserve in native form'], purpose: row['Why it matters to 1540'], defenseTarget: row['Failure / defense it defeats'], acquisitionPath: row['Lawful acquisition path'], sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.activationSequence = machineRows('Activation Sequence').map((row) => ({ id: `AS-${row.Order}`, order: row.Order, trigger: row['Trigger / clock'], action: row.Action, output: row['Exact output'], fronts: row['Fronts unlocked'], distinction: row['Do not confuse with'], sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.damagesModel = machineRows('Damages Model').map((row) => ({ id: `DM-${row.sourceRow}`, bucket: row.Bucket, formula: row['Base formula / proof'], stacking: row['Can stack?'], antiDoubleCounting: row['Anti-double-counting rule'], inputNeeded: row['1540-specific input needed'], sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.sourceCatalog = machineRows('Sources').map((row) => ({ id: `SC-${row.sourceRow}`, category: row.Category, name: row.Source, url: row.URL, use: row.Use, status: 'LEAD_UNTIL_VERIFIED', sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.caseInputs = machineRows('Inputs').map((row) => ({ id: `IN-${row.sourceRow}`, key: row.Key, value: row.Value, asOf: row['As of'], source: row.Source, status: 'CONTEXT_ONLY', sourceRow: row.sourceRow, matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.context.push({ id: 'ctx-1540-machine-workbook', type: 'PROPERTY_SPECIFIC_LITIGATION_MACHINE', status: 'CONTEXT_ONLY', source: machineFixture.sourceFile, sourceWorkbook: machineFixture.sourceWorkbook, sheetCounts: data.machine.sheetCounts, researchState: machineFixture.researchState, handlingRule: machineFixture.handlingRule, createdAt: now(), updatedAt: now(), matterId: data.matter.id })
   data.audit.push({ id: id('audit'), at: now(), action: 'IMPORTED CAMDEN WAR ROOM FIXTURE', object: data.matter.id })
   return data
 }

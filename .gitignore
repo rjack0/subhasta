@@ -6,3 +6,4 @@ coverage
 *.log
 docs/source-extracts/
 docs/local-source-manifest.json
+fixtures/camden-1540-vine-machine.json

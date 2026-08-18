@@ -4,12 +4,13 @@
 
 The implementation ledger is executable and repository-local:
 
-- `docs/MASTER-LEDGER.json` contains 1,050 atomic requirement records.
+- `docs/MASTER-LEDGER.json` contains 1,300 atomic requirement records: the original 1,050 plus a 250-point 1540 N. Vine machine extension.
 - `docs/MASTER-LEDGER.md` is the review projection.
 - `docs/source-registry.json` records indexed attachment sources, hashes, and source families.
 - `docs/source-extracts/` preserves the original pasted text used for intake.
 - `npm run ledger:build` regenerates the registry and ledger from the local attachment directory.
 - `npm run ledger:check` verifies the persisted ledger contract.
+- `scripts/import-1540-machine.py` imports the newer 1540 N. Vine workbook into the local-only machine fixture; the raw property fixture is intentionally ignored from public Git delivery.
 
 The ledger distinguishes `IMPLEMENTED`, `TESTED`, and `VERIFIED`; scaffolding is not automatically treated as complete.
 

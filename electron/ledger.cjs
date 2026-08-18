@@ -17,8 +17,8 @@ function sourceRegistry() {
 function requirementLedger() {
   const stored = readJson(ledgerPath, null)
   if (stored?.requirements?.length) return stored
-  return { version: 1, total: 1050, requirements: Array.from({ length: 1050 }, (_, index) => ({
-    id: String(index + 1).padStart(4, '0'), status: 'UNREAD', sourceRefs: [], featureRefs: [], implementationEvidence: [], testEvidence: [], screenshotEvidence: [], updatedAt: null
+  return { version: 2, total: 1300, requirements: Array.from({ length: 1300 }, (_, index) => ({
+    id: String(index + 1).padStart(4, '0'), description: index < 1050 ? `Legacy plan point ${String(index + 1).padStart(4, '0')}` : `1540 N. Vine machine extension point ${String(index + 1).padStart(4, '0')}`, sourceRefs: [], repeat: 'R1', status: 'UNREAD', sourceRefs: [], featureRefs: [], implementationEvidence: [], testEvidence: [], screenshotEvidence: [], updatedAt: null
   })) }
 }
 
