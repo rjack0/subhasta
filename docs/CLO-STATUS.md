@@ -6,6 +6,10 @@ The repository now includes `docs/MASTER-LEDGER.json` and `docs/MASTER-LEDGER.md
 
 The current baseline is generated from direct repository evidence. The remaining requirements are intentionally open.
 
+## Master Ledger Snapshot
+
+At commit `96c37ee`, the 2,820-point ledger contains **591 IMPLEMENTED** and **2,229 UNREAD** requirements. `IMPLEMENTED` means a repository feature exists; it does not imply `TESTED` or `VERIFIED`. The latest verified tranche adds source/custodian-gated evidence commitment, extraction-method provenance with guarded OCR fallback, source-gated strategy observations, and post-trial mutation validation.
+
 This ledger is intentionally conservative. It records what is implemented and verified in the repository, not what is planned.
 
 ## Current Baseline After Enactment Pass
@@ -43,7 +47,7 @@ This ledger is intentionally conservative. It records what is implemented and ve
 
 - The post-trial operating layer now has explicit persisted mutations for verdict, judgment entry, cost records, enforcement/stay steps, appellate steps, motions, jury instructions, witness foundation, exhibit admission, courtroom events, and argument records.
 
-- OCR extraction and scanned-PDF fallback.
+- OCR tool availability and visual verification of scanned-PDF fallback remain environment-dependent; the worker records `OCR_TESSERACT` only when local conversion/OCR succeeds.
 - Typed repository validation beyond the current link validator.
 - Full action mutation paths for some domain-specific Law, Procedure, Strategy, and Cicero flows.
 - Automated UI tests and full domain integration.

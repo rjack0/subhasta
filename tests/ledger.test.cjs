@@ -20,6 +20,10 @@ async function main() {
     await assert.rejects(() => store.commitEvidence([{ status: 'STAGED', hash: 'sha256:forged' }]), /valid SHA-256/)
     const contextState = await store.addContext({ type: 'EXTERNAL_RECORD', source: 'test', name: 'Context-only record' })
     assert.equal(contextState.context.at(-1).status, 'CONTEXT_ONLY')
+    const ciceroState = await store.addContext({ type: 'CICERO_ORGANIZATION_PROFILE', name: 'Test organization', employees: 100, source: 'Test source note', assumptions: 'Test estimate assumptions', confidence: 0.7, roles: [{ name: 'Operations', percent: 100, note: 'Estimate' }] })
+    assert.equal(ciceroState.organizationProfiles.at(-1).status, 'ESTIMATE')
+    assert.equal(ciceroState.organizationProfiles.at(-1).assumptions, 'Test estimate assumptions')
+    assert.equal((await store.search('Test organization'))[0].type, 'ORGANIZATIONS')
     console.log('CLO master ledger test passed')
   } finally {
     try { fs.rmSync(filePath, { force: true }) } catch {}

@@ -11,7 +11,7 @@ const { makeLedgerState, sourceRegistry } = require('./ledger.cjs')
 
 const now = () => new Date().toISOString()
 const id = (prefix) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`
-const collectionNames = ['people', 'organizations', 'properties', 'units', 'incidents', 'workOrders', 'vendors', 'telemetry', 'notices', 'extractedText', 'authorities', 'propositions', 'legalClaims', 'legalElements', 'elementRequirements', 'evidenceLinks', 'propositionLinks', 'contradictions', 'evidenceGaps', 'proceduralEvents', 'courtFilings', 'docketEntries', 'deadlines', 'paragraphProvenance', 'judgeProfiles', 'opponentProfiles', 'strategyRecords', 'agentJobs', 'facts', 'evidence', 'law', 'claims', 'elements', 'procedure', 'drafts', 'context', 'audit', 'events', 'moderateReviews', 'machineFronts', 'unitMatrixDetailed', 'machineAuthorities', 'evidenceHolds', 'activationSequence', 'damagesModel', 'sourceCatalog', 'caseInputs', 'machineLinks', 'machineActions', 'trialPhases', 'trialWitnesses', 'trialExhibits', 'trialMotions', 'trialObjections', 'trialExaminations', 'juryInstructions', 'trialTasks', 'trialRulings', 'trialEvents', 'trialArguments', 'trialAppealIssues', 'trialActions', 'trialJudgments', 'trialCosts', 'trialEnforcement', 'trialAppeals']
+const collectionNames = ['people', 'organizations', 'organizationProfiles', 'properties', 'units', 'incidents', 'workOrders', 'vendors', 'telemetry', 'notices', 'extractedText', 'authorities', 'propositions', 'legalClaims', 'legalElements', 'elementRequirements', 'evidenceLinks', 'propositionLinks', 'contradictions', 'evidenceGaps', 'proceduralEvents', 'courtFilings', 'docketEntries', 'deadlines', 'paragraphProvenance', 'judgeProfiles', 'opponentProfiles', 'strategyRecords', 'agentJobs', 'facts', 'evidence', 'law', 'claims', 'elements', 'procedure', 'drafts', 'context', 'audit', 'events', 'moderateReviews', 'machineFronts', 'unitMatrixDetailed', 'machineAuthorities', 'evidenceHolds', 'activationSequence', 'damagesModel', 'sourceCatalog', 'caseInputs', 'machineLinks', 'machineActions', 'trialPhases', 'trialWitnesses', 'trialExhibits', 'trialMotions', 'trialObjections', 'trialExaminations', 'juryInstructions', 'trialTasks', 'trialRulings', 'trialEvents', 'trialArguments', 'trialAppealIssues', 'trialActions', 'trialJudgments', 'trialCosts', 'trialEnforcement', 'trialAppeals']
 
 function normalize(data) {
   const normalized = { ...data, version: Math.max(Number(data.version || 0), 2) }
@@ -24,7 +24,7 @@ function normalize(data) {
 }
 
 function findObject(data, type, objectId) {
-  const collection = { fact: 'facts', evidence: 'evidence', law: 'law', authority: 'authorities', machineAuthority: 'machineAuthorities', claim: 'claims', legalClaim: 'legalClaims', machineFront: 'machineFronts', element: 'elements', legalElement: 'legalElements', procedure: 'procedure', draft: 'drafts', proposition: 'propositions', deadline: 'deadlines', person: 'people', event: 'events', organization: 'organizations', unit: 'units', machineUnit: 'unitMatrixDetailed', notice: 'notices', filing: 'courtFilings', moderateReview: 'moderateReviews', evidenceHold: 'evidenceHolds', activation: 'activationSequence', damage: 'damagesModel', source: 'sourceCatalog', strategyRecord: 'strategyRecords', trialPhase: 'trialPhases', trialWitness: 'trialWitnesses', trialExhibit: 'trialExhibits', trialMotion: 'trialMotions', trialObjection: 'trialObjections', trialTask: 'trialTasks', trialRuling: 'trialRulings', trialEvent: 'trialEvents', trialArgument: 'trialArguments', trialAppealIssue: 'trialAppealIssues', trialJudgment: 'trialJudgments', trialCost: 'trialCosts', trialEnforcement: 'trialEnforcement', trialAppeal: 'trialAppeals' }[type]
+  const collection = { fact: 'facts', evidence: 'evidence', law: 'law', authority: 'authorities', machineAuthority: 'machineAuthorities', claim: 'claims', legalClaim: 'legalClaims', machineFront: 'machineFronts', element: 'elements', legalElement: 'legalElements', procedure: 'procedure', draft: 'drafts', proposition: 'propositions', deadline: 'deadlines', person: 'people', event: 'events', organization: 'organizations', organizationProfile: 'organizationProfiles', unit: 'units', machineUnit: 'unitMatrixDetailed', notice: 'notices', filing: 'courtFilings', moderateReview: 'moderateReviews', evidenceHold: 'evidenceHolds', activation: 'activationSequence', damage: 'damagesModel', source: 'sourceCatalog', strategyRecord: 'strategyRecords', trialPhase: 'trialPhases', trialWitness: 'trialWitnesses', trialExhibit: 'trialExhibits', trialMotion: 'trialMotions', trialObjection: 'trialObjections', trialTask: 'trialTasks', trialRuling: 'trialRulings', trialEvent: 'trialEvents', trialArgument: 'trialArguments', trialAppealIssue: 'trialAppealIssues', trialJudgment: 'trialJudgments', trialCost: 'trialCosts', trialEnforcement: 'trialEnforcement', trialAppeal: 'trialAppeals' }[type]
   return collection ? data[collection].find((item) => item.id === objectId) : null
 }
 
@@ -73,7 +73,7 @@ const seed = () => {
   const data = ({
   version: 2,
   matter: { id: 'matter-001', name: 'Northstar Housing Matter', subtitle: 'Los Angeles · active working set', status: 'ACTIVE' },
-  people: [], organizations: [], properties: [], units: [], events: [], incidents: [], workOrders: [], vendors: [], telemetry: [], notices: [], extractedText: [], authorities: [], propositions: [], legalClaims: [], legalElements: [], elementRequirements: [], evidenceLinks: [], propositionLinks: [], contradictions: [], evidenceGaps: [], proceduralEvents: [], courtFilings: [], docketEntries: [], deadlines: [], paragraphProvenance: [], judgeProfiles: [], opponentProfiles: [], agentJobs: [],
+  people: [], organizations: [], organizationProfiles: [], properties: [], units: [], events: [], incidents: [], workOrders: [], vendors: [], telemetry: [], notices: [], extractedText: [], authorities: [], propositions: [], legalClaims: [], legalElements: [], elementRequirements: [], evidenceLinks: [], propositionLinks: [], contradictions: [], evidenceGaps: [], proceduralEvents: [], courtFilings: [], docketEntries: [], deadlines: [], paragraphProvenance: [], judgeProfiles: [], opponentProfiles: [], agentJobs: [],
   facts: [
     { id: 'fact-001', title: 'Recurring water intrusion', detail: 'Reported across three winter seasons.', status: 'FACT', source: 'Incident log / 2024-02-11' },
     { id: 'fact-002', title: 'Notice reached owner', detail: 'Written notice is linked to a dated work order.', status: 'VERIFIED', source: 'Email export / 2024-04-02' },
@@ -586,7 +586,7 @@ async function createStore(filePath) {
     search(query) {
       const needle = String(query || '').trim().toLowerCase()
       if (!needle) return []
-      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', PROCEDURE: 'procedure', DEADLINES: 'deadlines', MODERATE: 'moderateReviews', STRATEGY: 'strategyRecords', 'MACHINE FRONTS': 'machineFronts', 'MACHINE UNITS': 'unitMatrixDetailed', 'EVIDENCE HOLDS': 'evidenceHolds', SOURCES: 'sourceCatalog', WITNESSES: 'trialWitnesses', EXHIBITS: 'trialExhibits', MOTIONS: 'trialMotions', 'TRIAL TASKS': 'trialTasks', 'TRIAL EVENTS': 'trialEvents', ARGUMENTS: 'trialArguments', 'APPEAL ISSUES': 'trialAppealIssues', JUDGMENTS: 'trialJudgments', COSTS: 'trialCosts', ENFORCEMENT: 'trialEnforcement', APPEALS: 'trialAppeals' }
+      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', PROCEDURE: 'procedure', DEADLINES: 'deadlines', MODERATE: 'moderateReviews', STRATEGY: 'strategyRecords', ORGANIZATIONS: 'organizationProfiles', 'MACHINE FRONTS': 'machineFronts', 'MACHINE UNITS': 'unitMatrixDetailed', 'EVIDENCE HOLDS': 'evidenceHolds', SOURCES: 'sourceCatalog', WITNESSES: 'trialWitnesses', EXHIBITS: 'trialExhibits', MOTIONS: 'trialMotions', 'TRIAL TASKS': 'trialTasks', 'TRIAL EVENTS': 'trialEvents', ARGUMENTS: 'trialArguments', 'APPEAL ISSUES': 'trialAppealIssues', JUDGMENTS: 'trialJudgments', COSTS: 'trialCosts', ENFORCEMENT: 'trialEnforcement', APPEALS: 'trialAppeals' }
       return Object.entries(groups).flatMap(([type, collection]) => data[collection].filter((item) => JSON.stringify(item).toLowerCase().includes(needle)).slice(0, 20).map((item) => ({ id: item.id, type, name: item.title || item.name || item.filename || item.id, status: item.status || 'ACTIVE', source: item.source || item.provenance || 'Matter store', matterId: data.matter.id })))
     },
     async linkEvidence(evidenceId, targetType, targetId) {
@@ -656,8 +656,16 @@ async function createStore(filePath) {
     },
     async addContext(record) {
       if (!record || typeof record !== 'object' || Array.isArray(record)) throw new Error('Context record must be an object')
-      data.context.push({ ...record, id: id('ctx'), createdAt: now(), updatedAt: now(), status: 'CONTEXT_ONLY', matterId: data.matter.id })
-      data.audit.push({ id: id('audit'), at: now(), action: 'IMPORT AS CONTEXT', object: data.context.at(-1).id })
+      if (record.type === 'CICERO_ORGANIZATION_PROFILE' && !String(record.name || '').trim()) throw new Error('Organization profile requires a name')
+      const contextRecord = { ...record, id: id('ctx'), createdAt: now(), updatedAt: now(), status: 'CONTEXT_ONLY', matterId: data.matter.id }
+      data.context.push(contextRecord)
+      if (record.type === 'CICERO_ORGANIZATION_PROFILE') {
+        const profile = { id: id('org-profile'), organizationId: id('org-context'), name: record.name, employees: Number(record.employees) || 0, roles: Array.isArray(record.roles) ? record.roles : [], sourceNote: record.source || 'Source note required', assumptions: record.assumptions || 'Estimate; assumptions require review.', confidence: Number(record.confidence) || 0, status: 'ESTIMATE', contextId: contextRecord.id, linkedPeople: [], linkedEvents: [], matterId: data.matter.id, createdAt: now(), updatedAt: now() }
+        data.organizationProfiles.push(profile)
+        data.organizations.push({ id: profile.organizationId, name: profile.name, role: 'CICERO ORGANIZATION PROFILE', status: 'ESTIMATE_CONTEXT', source: profile.sourceNote, confidence: profile.confidence, profileId: profile.id, matterId: data.matter.id, createdAt: now(), updatedAt: now() })
+        data.audit.push({ id: id('audit'), at: now(), action: 'IMPORT CICERO ORGANIZATION PROFILE', object: profile.id })
+      }
+      data.audit.push({ id: id('audit'), at: now(), action: 'IMPORT AS CONTEXT', object: contextRecord.id })
       await this.persist()
       return data
     },

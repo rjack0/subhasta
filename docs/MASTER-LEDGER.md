@@ -788,16 +788,16 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 0777 | Legacy plan point 0777 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0778 | Legacy plan point 0778 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0779 | Legacy plan point 0779 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0780 | Legacy plan point 0780 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0781 | Legacy plan point 0781 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0782 | Legacy plan point 0782 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0783 | Legacy plan point 0783 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0784 | Legacy plan point 0784 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0785 | Legacy plan point 0785 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0786 | Legacy plan point 0786 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0787 | Legacy plan point 0787 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0788 | Legacy plan point 0788 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0789 | Legacy plan point 0789 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
+| 0780 | Legacy plan point 0780 | R1 | IMPLEMENTED | cicero-profile-persistence | cicero/main.js, electron/store.cjs |
+| 0781 | Legacy plan point 0781 | R1 | IMPLEMENTED | cicero-profile-persistence | cicero/main.js, electron/store.cjs |
+| 0782 | Legacy plan point 0782 | R1 | IMPLEMENTED | cicero-profile-persistence | cicero/index.html, cicero/main.js, electron/store.cjs |
+| 0783 | Legacy plan point 0783 | R1 | IMPLEMENTED | cicero-profile-persistence | cicero/index.html, cicero/main.js, electron/store.cjs |
+| 0784 | Legacy plan point 0784 | R1 | IMPLEMENTED | cicero-profile-persistence | cicero/index.html, cicero/main.js, electron/store.cjs |
+| 0785 | Legacy plan point 0785 | R1 | IMPLEMENTED | cicero-estimate-boundary | electron/store.cjs, clo/renderer.js |
+| 0786 | Legacy plan point 0786 | R1 | IMPLEMENTED | cicero-profile-persistence | electron/store.cjs |
+| 0787 | Legacy plan point 0787 | R1 | IMPLEMENTED | cicero-profile-persistence | electron/store.cjs |
+| 0788 | Legacy plan point 0788 | R1 | IMPLEMENTED | cicero-profile-persistence | electron/store.cjs |
+| 0789 | Legacy plan point 0789 | R1 | IMPLEMENTED | cicero-profile-persistence | cicero/main.js, electron/store.cjs |
 | 0790 | Legacy plan point 0790 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0791 | Legacy plan point 0791 | R1 | UNREAD | — | — |
 | 0792 | Legacy plan point 0792 | R1 | UNREAD | — | — |
