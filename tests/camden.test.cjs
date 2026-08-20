@@ -112,6 +112,7 @@ async function main() {
     await assert.rejects(() => store.applyAction('record-judgment', { entryDate: 'October 1, 2026' }), /Judgment entry date requires YYYY-MM-DD/)
     await assert.rejects(() => store.applyAction('record-trial-event', { title: 'Invalid date', date: 'soon' }), /Trial event date requires YYYY-MM-DD/)
     await assert.rejects(() => store.applyAction('record-procedural-event', { title: 'Invalid date', date: 'soon' }), /Procedural event requires a title and YYYY-MM-DD date/)
+    await assert.rejects(() => store.applyAction('record-procedural-event', { title: 'Unverified event', date: '2026-08-25' }), /Procedural event requires a docket, filing, service, or court record source/)
     await assert.rejects(() => store.applyAction('record-exhibit-admission', { exhibitId: 'TX-01', result: 'MAYBE' }), /Exhibit admission result is invalid/)
     await assert.rejects(() => store.applyAction('record-trial-cost', { costId: 'TC-01', amount: -1, source: 'Receipt 1' }), /non-negative number/)
     await assert.rejects(() => store.applyAction('record-appellate-step', { stepId: 'TA-01', dueDate: 'soon', recordLocation: 'Docket 1' }), /YYYY-MM-DD/)

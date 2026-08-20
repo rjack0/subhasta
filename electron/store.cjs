@@ -512,8 +512,10 @@ async function createStore(filePath) {
       } else if (action === 'record-procedural-event') {
         const title = String(payload.title || '').trim()
         const date = String(payload.date || '').trim()
+        const source = String(payload.source || '').trim()
         if (!title || !/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error('Procedural event requires a title and YYYY-MM-DD date')
-        const event = { id: id('procedure-event'), title, date, type: payload.type || 'COURT_EVENT', status: payload.status || 'RECORDED', source: payload.source || 'Docket, filing, service, or court record required', recordLocation: payload.recordLocation || null, matterId: data.matter.id, createdAt: now(), updatedAt: now() }
+        if (!source || /record required$/i.test(source)) throw new Error('Procedural event requires a docket, filing, service, or court record source')
+        const event = { id: id('procedure-event'), title, date, type: payload.type || 'COURT_EVENT', status: payload.status || 'RECORDED', source, recordLocation: payload.recordLocation || null, matterId: data.matter.id, createdAt: now(), updatedAt: now() }
         data.procedure.push(event)
         data.proceduralEvents.push(event)
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD PROCEDURAL EVENT', object: event.id })

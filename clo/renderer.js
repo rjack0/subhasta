@@ -347,7 +347,9 @@ async function runStrategyObservation() {
 }
 
 async function runProcedureEvent() {
-  try { state.data = await window.clo.action('record-procedural-event', { title: el('#procedure-event-title').value, date: el('#procedure-event-date').value, source: 'Docket, filing, service, or court record required' }); render() } catch (error) { showActionError('PROCEDURAL EVENT FAILED', error) }
+  const source = window.prompt('Docket, filing, service, or court record location:')?.trim()
+  if (!source) return
+  try { state.data = await window.clo.action('record-procedural-event', { title: el('#procedure-event-title').value, date: el('#procedure-event-date').value, source }); render() } catch (error) { showActionError('PROCEDURAL EVENT FAILED', error) }
 }
 
 async function runProcedureFiling() {
