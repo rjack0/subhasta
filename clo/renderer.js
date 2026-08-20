@@ -147,6 +147,11 @@ async function runAction(action, objectId) {
     payload.ruleSource = window.prompt('Controlling rule or explicit rule gap:')?.trim()
     if (!payload.owner || !payload.nextAction || !payload.source || !payload.ruleSource) return
   }
+  if (action === 'record-trial-cost') {
+    const amount = window.prompt('Amount in the cost record:')
+    if (amount === null || !amount.trim()) return
+    payload.amount = amount.trim()
+  }
   if (['record-trial-motion', 'record-jury-instruction', 'record-trial-cost', 'record-enforcement-step', 'record-appellate-step'].includes(action)) {
     const source = window.prompt('Enter the controlling record source or location before recording this item:')
     if (!source?.trim()) return
@@ -199,7 +204,9 @@ async function runTrialVerdict() {
 }
 
 async function runTrialJudgment() {
-  try { state.data = await window.clo.action('record-judgment', { entryDate: el('#trial-judgment-date').value, relief: el('#trial-verdict').value, source: 'Court judgment record required' }); render() } catch (error) { showActionError('JUDGMENT FAILED', error) }
+  const source = window.prompt('Court judgment record source or docket location:')?.trim()
+  if (!source) return
+  try { state.data = await window.clo.action('record-judgment', { entryDate: el('#trial-judgment-date').value, relief: el('#trial-verdict').value, source }); render() } catch (error) { showActionError('JUDGMENT FAILED', error) }
 }
 
 async function runTrialEvent() {
