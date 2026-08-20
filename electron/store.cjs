@@ -52,6 +52,23 @@ function processEvidenceBytes(bytes, extension) {
   })
 }
 
+function recalculateCompleteness(data) {
+  data.elements = data.elements.map((element) => {
+    const linkedEvidence = data.evidenceLinks.some((link) => link.targetType === 'element' && link.targetId === element.id) || (element.links || []).some((link) => String(link).toLowerCase().startsWith('ev-'))
+    const linkedFact = (element.links || []).some((link) => String(link).toLowerCase().startsWith('fact-') || String(link).toLowerCase().startsWith('pf-'))
+    const linkedAuthority = (element.links || []).some((link) => String(link).toLowerCase().startsWith('law-') || String(link).toLowerCase().startsWith('authority-')) || data.propositionLinks.some((link) => link.elementId === element.id)
+    const sourceFixtureComplete = element.status === 'COMPLETE' && linkedEvidence && linkedFact
+    const complete = sourceFixtureComplete || (linkedEvidence && linkedFact && linkedAuthority)
+    return { ...element, proof: complete ? 100 : Math.min(99, Math.round(([linkedEvidence, linkedFact, linkedAuthority].filter(Boolean).length / 3) * 100)), status: complete ? 'COMPLETE' : 'INCOMPLETE', missing: complete ? null : [!linkedEvidence && 'evidence', !linkedFact && 'fact', !linkedAuthority && 'authority'].filter(Boolean).join(', ') }
+  })
+  data.claims = data.claims.map((claim) => {
+    const claimElements = data.elements.filter((element) => (claim.elements || []).includes(element.id))
+    const proof = claimElements.length ? Math.round(claimElements.reduce((sum, element) => sum + Number(element.proof || 0), 0) / claimElements.length) : 0
+    return { ...claim, proof, status: claimElements.every((element) => element.status === 'COMPLETE') ? 'COMPLETE' : 'INCOMPLETE' }
+  })
+  return data
+}
+
 const seed = () => {
   const data = ({
   version: 2,
@@ -250,7 +267,18 @@ async function createStore(filePath) {
         data.propositionLinks.push(link)
         authority.links = Array.from(new Set([...(authority.links || []), element.id]))
         element.links = Array.from(new Set([...(element.links || []), authority.id]))
+        recalculateCompleteness(data)
         data.audit.push({ id: id('audit'), at: now(), action: 'LINK ELEMENT', object: link.id })
+      } else if (action === 'recalculate-completeness') {
+        recalculateCompleteness(data)
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECALCULATE COMPLETENESS', object: data.claims.map((claim) => claim.id).join(',') })
+      } else if (action === 'link-element-fact') {
+        const element = data.elements.find((item) => item.id === payload.elementId)
+        const fact = data.facts.find((item) => item.id === payload.factId)
+        if (!element || !fact) throw new Error('Element fact link target does not exist')
+        element.links = Array.from(new Set([...(element.links || []), fact.id]))
+        recalculateCompleteness(data)
+        data.audit.push({ id: id('audit'), at: now(), action: 'LINK ELEMENT FACT', object: element.id })
       } else if (action === 'build-section') {
         const draft = data.drafts[0]
         if (draft) {
@@ -522,6 +550,7 @@ async function createStore(filePath) {
       if (!data.evidenceLinks.some((item) => item.evidenceId === evidenceId && item.targetType === targetType && item.targetId === targetId)) data.evidenceLinks.push(link)
       evidence.links = Array.from(new Set([...(evidence.links || []), targetId]))
       evidence.linkedElements = targetType === 'element' ? Array.from(new Set([...(evidence.linkedElements || []), targetId])) : evidence.linkedElements || []
+      if (targetType === 'element') recalculateCompleteness(data)
       data.audit.push({ id: id('audit'), at: now(), action: 'LINK EVIDENCE', object: link.id })
       await this.persist()
       return data

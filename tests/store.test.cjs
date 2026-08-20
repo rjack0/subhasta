@@ -52,6 +52,11 @@ async function main() {
     assert.equal(store.snapshot().drafts[0].validationChecks.citations, true)
     assert.equal(store.snapshot().drafts[0].validationChecks.elements, false)
     await assert.rejects(() => store.applyAction('export-filing'), /validation has not passed/)
+    await store.linkEvidence(evidenceId, 'element', 'element-003')
+    await store.applyAction('link-element-fact', { elementId: 'element-003', factId: 'fact-003' })
+    await store.applyAction('link-element', { authorityId: 'law-001', elementId: 'element-003' })
+    await store.applyAction('recalculate-completeness')
+    assert.equal(store.snapshot().elements.find((item) => item.id === 'element-003').status, 'COMPLETE')
 
     const forged = { ...staged, hash: `sha256:${'0'.repeat(64)}` }
     await assert.rejects(() => store.commitEvidence([forged]), /hash mismatch/)
