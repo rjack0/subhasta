@@ -7,6 +7,10 @@ const routes = ['command', 'evidence', 'law', 'elements', 'procedure', 'strategy
 const responsive = [{ name: 'shell-1024', width: 1024, height: 900 }, { name: 'shell-mobile', width: 390, height: 844 }]
 const outputDir = path.join(__dirname, '..', 'artifacts', 'screenshots')
 
+app.disableHardwareAcceleration()
+app.commandLine.appendSwitch('disable-gpu')
+app.commandLine.appendSwitch('disable-software-rasterizer')
+
 async function main() {
   await fs.mkdir(outputDir, { recursive: true })
   const captureDb = path.join(outputDir, '.capture-case.sqlite3')
