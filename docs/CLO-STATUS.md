@@ -8,7 +8,7 @@ The current baseline is generated from direct repository evidence. The remaining
 
 ## Master Ledger Snapshot
 
-At the current working tree, the 2,820-point ledger contains **605 IMPLEMENTED** and **2,215 UNREAD** requirements. `IMPLEMENTED` means a repository feature exists; it does not imply `TESTED` or `VERIFIED`. Through commit `3b31521`, the verified implementation includes normalized filing/service/docket records, consequence-aware deadlines, inspector evidence/element/authority links, source-review gates, property identity controls, contradiction and gap capture, extracted-text correction provenance, governed manifest/backup exports, strategy linked-object provenance, and filing validation issue summaries.
+At the current working tree, the 2,820-point ledger contains **605 IMPLEMENTED** and **2,215 UNREAD** requirements. `IMPLEMENTED` means a repository feature exists; it does not imply `TESTED` or `VERIFIED`. Through commit `b330f31`, the verified implementation includes normalized filing/service/docket records, consequence-aware deadlines, inspector evidence/element/authority links, source-review gates, property identity controls, contradiction and gap capture, extracted-text correction provenance, governed manifest/backup exports, strategy linked-object provenance, filing validation issue summaries, and trial foundation/admission/appeal source gates.
 
 This ledger is intentionally conservative. It records what is implemented and verified in the repository, not what is planned.
 
