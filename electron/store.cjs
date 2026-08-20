@@ -425,7 +425,10 @@ async function createStore(filePath) {
         data.trialActions.push({ id: id('trial-action'), type: 'OBJECTION', objectionId: objection.id, status: objection.ruling, createdAt: now(), matterId: data.matter.id })
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD TRIAL OBJECTION', object: objection.id })
       } else if (action === 'record-trial-ruling') {
-        const ruling = { id: id('trial-ruling'), targetType: payload.targetType || 'UNKNOWN', targetId: payload.targetId || null, result: payload.result || 'PENDING', reasoning: payload.reasoning || '', preserved: Boolean(payload.preserved), source: payload.source || 'Court record required', createdAt: now(), updatedAt: now(), matterId: data.matter.id }
+        const reasoning = String(payload.reasoning || '').trim()
+        const source = String(payload.source || '').trim()
+        if (!reasoning || !source || source === 'Court record location required') throw new Error('Ruling requires reasoning and a record location')
+        const ruling = { id: id('trial-ruling'), targetType: payload.targetType || 'UNKNOWN', targetId: payload.targetId || null, result: payload.result || 'PENDING', reasoning, preserved: Boolean(payload.preserved), source, createdAt: now(), updatedAt: now(), matterId: data.matter.id }
         data.trialRulings.push(ruling)
         data.trialActions.push({ id: id('trial-action'), type: 'RULING', rulingId: ruling.id, status: ruling.result, createdAt: now(), matterId: data.matter.id })
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD TRIAL RULING', object: ruling.id })
