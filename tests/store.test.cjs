@@ -48,6 +48,8 @@ async function main() {
     await store.applyAction('verify-citations')
     await store.applyAction('validate-filing')
     assert.equal(store.snapshot().drafts[0].validation, 'FAILED')
+    assert.equal(store.snapshot().drafts[0].validationChecks.citations, true)
+    assert.equal(store.snapshot().drafts[0].validationChecks.elements, false)
     await assert.rejects(() => store.applyAction('export-filing'), /validation has not passed/)
 
     const forged = { ...staged, hash: `sha256:${'0'.repeat(64)}` }
@@ -56,6 +58,7 @@ async function main() {
     await store.update({ elements: store.snapshot().elements.map((element) => ({ ...element, status: 'COMPLETE', proof: 100, missing: null })) })
     await store.applyAction('validate-filing')
     assert.equal(store.snapshot().drafts[0].validation, 'PASSED')
+    assert.deepEqual(store.snapshot().drafts[0].validationChecks, { elements: true, citations: true, paragraphProvenance: true, noBrokenSupport: true })
     await store.applyAction('export-filing')
     assert.ok(store.snapshot().drafts[0].exportedAt)
 

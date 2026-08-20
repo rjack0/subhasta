@@ -259,9 +259,16 @@ async function createStore(filePath) {
         if (data.drafts[0]) data.drafts[0].citationStatus = 'VERIFIED'
         data.audit.push({ id: id('audit'), at: now(), action: 'VERIFY CITATIONS', object: data.drafts[0]?.id || 'none' })
       } else if (action === 'validate-filing') {
-        const complete = data.elements.every((item) => item.status === 'COMPLETE')
-        if (data.drafts[0]) data.drafts[0].validation = complete ? 'PASSED' : 'FAILED'
-        data.audit.push({ id: id('audit'), at: now(), action: complete ? 'VALIDATE FILING' : 'VALIDATE FILING FAILED', object: data.drafts[0]?.id || 'none' })
+        const draft = data.drafts[0]
+        const checks = {
+          elements: data.elements.every((item) => item.status === 'COMPLETE'),
+          citations: draft?.citationStatus === 'VERIFIED',
+          paragraphProvenance: Boolean(draft?.paragraphs?.length) && draft.paragraphs.every((paragraph) => Array.isArray(paragraph.provenance) && paragraph.provenance.length > 0),
+          noBrokenSupport: !draft?.paragraphs?.some((paragraph) => ['FAILED', 'CONTRADICTION'].includes(paragraph.status))
+        }
+        const complete = Object.values(checks).every(Boolean)
+        if (draft) { draft.validation = complete ? 'PASSED' : 'FAILED'; draft.validationChecks = checks; draft.validatedAt = now() }
+        data.audit.push({ id: id('audit'), at: now(), action: complete ? 'VALIDATE FILING' : 'VALIDATE FILING FAILED', object: draft?.id || 'none' })
       } else if (action === 'export-filing') {
         if (data.drafts[0]?.validation !== 'PASSED') throw new Error('Filing validation has not passed')
         data.drafts[0].exportedAt = now()
