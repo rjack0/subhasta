@@ -8,7 +8,7 @@ The current baseline is generated from direct repository evidence. The remaining
 
 ## Master Ledger Snapshot
 
-At the current working tree, the 2,820-point ledger contains **600 IMPLEMENTED** and **2,220 UNREAD** requirements. `IMPLEMENTED` means a repository feature exists; it does not imply `TESTED` or `VERIFIED`. The latest verified tranche adds source/custodian-gated evidence commitment, extraction-method provenance with guarded OCR fallback, source-gated strategy observations, post-trial mutation validation, Cicero organization profiles, auditable trial controls, exact property identity guards, and authority source review.
+At the current working tree, the 2,820-point ledger contains **605 IMPLEMENTED** and **2,215 UNREAD** requirements. `IMPLEMENTED` means a repository feature exists; it does not imply `TESTED` or `VERIFIED`. The latest verified tranche adds normalized court-filing, docket-entry, and service-record persistence alongside source/custodian-gated evidence commitment, extraction-method provenance with guarded OCR fallback, source-gated strategy observations, post-trial mutation validation, Cicero organization profiles, auditable trial controls, exact property identity guards, and authority source review.
 
 This ledger is intentionally conservative. It records what is implemented and verified in the repository, not what is planned.
 
