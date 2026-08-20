@@ -627,16 +627,20 @@ async function createStore(filePath) {
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD EXHIBIT ADMISSION', object: exhibit.id })
       } else if (action === 'record-trial-event') {
         const title = String(payload.title || '').trim()
+        const source = String(payload.source || '').trim()
         if (!title) throw new Error('Trial event requires a title')
         if (!/^\d{4}-\d{2}-\d{2}$/.test(String(payload.date || ''))) throw new Error('Trial event date requires YYYY-MM-DD')
-        const event = { id: id('trial-event'), title, date: payload.date, type: payload.type || 'COURTROOM', source: payload.source || 'Transcript, docket, or court record required', status: payload.status || 'RECORDED', phaseId: payload.phaseId || data.trial.currentPhaseId, matterId: data.matter.id, createdAt: now(), updatedAt: now() }
+        if (!source || source.includes('required')) throw new Error('Trial event requires a transcript, docket, or court record source')
+        const event = { id: id('trial-event'), title, date: payload.date, type: payload.type || 'COURTROOM', source, status: payload.status || 'RECORDED', phaseId: payload.phaseId || data.trial.currentPhaseId, matterId: data.matter.id, createdAt: now(), updatedAt: now() }
         data.trialEvents.push(event)
         data.trialActions.push({ id: id('trial-action'), type: 'TRIAL_EVENT', eventId: event.id, status: event.status, createdAt: now(), matterId: data.matter.id })
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD TRIAL EVENT', object: event.id })
       } else if (action === 'record-trial-argument') {
         const text = String(payload.text || '').trim()
+        const source = String(payload.source || '').trim()
         if (!text) throw new Error('Trial argument requires text')
-        const argument = { id: id('trial-argument'), side: payload.side || 'PLAINTIFF', segment: payload.segment || 'OPENING', text, source: payload.source || 'Attorney notes and admitted record required', status: payload.status || 'DRAFT', phaseId: payload.phaseId || data.trial.currentPhaseId, matterId: data.matter.id, createdAt: now(), updatedAt: now() }
+        if (!source || source.includes('required')) throw new Error('Trial argument requires an admitted record or notes source')
+        const argument = { id: id('trial-argument'), side: payload.side || 'PLAINTIFF', segment: payload.segment || 'OPENING', text, source, status: payload.status || 'DRAFT', phaseId: payload.phaseId || data.trial.currentPhaseId, matterId: data.matter.id, createdAt: now(), updatedAt: now() }
         data.trialArguments.push(argument)
         data.trialActions.push({ id: id('trial-action'), type: 'TRIAL_ARGUMENT', argumentId: argument.id, status: argument.status, createdAt: now(), matterId: data.matter.id })
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD TRIAL ARGUMENT', object: argument.id })

@@ -430,11 +430,15 @@ async function runTrialJudgment() {
 }
 
 async function runTrialEvent() {
-  try { state.data = await window.clo.action('record-trial-event', { title: el('#trial-event-title').value, date: el('#trial-event-date').value, source: 'Transcript, docket, or court record required' }); render() } catch (error) { showActionError('TRIAL EVENT FAILED', error) }
+  const source = window.prompt('Transcript, docket, or court record location:')?.trim()
+  if (!source) return
+  try { state.data = await window.clo.action('record-trial-event', { title: el('#trial-event-title').value, date: el('#trial-event-date').value, source }); render() } catch (error) { showActionError('TRIAL EVENT FAILED', error) }
 }
 
 async function runTrialArgument() {
-  try { state.data = await window.clo.action('record-trial-argument', { side: el('#trial-argument-side').value, segment: el('#trial-argument-segment').value, text: el('#trial-argument-text').value, source: 'Attorney notes and admitted record required' }); render() } catch (error) { showActionError('TRIAL ARGUMENT FAILED', error) }
+  const source = window.prompt('Admitted record or attorney-notes source:')?.trim()
+  if (!source) return
+  try { state.data = await window.clo.action('record-trial-argument', { side: el('#trial-argument-side').value, segment: el('#trial-argument-segment').value, text: el('#trial-argument-text').value, source }); render() } catch (error) { showActionError('TRIAL ARGUMENT FAILED', error) }
 }
 
 async function runTrialRuling() {
