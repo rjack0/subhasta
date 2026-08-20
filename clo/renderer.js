@@ -2,7 +2,7 @@ const el = (selector) => document.querySelector(selector)
 const stage = el('#stage')
 const inspector = el('#inspector')
 const drawer = el('#drawer')
-const state = { route: 'command', data: null, selected: null, inspectorTab: 'DETAIL', evidencePage: 0, machineQuery: '', ledgerQuery: '', ledgerStatus: 'ALL', ledgerRows: [] }
+const state = { route: 'command', data: null, selected: null, inspectorTab: 'DETAIL', evidencePage: 0, machineQuery: '', ledgerQuery: '', ledgerStatus: 'ALL', ledgerRows: [], stagedItems: [] }
 
 document.addEventListener('click', (event) => {
   if (event.target?.id === 'record-procedure-filing') runProcedureFiling()
@@ -91,6 +91,28 @@ const installElementLinkControls = () => {
 }
 
 new MutationObserver(installElementLinkControls).observe(inspector, { childList: true, subtree: true })
+
+const installStagedTextEditor = () => {
+  const button = drawer.querySelector('#commit-evidence, #commit-dropped-evidence')
+  if (!button || drawer.querySelector('#staged-extracted-text') || !state.stagedItems.length) return
+  const label = document.createElement('p')
+  label.className = 'label'
+  label.textContent = 'EXTRACTED TEXT REVIEW'
+  const textarea = document.createElement('textarea')
+  textarea.id = 'staged-extracted-text'
+  textarea.className = 'staged-text'
+  textarea.setAttribute('aria-label', 'Extracted text review')
+  textarea.value = state.stagedItems[0].extractedText || ''
+  textarea.addEventListener('input', () => {
+    const item = state.stagedItems[0]
+    if (!item.originalExtractedText) item.originalExtractedText = item.extractedText || ''
+    item.extractedText = textarea.value
+    item.extractionCorrection = { originalTextPreserved: true, correctedAt: new Date().toISOString() }
+  })
+  button.before(label, textarea)
+}
+
+new MutationObserver(installStagedTextEditor).observe(drawer, { childList: true, subtree: true })
 
 const statusClass = (status) => ({ COMPLETE: 'state-complete', VERIFIED: 'state-complete', SUPPORTED: 'state-complete', INCOMPLETE: 'state-pending', PENDING: 'state-pending', HYPOTHESIS: 'state-pending', CONTRADICTION: 'state-danger', FAILED: 'state-danger', INFERENCE: 'state-inference' }[status] || '')
 const safe = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]))
@@ -365,6 +387,7 @@ function showActionError(label, error) { drawer.hidden = false; drawer.innerHTML
 function showStagedEvidence(staged) {
   const items = Array.isArray(staged) ? staged.filter(Boolean) : []
   if (!items.length) return
+  state.stagedItems = items
   drawer.hidden = false
   drawer.innerHTML = `<p class="label">Evidence drawer</p><h2 class="inspector-name">${items.length} staged object${items.length > 1 ? 's' : ''}</h2><input id="staged-source" class="search-input" placeholder="Source / collection path / URL" aria-label="Evidence source"><input id="staged-custodian" class="search-input" placeholder="Custodian or producing entity" aria-label="Evidence custodian"><div class="object-list">${items.map((item) => `<div class="object-row"><div><strong>${safe(item.name)}</strong><small>${safe(item.hash)} · ${item.bytes} bytes · original ${safe(item.originalPath || 'clipboard')}</small></div><b class="state-pending">STAGED</b></div>`).join('')}</div><button id="commit-dropped-evidence" class="action-button">COMMIT EVIDENCE</button><button id="close-dropped-evidence" class="utility-button">CLOSE</button>`
   el('#commit-dropped-evidence').addEventListener('click', async () => { try { const source = el('#staged-source').value.trim(); const custodian = el('#staged-custodian').value.trim(); state.data = await window.clo.commitEvidence(items.map((item) => ({ ...item, source, custodian }))); drawer.hidden = true; render() } catch (error) { showActionError('COMMIT FAILED', error) } })
@@ -378,6 +401,7 @@ async function openImport() {
   const stage = async (items) => {
     const staged = Array.isArray(items) ? items.filter(Boolean) : [items].filter(Boolean)
     if (!staged.length) return
+    state.stagedItems = staged
     drawer.innerHTML = `<p class="label">Evidence drawer</p><h2 class="inspector-name">${staged.length} staged object${staged.length > 1 ? 's' : ''}</h2><input id="staged-source" class="search-input" placeholder="Source / collection path / URL" aria-label="Evidence source"><input id="staged-custodian" class="search-input" placeholder="Custodian or producing entity" aria-label="Evidence custodian"><div class="object-list">${staged.map((item) => `<div class="object-row"><div><strong>${safe(item.name)}</strong><small>${safe(item.hash)} · ${item.bytes} bytes</small></div><b class="state-pending">STAGED</b></div>`).join('')}</div><button id="commit-evidence" class="action-button">COMMIT EVIDENCE</button><button id="close-drawer" class="utility-button">CLOSE</button>`
     el('#commit-evidence').addEventListener('click', async () => { try { const source = el('#staged-source').value.trim(); const custodian = el('#staged-custodian').value.trim(); state.data = await window.clo.commitEvidence(staged.map((item) => ({ ...item, source, custodian }))); drawer.hidden = true; render() } catch (error) { showActionError('COMMIT FAILED', error) } }); el('#close-drawer').addEventListener('click', () => { drawer.hidden = true })
   }

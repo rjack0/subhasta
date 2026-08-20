@@ -766,7 +766,7 @@ async function createStore(filePath) {
           const digest = crypto.createHash('sha256').update(bytes).digest('hex')
           if (item.hash !== `sha256:${digest}`) throw new Error(`Evidence hash mismatch for ${item.name || item.originalPath}`)
         } else if (!item.originalPath && item.extractedText !== undefined) {
-          const digest = crypto.createHash('sha256').update(String(item.extractedText || ''), 'utf8').digest('hex')
+          const digest = crypto.createHash('sha256').update(String(item.originalExtractedText ?? item.extractedText ?? ''), 'utf8').digest('hex')
           if (item.hash !== `sha256:${digest}`) throw new Error('Clipboard evidence hash mismatch')
         }
       }
@@ -781,7 +781,7 @@ async function createStore(filePath) {
         committed.push({ ...item, id: id('ev'), status: 'VERIFIED', storedPath, links: [], linkedEvents: [], linkedPeople: [], linkedSystems: [], linkedElements: [], corroboration: 'UNREVIEWED', contradiction: null, importedAt: now(), createdAt: now(), updatedAt: now(), matterId: data.matter.id })
       }
       const duplicates = staged.filter((item) => data.evidence.some((existing) => existing.hash && existing.hash === item.hash)).map((item) => ({ ...item, status: 'DUPLICATE' }))
-      data.extractedText.push(...committed.filter((item) => item.extractedText).map((item) => ({ id: id('text'), evidenceId: item.id, text: item.extractedText, extractionMethod: item.extractionMethod || 'UNKNOWN', extractionConfidence: item.extractionConfidence ?? null, createdAt: now() })))
+        data.extractedText.push(...committed.filter((item) => item.extractedText).map((item) => ({ id: id('text'), evidenceId: item.id, text: item.extractedText, originalText: item.originalExtractedText || item.extractedText, correction: item.extractionCorrection || null, extractionMethod: item.extractionMethod || 'UNKNOWN', extractionConfidence: item.extractionConfidence ?? null, createdAt: now() })))
       data.evidence.push(...committed)
       data.agentJobs.push({ id: id('job'), type: 'HASH_EXTRACT_INDEX', status: 'COMPLETE', records: committed.length, startedAt: now(), finishedAt: now() })
       data.audit.push({ id: id('audit'), at: now(), action: duplicates.length ? 'COMMIT EVIDENCE / DUPLICATE DETECTED' : 'COMMIT EVIDENCE', object: committed.map((item) => item.id).join(', ') || duplicates.map((item) => item.hash).join(', ') }); await this.persist(); return data
