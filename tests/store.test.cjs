@@ -33,6 +33,10 @@ async function main() {
     await store.commitEvidence([{ ...staged, source: 'Test source record', custodian: 'Test custodian' }])
     assert.equal(store.snapshot().evidence.at(-1).status, 'VERIFIED')
     assert.ok(await fs.stat(store.snapshot().evidence.at(-1).storedPath))
+    const manifest = store.evidenceManifest()
+    assert.equal(manifest.matter.id, store.snapshot().matter.id)
+    assert.ok(manifest.evidence.some((item) => item.hash === staged.hash && item.custodian === 'Test custodian'))
+    assert.equal(store.backupSnapshot().state.matter.id, store.snapshot().matter.id)
     assert.equal(store.health().completedJobs, 1)
     assert.equal(store.snapshot().extractedText.at(-1).evidenceId, store.snapshot().evidence.at(-1).id)
     const evidenceId = store.snapshot().evidence.at(-1).id

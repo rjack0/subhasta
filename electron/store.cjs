@@ -753,6 +753,12 @@ async function createStore(filePath) {
       const active = data.agentJobs.filter((job) => job.status === 'RUNNING').length
       return { db: 'VERIFIED', index: 'READY', agents: active, jobs: data.agentJobs.filter((job) => job.status !== 'COMPLETE').length, completedJobs: data.agentJobs.filter((job) => job.status === 'COMPLETE').length }
     },
+    evidenceManifest() {
+      return { version: 1, generatedAt: now(), matter: { id: data.matter.id, name: data.matter.name, address: data.matter.address }, evidence: data.evidence.map((item) => ({ id: item.id, name: item.name, originalPath: item.originalPath || null, storedPath: item.storedPath || null, hash: item.hash, source: item.source || null, custodian: item.custodian || null, originalTimestamps: item.originalTimestamps || null, importedAt: item.importedAt || null, extractionMethod: item.extractionMethod || null, extractionConfidence: item.extractionConfidence ?? null, links: item.links || [], status: item.status })), audit: data.audit.filter((item) => ['COMMIT EVIDENCE', 'COMMIT EVIDENCE / DUPLICATE DETECTED'].includes(item.action)) }
+    },
+    backupSnapshot() {
+      return { version: data.version, generatedAt: now(), matterId: data.matter.id, state: data }
+    },
     async addContext(record) {
       if (!record || typeof record !== 'object' || Array.isArray(record)) throw new Error('Context record must be an object')
       if (record.type === 'CICERO_ORGANIZATION_PROFILE' && !String(record.name || '').trim()) throw new Error('Organization profile requires a name')

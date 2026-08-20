@@ -203,6 +203,8 @@ for (const index of implementedIds) {
 // Keep this separate from the broad legacy baseline so the ledger never treats
 // a fixture or a rendered label as proof of a behavior that has no test.
 const concreteEvidence = new Map([
+  [98, { featureRefs: ['case-backup-snapshot'], implementationEvidence: ['electron/store.cjs', 'electron/preload.cjs', 'electron/main.cjs'], testEvidence: ['tests/store.test.cjs', 'tests/constitution.test.cjs'] }],
+  [99, { featureRefs: ['evidence-manifest'], implementationEvidence: ['electron/store.cjs', 'electron/preload.cjs', 'electron/main.cjs'], testEvidence: ['tests/store.test.cjs', 'tests/constitution.test.cjs'] }],
   [441, { featureRefs: ['typed-evidence-links'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/store.test.cjs'] }],
   [442, { featureRefs: ['typed-evidence-links'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/store.test.cjs'] }],
   [443, { featureRefs: ['typed-evidence-links'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/store.test.cjs'] }],

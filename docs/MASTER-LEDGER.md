@@ -107,7 +107,7 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 0096 | Legacy plan point 0096 | R1 | UNREAD | — | — |
 | 0097 | Legacy plan point 0097 | R1 | UNREAD | — | — |
 | 0098 | Legacy plan point 0098 | R1 | UNREAD | — | — |
-| 0099 | Legacy plan point 0099 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
+| 0099 | Legacy plan point 0099 | R1 | IMPLEMENTED | evidence-manifest | electron/store.cjs, electron/preload.cjs, electron/main.cjs |
 | 0100 | Legacy plan point 0100 | R1 | UNREAD | — | — |
 | 0101 | Legacy plan point 0101 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0102 | Legacy plan point 0102 | R1 | IMPLEMENTED | existing-clo-build | current-repository |

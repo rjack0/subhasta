@@ -17,5 +17,7 @@ contextBridge.exposeInMainWorld('clo', {
   commitEvidence: (staged) => ipcRenderer.invoke('evidence:commit', staged),
   importContext: (record) => ipcRenderer.invoke('context:import', record),
   openExternal: (url) => ipcRenderer.invoke('external:open', url),
-  health: () => ipcRenderer.invoke('system:health')
+  health: () => ipcRenderer.invoke('system:health'),
+  evidenceManifest: () => ipcRenderer.invoke('evidence:manifest'),
+  backupSnapshot: () => ipcRenderer.invoke('case:backup')
 })

@@ -73,6 +73,8 @@ function registerIpc() {
   })
   ipcMain.handle('context:import', (_, record) => store.addContext(record))
   ipcMain.handle('system:health', () => ({ ...store.health(), ram: process.memoryUsage().rss }))
+  ipcMain.handle('evidence:manifest', () => store.evidenceManifest())
+  ipcMain.handle('case:backup', () => store.backupSnapshot())
 }
 
 app.whenReady().then(async () => {
