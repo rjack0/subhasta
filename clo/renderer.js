@@ -319,7 +319,7 @@ async function runAction(action, objectId) {
     if (amount === null || !amount.trim()) return
     payload.amount = amount.trim()
   }
-  if (['update-procedure-event', 'mark-exhibit-foundation', 'record-trial-motion', 'record-jury-instruction', 'record-trial-cost', 'record-enforcement-step', 'record-appellate-step', 'record-exhibit-admission'].includes(action)) {
+  if (['update-procedure-event', 'mark-exhibit-foundation', 'record-examination', 'record-trial-motion', 'record-jury-instruction', 'record-trial-cost', 'record-enforcement-step', 'record-appellate-step', 'record-exhibit-admission'].includes(action)) {
     const source = window.prompt('Enter the controlling record source or location before recording this item:')
     if (!source?.trim()) return
     payload.source = source.trim()
@@ -422,7 +422,9 @@ async function runModerationReview() {
 }
 
 async function runTrialObjection() {
-  try { state.data = await window.clo.action('record-trial-objection', { ground: el('#trial-objection-ground').value, target: el('#trial-objection-target').value, preserved: el('#trial-objection-preserved').checked }); render() } catch (error) { showActionError('OBJECTION FAILED', error) }
+  const source = window.prompt('Transcript or exhibit record location:')?.trim()
+  if (!source) return
+  try { state.data = await window.clo.action('record-trial-objection', { ground: el('#trial-objection-ground').value, target: el('#trial-objection-target').value, preserved: el('#trial-objection-preserved').checked, source }); render() } catch (error) { showActionError('OBJECTION FAILED', error) }
 }
 
 async function runTrialVerdict() {

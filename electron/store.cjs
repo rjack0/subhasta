@@ -577,8 +577,10 @@ async function createStore(filePath) {
         data.audit.push({ id: id('audit'), at: now(), action: 'MARK EXHIBIT FOUNDATION', object: exhibit.id })
       } else if (action === 'record-trial-objection') {
         const ground = String(payload.ground || '').trim().toUpperCase()
+        const source = String(payload.source || '').trim()
         if (!ground || !data.trialObjections.some((item) => item.ground === ground)) throw new Error('Objection ground is not in the controlled list')
-        const objection = { id: id('trial-objection'), ground, target: payload.target || 'Unspecified testimony or exhibit', phaseId: payload.phaseId || data.trial.currentPhaseId, response: payload.response || null, ruling: payload.ruling || 'PENDING', preserved: Boolean(payload.preserved), createdAt: now(), updatedAt: now(), matterId: data.matter.id }
+        if (!source || source.includes('required')) throw new Error('Trial objection requires a transcript or exhibit record source')
+        const objection = { id: id('trial-objection'), ground, target: payload.target || 'Unspecified testimony or exhibit', source, phaseId: payload.phaseId || data.trial.currentPhaseId, response: payload.response || null, ruling: payload.ruling || 'PENDING', preserved: Boolean(payload.preserved), createdAt: now(), updatedAt: now(), matterId: data.matter.id }
         data.trialObjections.push(objection)
         data.trialActions.push({ id: id('trial-action'), type: 'OBJECTION', objectionId: objection.id, status: objection.ruling, createdAt: now(), matterId: data.matter.id })
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD TRIAL OBJECTION', object: objection.id })
@@ -593,8 +595,11 @@ async function createStore(filePath) {
       } else if (action === 'record-examination') {
         const examination = data.trialExaminations.find((item) => item.id === payload.examinationId)
         if (!examination) throw new Error('Trial examination does not exist')
+        const source = String(payload.source || '').trim()
+        if (!source || source.includes('required')) throw new Error('Trial examination requires a transcript or exhibit record source')
         examination.status = payload.status || 'READY'
         examination.notes = payload.notes || examination.notes
+        examination.source = source
         examination.completedAt = examination.status === 'COMPLETE' ? now() : null
         data.trialActions.push({ id: id('trial-action'), type: 'EXAMINATION', examinationId: examination.id, status: examination.status, createdAt: now(), matterId: data.matter.id })
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD EXAMINATION', object: examination.id })
