@@ -57,6 +57,22 @@ const installLawReviewControls = () => {
 
 new MutationObserver(installLawReviewControls).observe(inspector, { childList: true, subtree: true })
 
+const installElementLinkControls = () => {
+  const object = currentObject()
+  const card = inspector.querySelector('.inspector-card')
+  if (!object || object.objectType !== 'ELEMENT' || !card || inspector.querySelector('#link-element-fact')) return
+  const facts = state.data.facts || []
+  const authorities = state.data.law || []
+  const controls = document.createElement('div')
+  controls.className = 'element-link-controls'
+  controls.innerHTML = `<p class="label">LINK PROOF OBJECTS</p><select id="element-fact-target" aria-label="Fact for element">${facts.map((item) => `<option value="${safe(item.id)}">FACT · ${safe(item.title || item.id)}</option>`).join('')}</select><button id="link-element-fact" class="utility-button">LINK FACT</button><select id="element-authority-target" aria-label="Authority for element">${authorities.map((item) => `<option value="${safe(item.id)}">AUTHORITY · ${safe(item.title || item.id)} · ${safe(item.status)}</option>`).join('')}</select><button id="link-element-authority" class="utility-button">LINK AUTHORITY</button>`
+  card.append(controls)
+  el('#link-element-fact').addEventListener('click', () => runElementFactLink(object.id, el('#element-fact-target').value))
+  el('#link-element-authority').addEventListener('click', () => runElementAuthorityLink(object.id, el('#element-authority-target').value))
+}
+
+new MutationObserver(installElementLinkControls).observe(inspector, { childList: true, subtree: true })
+
 const statusClass = (status) => ({ COMPLETE: 'state-complete', VERIFIED: 'state-complete', SUPPORTED: 'state-complete', INCOMPLETE: 'state-pending', PENDING: 'state-pending', HYPOTHESIS: 'state-pending', CONTRADICTION: 'state-danger', FAILED: 'state-danger', INFERENCE: 'state-inference' }[status] || '')
 const safe = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]))
 
@@ -260,6 +276,14 @@ async function runLawReview(authorityId) {
     state.data = await window.clo.action('review-authority-source', { authorityId, excerpt: el('#law-review-excerpt').value, sourcePage: el('#law-review-page').value, sourceVersion: el('#law-review-version').value, effectiveDate: el('#law-review-effective').value, jurisdiction: el('#law-review-jurisdiction').value, limitations: el('#law-review-limitations').value })
     renderInspector()
   } catch (error) { showActionError('SOURCE REVIEW FAILED', error) }
+}
+
+async function runElementFactLink(elementId, factId) {
+  try { state.data = await window.clo.action('link-element-fact', { elementId, factId }); render() } catch (error) { showActionError('FACT LINK FAILED', error) }
+}
+
+async function runElementAuthorityLink(elementId, authorityId) {
+  try { state.data = await window.clo.action('link-element', { elementId, authorityId }); render() } catch (error) { showActionError('AUTHORITY LINK FAILED', error) }
 }
 
 async function runModerationReview() {
