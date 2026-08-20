@@ -3,8 +3,8 @@
 Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine extension, the 300-point shared-renderer representation extension, and the 1,000-point full-trial operating extension.
 
 - Total requirements: **2820**
-- Implemented baseline: **602**
-- Remaining requirements: **2218**
+- Implemented baseline: **605**
+- Remaining requirements: **2215**
 - Attachment sources indexed: **69**
 
 | ID | Requirement | Repeat | Status | Feature refs | Evidence |
@@ -611,9 +611,9 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 0600 | Legacy plan point 0600 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0601 | Legacy plan point 0601 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0602 | Legacy plan point 0602 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0603 | Legacy plan point 0603 | R1 | UNREAD | — | — |
-| 0604 | Legacy plan point 0604 | R1 | UNREAD | — | — |
-| 0605 | Legacy plan point 0605 | R1 | UNREAD | — | — |
+| 0603 | Legacy plan point 0603 | R1 | IMPLEMENTED | procedural-records | electron/store.cjs |
+| 0604 | Legacy plan point 0604 | R1 | IMPLEMENTED | procedural-records | electron/store.cjs |
+| 0605 | Legacy plan point 0605 | R1 | IMPLEMENTED | procedural-records | electron/store.cjs |
 | 0606 | Legacy plan point 0606 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0607 | Legacy plan point 0607 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0608 | Legacy plan point 0608 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
