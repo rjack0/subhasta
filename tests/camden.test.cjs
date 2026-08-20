@@ -132,6 +132,9 @@ async function main() {
       assert.ok(reopened.snapshot().machineActions.some((item) => item.type === 'DEADLINE'))
     }
     assert.ok(data.context.some((item) => item.type === 'WAR_ROOM_WORKBOOK'))
+    assert.ok(data.context.some((item) => item.sourceWorkbook === '1540_Vine_Camden_Litigation_War_Room.xlsx'))
+    assert.equal(data.machine.sourceWorkbook, '1540_N_Vine_Litigation_War_Room.xlsx')
+    assert.deepEqual(Object.keys(data.machine.sheetCounts), ['Dashboard', '287 Unit Matrix', '12 Fronts', 'Law & Precedent', 'Evidence Hold', 'Activation Sequence', 'Damages Model', 'Sources', 'Inputs'])
     assert.ok(data.evidence.some((item) => item.id === 'EV-001' && item.status === 'MISSING'))
     assert.ok(data.procedure.some((item) => item.id === 'CL-003' && item.status.includes('ACTIVE')))
     console.log('CLO Camden fixture test passed')
