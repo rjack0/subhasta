@@ -22,6 +22,22 @@ const installProcedureDocketField = () => {
 
 new MutationObserver(installProcedureDocketField).observe(stage, { childList: true })
 
+const installCoverageControls = () => {
+  if (state.route !== 'coverage' || stage.querySelector('#record-coverage-gap')) return
+  const grid = stage.querySelector('.stage-grid')
+  if (!grid) return
+  const facts = state.data.facts || []
+  const options = facts.map((item) => `<option value="${safe(item.id)}">${safe(item.title || item.id)}</option>`).join('')
+  const article = document.createElement('article')
+  article.className = 'field wide-field coverage-controls'
+  article.innerHTML = `<div class="field-header"><h2 class="field-title">Open proof controls</h2><span class="field-meta">SOURCE + NEXT ACTION REQUIRED</span></div><div class="coverage-form"><input id="coverage-gap-title" class="search-input" placeholder="Evidence gap title" aria-label="Evidence gap title"><input id="coverage-gap-requirement" class="search-input" placeholder="Required proof" aria-label="Evidence gap requirement"><input id="coverage-gap-next" class="search-input" placeholder="Next verification action" aria-label="Evidence gap next action"><input id="coverage-gap-source" class="search-input" placeholder="Gap source" aria-label="Evidence gap source"><button id="record-coverage-gap" class="utility-button">RECORD GAP</button></div><div class="coverage-form"><select id="coverage-left-fact" aria-label="Contradiction left fact">${options}</select><input id="coverage-left-statement" class="search-input" placeholder="Left statement" aria-label="Contradiction left statement"><select id="coverage-right-fact" aria-label="Contradiction right fact">${options}</select><input id="coverage-right-statement" class="search-input" placeholder="Right statement" aria-label="Contradiction right statement"><input id="coverage-contradiction-source" class="search-input" placeholder="Comparison source" aria-label="Contradiction source"><button id="record-coverage-contradiction" class="utility-button">RECORD CONTRADICTION</button></div>`
+  grid.append(article)
+  el('#record-coverage-gap').addEventListener('click', runCoverageGap)
+  el('#record-coverage-contradiction').addEventListener('click', runCoverageContradiction)
+}
+
+new MutationObserver(installCoverageControls).observe(stage, { childList: true })
+
 const installEvidenceLinkControls = () => {
   const object = currentObject()
   const card = inspector.querySelector('.inspector-card')
@@ -265,6 +281,14 @@ async function runProcedureService() {
 
 async function runProcedureDocket() {
   try { state.data = await window.clo.action('record-docket-entry', { title: el('#procedure-docket-title').value, docketNumber: el('#procedure-docket-number').value, date: el('#procedure-docket-date').value, source: el('#procedure-docket-source').value }); render() } catch (error) { showActionError('DOCKET ENTRY FAILED', error) }
+}
+
+async function runCoverageGap() {
+  try { state.data = await window.clo.action('record-evidence-gap', { title: el('#coverage-gap-title').value, requirement: el('#coverage-gap-requirement').value, nextAction: el('#coverage-gap-next').value, source: el('#coverage-gap-source').value, priority: 'HIGH' }); render() } catch (error) { showActionError('EVIDENCE GAP FAILED', error) }
+}
+
+async function runCoverageContradiction() {
+  try { state.data = await window.clo.action('record-contradiction', { leftType: 'fact', leftId: el('#coverage-left-fact').value, leftStatement: el('#coverage-left-statement').value, rightType: 'fact', rightId: el('#coverage-right-fact').value, rightStatement: el('#coverage-right-statement').value, source: el('#coverage-contradiction-source').value }); render() } catch (error) { showActionError('CONTRADICTION FAILED', error) }
 }
 
 async function runEvidenceLink(evidenceId, targetType, targetId) {
