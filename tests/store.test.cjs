@@ -38,6 +38,10 @@ async function main() {
     const evidenceId = store.snapshot().evidence.at(-1).id
     await store.linkEvidence(evidenceId, 'fact', 'fact-001')
     assert.ok(store.snapshot().evidenceLinks.some((item) => item.evidenceId === evidenceId && item.targetId === 'fact-001'))
+    await store.linkEvidence(evidenceId, 'event', 'event-sale-2026')
+    await store.linkEvidence(evidenceId, 'organization', 'org-camden')
+    assert.ok(store.snapshot().evidence.find((item) => item.id === evidenceId).linkedEvents.includes('event-sale-2026'))
+    assert.ok(store.snapshot().evidence.find((item) => item.id === evidenceId).linkedSystems.includes('org-camden'))
     await store.commitEvidence([{ ...staged, source: 'Test source record', custodian: 'Test custodian' }])
     assert.equal(store.snapshot().evidence.filter((item) => item.hash === staged.hash).length, 1)
     assert.equal((await store.search('CLO store test'))[0].type, 'EVIDENCE')

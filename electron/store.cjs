@@ -690,6 +690,9 @@ async function createStore(filePath) {
       if (!data.evidenceLinks.some((item) => item.evidenceId === evidenceId && item.targetType === targetType && item.targetId === targetId)) data.evidenceLinks.push(link)
       evidence.links = Array.from(new Set([...(evidence.links || []), targetId]))
       evidence.linkedElements = targetType === 'element' ? Array.from(new Set([...(evidence.linkedElements || []), targetId])) : evidence.linkedElements || []
+      evidence.linkedEvents = targetType === 'event' ? Array.from(new Set([...(evidence.linkedEvents || []), targetId])) : evidence.linkedEvents || []
+      evidence.linkedPeople = targetType === 'person' ? Array.from(new Set([...(evidence.linkedPeople || []), targetId])) : evidence.linkedPeople || []
+      evidence.linkedSystems = ['organization', 'system'].includes(targetType) ? Array.from(new Set([...(evidence.linkedSystems || []), targetId])) : evidence.linkedSystems || []
       if (targetType === 'element') recalculateCompleteness(data)
       data.audit.push({ id: id('audit'), at: now(), action: 'LINK EVIDENCE', object: link.id })
       await this.persist()
