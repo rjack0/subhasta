@@ -22,6 +22,28 @@ const installProcedureDocketField = () => {
 
 new MutationObserver(installProcedureDocketField).observe(stage, { childList: true })
 
+const installEvidenceLinkControls = () => {
+  const object = currentObject()
+  const card = inspector.querySelector('.inspector-card')
+  if (!object || object.objectType !== 'EVIDENCE' || !card || inspector.querySelector('#link-evidence-target')) return
+  const targets = [
+    ...(state.data.elements || []).map((item) => ({ type: 'element', id: item.id, label: `ELEMENT · ${item.title}` })),
+    ...(state.data.events || []).map((item) => ({ type: 'event', id: item.id, label: `EVENT · ${item.title || item.id}` })),
+    ...(state.data.people || []).map((item) => ({ type: 'person', id: item.id, label: `PERSON · ${item.name || item.id}` })),
+    ...(state.data.organizations || []).map((item) => ({ type: 'organization', id: item.id, label: `ORGANIZATION · ${item.name || item.id}` }))
+  ]
+  const controls = document.createElement('div')
+  controls.className = 'evidence-link-controls'
+  controls.innerHTML = `<p class="label">LINK EVIDENCE</p><select id="link-evidence-target" aria-label="Evidence relationship target">${targets.map((item) => `<option value="${safe(item.type)}|${safe(item.id)}">${safe(item.label)}</option>`).join('')}</select><button id="commit-evidence-link" class="utility-button">COMMIT LINK</button>`
+  card.append(controls)
+  el('#commit-evidence-link').addEventListener('click', () => {
+    const [targetType, targetId] = el('#link-evidence-target').value.split('|')
+    runEvidenceLink(object.id, targetType, targetId)
+  })
+}
+
+new MutationObserver(installEvidenceLinkControls).observe(inspector, { childList: true, subtree: true })
+
 const statusClass = (status) => ({ COMPLETE: 'state-complete', VERIFIED: 'state-complete', SUPPORTED: 'state-complete', INCOMPLETE: 'state-pending', PENDING: 'state-pending', HYPOTHESIS: 'state-pending', CONTRADICTION: 'state-danger', FAILED: 'state-danger', INFERENCE: 'state-inference' }[status] || '')
 const safe = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]))
 
@@ -214,6 +236,10 @@ async function runProcedureService() {
 
 async function runProcedureDocket() {
   try { state.data = await window.clo.action('record-docket-entry', { title: el('#procedure-docket-title').value, docketNumber: el('#procedure-docket-number').value, date: el('#procedure-docket-date').value, source: el('#procedure-docket-source').value }); render() } catch (error) { showActionError('DOCKET ENTRY FAILED', error) }
+}
+
+async function runEvidenceLink(evidenceId, targetType, targetId) {
+  try { state.data = await window.clo.linkEvidence(evidenceId, targetType, targetId); renderInspector() } catch (error) { showActionError('EVIDENCE LINK FAILED', error) }
 }
 
 async function runModerationReview() {
