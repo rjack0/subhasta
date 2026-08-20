@@ -370,8 +370,18 @@ async function createStore(filePath) {
         }
         data.audit.push({ id: id('audit'), at: now(), action: 'BUILD SECTION', object: data.drafts[0]?.id || 'none' })
       } else if (action === 'verify-citations') {
-        if (data.drafts[0]) data.drafts[0].citationStatus = 'VERIFIED'
-        data.audit.push({ id: id('audit'), at: now(), action: 'VERIFY CITATIONS', object: data.drafts[0]?.id || 'none' })
+        const draft = data.drafts[0]
+        const validObjects = [...data.facts, ...data.evidence, ...data.law, ...data.propositions, ...data.events, ...data.people, ...data.organizations]
+        const issues = (draft?.paragraphs || []).flatMap((paragraph) => (paragraph.provenance || []).filter((sourceId) => {
+          const sourceObject = validObjects.find((item) => item.id === sourceId)
+          return !sourceObject || sourceObject.status === 'STALE'
+        }).map((sourceId) => ({ paragraphId: paragraph.id, sourceId })))
+        if (draft) {
+          draft.citationStatus = issues.length ? 'FAILED' : 'VERIFIED'
+          draft.citationIssues = issues
+          draft.paragraphs = draft.paragraphs.map((paragraph) => ({ ...paragraph, citationStatus: issues.some((issue) => issue.paragraphId === paragraph.id) ? 'FAILED' : 'VERIFIED' }))
+        }
+        data.audit.push({ id: id('audit'), at: now(), action: issues.length ? 'VERIFY CITATIONS FAILED' : 'VERIFY CITATIONS', object: draft?.id || 'none' })
       } else if (action === 'validate-filing') {
         const draft = data.drafts[0]
         const checks = {
