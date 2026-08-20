@@ -11,7 +11,7 @@ const { makeLedgerState, sourceRegistry } = require('./ledger.cjs')
 
 const now = () => new Date().toISOString()
 const id = (prefix) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`
-const collectionNames = ['people', 'organizations', 'properties', 'units', 'incidents', 'workOrders', 'vendors', 'telemetry', 'notices', 'extractedText', 'authorities', 'propositions', 'legalClaims', 'legalElements', 'elementRequirements', 'evidenceLinks', 'propositionLinks', 'contradictions', 'evidenceGaps', 'proceduralEvents', 'courtFilings', 'docketEntries', 'deadlines', 'paragraphProvenance', 'judgeProfiles', 'opponentProfiles', 'agentJobs', 'facts', 'evidence', 'law', 'claims', 'elements', 'procedure', 'drafts', 'context', 'audit', 'events', 'machineFronts', 'unitMatrixDetailed', 'machineAuthorities', 'evidenceHolds', 'activationSequence', 'damagesModel', 'sourceCatalog', 'caseInputs', 'machineLinks', 'machineActions', 'trialPhases', 'trialWitnesses', 'trialExhibits', 'trialMotions', 'trialObjections', 'trialExaminations', 'juryInstructions', 'trialTasks', 'trialRulings', 'trialEvents', 'trialArguments', 'trialAppealIssues', 'trialActions', 'trialJudgments', 'trialCosts', 'trialEnforcement', 'trialAppeals']
+const collectionNames = ['people', 'organizations', 'properties', 'units', 'incidents', 'workOrders', 'vendors', 'telemetry', 'notices', 'extractedText', 'authorities', 'propositions', 'legalClaims', 'legalElements', 'elementRequirements', 'evidenceLinks', 'propositionLinks', 'contradictions', 'evidenceGaps', 'proceduralEvents', 'courtFilings', 'docketEntries', 'deadlines', 'paragraphProvenance', 'judgeProfiles', 'opponentProfiles', 'agentJobs', 'facts', 'evidence', 'law', 'claims', 'elements', 'procedure', 'drafts', 'context', 'audit', 'events', 'moderateReviews', 'machineFronts', 'unitMatrixDetailed', 'machineAuthorities', 'evidenceHolds', 'activationSequence', 'damagesModel', 'sourceCatalog', 'caseInputs', 'machineLinks', 'machineActions', 'trialPhases', 'trialWitnesses', 'trialExhibits', 'trialMotions', 'trialObjections', 'trialExaminations', 'juryInstructions', 'trialTasks', 'trialRulings', 'trialEvents', 'trialArguments', 'trialAppealIssues', 'trialActions', 'trialJudgments', 'trialCosts', 'trialEnforcement', 'trialAppeals']
 
 function normalize(data) {
   const normalized = { ...data, version: Math.max(Number(data.version || 0), 2) }
@@ -24,7 +24,7 @@ function normalize(data) {
 }
 
 function findObject(data, type, objectId) {
-  const collection = { fact: 'facts', evidence: 'evidence', law: 'law', authority: 'authorities', machineAuthority: 'machineAuthorities', claim: 'claims', legalClaim: 'legalClaims', machineFront: 'machineFronts', element: 'elements', legalElement: 'legalElements', procedure: 'procedure', draft: 'drafts', proposition: 'propositions', deadline: 'deadlines', person: 'people', event: 'events', organization: 'organizations', unit: 'units', machineUnit: 'unitMatrixDetailed', notice: 'notices', filing: 'courtFilings', evidenceHold: 'evidenceHolds', activation: 'activationSequence', damage: 'damagesModel', source: 'sourceCatalog', trialPhase: 'trialPhases', trialWitness: 'trialWitnesses', trialExhibit: 'trialExhibits', trialMotion: 'trialMotions', trialObjection: 'trialObjections', trialTask: 'trialTasks', trialRuling: 'trialRulings', trialEvent: 'trialEvents', trialArgument: 'trialArguments', trialAppealIssue: 'trialAppealIssues', trialJudgment: 'trialJudgments', trialCost: 'trialCosts', trialEnforcement: 'trialEnforcement', trialAppeal: 'trialAppeals' }[type]
+  const collection = { fact: 'facts', evidence: 'evidence', law: 'law', authority: 'authorities', machineAuthority: 'machineAuthorities', claim: 'claims', legalClaim: 'legalClaims', machineFront: 'machineFronts', element: 'elements', legalElement: 'legalElements', procedure: 'procedure', draft: 'drafts', proposition: 'propositions', deadline: 'deadlines', person: 'people', event: 'events', organization: 'organizations', unit: 'units', machineUnit: 'unitMatrixDetailed', notice: 'notices', filing: 'courtFilings', moderateReview: 'moderateReviews', evidenceHold: 'evidenceHolds', activation: 'activationSequence', damage: 'damagesModel', source: 'sourceCatalog', trialPhase: 'trialPhases', trialWitness: 'trialWitnesses', trialExhibit: 'trialExhibits', trialMotion: 'trialMotions', trialObjection: 'trialObjections', trialTask: 'trialTasks', trialRuling: 'trialRulings', trialEvent: 'trialEvents', trialArgument: 'trialArguments', trialAppealIssue: 'trialAppealIssues', trialJudgment: 'trialJudgments', trialCost: 'trialCosts', trialEnforcement: 'trialEnforcement', trialAppeal: 'trialAppeals' }[type]
   return collection ? data[collection].find((item) => item.id === objectId) : null
 }
 
@@ -189,6 +189,10 @@ const seed = () => {
   data.trialAppeals = [
     ['TA-01', 'Notice of appeal', 'DATE_REQUIRED'], ['TA-02', 'Appellate jurisdiction and appealability check', 'SOURCE_REQUIRED'], ['TA-03', 'Record designation', 'NOT_STARTED'], ['TA-04', 'Reporter transcript request', 'NOT_STARTED'], ['TA-05', 'Opening brief issue map', 'NOT_STARTED'], ['TA-06', 'Responding or reply brief calendar', 'NOT_STARTED'], ['TA-07', 'Record correction or augmentation request', 'NOT_STARTED'], ['TA-08', 'Disposition and remand tracking', 'NOT_STARTED']
   ].map(([id, title, status]) => ({ id, title, status, dueDate: null, recordLocation: null, source: 'Appellate court rule or docket required', matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.moderateReviews = [
+    { id: 'MR-01', label: 'Review A', viewpointIntensity: null, acceptanceWidth: null, confidence: null, status: 'PENDING', reason: null, source: 'Source record required', lawfulPurpose: 'Trust-and-safety review only', protectedTraitTargeting: false, associationGraph: false, matterId: data.matter.id, createdAt: now(), updatedAt: now() },
+    { id: 'MR-02', label: 'Review B', viewpointIntensity: null, acceptanceWidth: null, confidence: null, status: 'PENDING', reason: null, source: 'Source record required', lawfulPurpose: 'Trust-and-safety review only', protectedTraitTargeting: false, associationGraph: false, matterId: data.matter.id, createdAt: now(), updatedAt: now() }
+  ]
   data.audit.push({ id: id('audit'), at: now(), action: 'IMPORTED CAMDEN WAR ROOM FIXTURE', object: data.matter.id })
   return data
 }
@@ -318,6 +322,22 @@ async function createStore(filePath) {
         const event = { id: id('machine-action'), type: 'ACTIVATION', activationId: activation.id, output: payload.output || activation.output, status: 'RECORDED', recordedAt: now(), createdAt: now(), matterId: data.matter.id }
         if (!data.machineActions.some((item) => item.type === 'ACTIVATION' && item.activationId === activation.id)) data.machineActions.push(event)
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD ACTIVATION', object: event.id })
+      } else if (action === 'record-moderation-review') {
+        const review = data.moderateReviews.find((item) => item.id === payload.reviewId)
+        if (!review) throw new Error('Moderation review does not exist')
+        const intensity = Number(payload.viewpointIntensity)
+        const acceptance = Number(payload.acceptanceWidth)
+        const confidence = Number(payload.confidence)
+        if (![intensity, acceptance, confidence].every((value) => Number.isFinite(value) && value >= 0 && value <= 100)) throw new Error('Moderation scores must be between 0 and 100')
+        if (!String(payload.reason || '').trim() || !String(payload.source || '').trim()) throw new Error('Moderation review requires a reason and source')
+        review.viewpointIntensity = intensity
+        review.acceptanceWidth = acceptance
+        review.confidence = confidence
+        review.reason = payload.reason
+        review.source = payload.source
+        review.status = 'REVIEWED'
+        review.updatedAt = now()
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD MODERATION REVIEW', object: review.id })
       } else if (action === 'update-procedure-event') {
         const event = data.procedure.find((item) => item.id === payload.eventId)
         if (!event) throw new Error('Procedural event does not exist')
@@ -492,7 +512,7 @@ async function createStore(filePath) {
     search(query) {
       const needle = String(query || '').trim().toLowerCase()
       if (!needle) return []
-      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', PROCEDURE: 'procedure', DEADLINES: 'deadlines', 'MACHINE FRONTS': 'machineFronts', 'MACHINE UNITS': 'unitMatrixDetailed', 'EVIDENCE HOLDS': 'evidenceHolds', SOURCES: 'sourceCatalog', WITNESSES: 'trialWitnesses', EXHIBITS: 'trialExhibits', MOTIONS: 'trialMotions', 'TRIAL TASKS': 'trialTasks', 'TRIAL EVENTS': 'trialEvents', ARGUMENTS: 'trialArguments', 'APPEAL ISSUES': 'trialAppealIssues', JUDGMENTS: 'trialJudgments', COSTS: 'trialCosts', ENFORCEMENT: 'trialEnforcement', APPEALS: 'trialAppeals' }
+      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', PROCEDURE: 'procedure', DEADLINES: 'deadlines', MODERATE: 'moderateReviews', 'MACHINE FRONTS': 'machineFronts', 'MACHINE UNITS': 'unitMatrixDetailed', 'EVIDENCE HOLDS': 'evidenceHolds', SOURCES: 'sourceCatalog', WITNESSES: 'trialWitnesses', EXHIBITS: 'trialExhibits', MOTIONS: 'trialMotions', 'TRIAL TASKS': 'trialTasks', 'TRIAL EVENTS': 'trialEvents', ARGUMENTS: 'trialArguments', 'APPEAL ISSUES': 'trialAppealIssues', JUDGMENTS: 'trialJudgments', COSTS: 'trialCosts', ENFORCEMENT: 'trialEnforcement', APPEALS: 'trialAppeals' }
       return Object.entries(groups).flatMap(([type, collection]) => data[collection].filter((item) => JSON.stringify(item).toLowerCase().includes(needle)).slice(0, 20).map((item) => ({ id: item.id, type, name: item.title || item.name || item.filename || item.id, status: item.status || 'ACTIVE', source: item.source || item.provenance || 'Matter store', matterId: data.matter.id })))
     },
     async linkEvidence(evidenceId, targetType, targetId) {
