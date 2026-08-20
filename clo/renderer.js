@@ -115,9 +115,10 @@ const installLawReviewControls = () => {
   if (!object || object.objectType !== 'LAW' || !card || inspector.querySelector('#review-authority-source')) return
   const controls = document.createElement('div')
   controls.className = 'law-review-controls'
-  controls.innerHTML = `<p class="label">REVIEW SOURCE</p><input id="law-review-excerpt" class="search-input" value="${safe(object.text || object.proposition || '')}" placeholder="Exact excerpt" aria-label="Authority excerpt"><input id="law-review-page" class="search-input" placeholder="Page / section" aria-label="Authority source page"><input id="law-review-version" class="search-input" placeholder="Source version" aria-label="Authority source version"><input id="law-review-effective" class="search-input" type="date" aria-label="Authority effective date"><input id="law-review-jurisdiction" class="search-input" value="${safe(object.jurisdiction || '')}" placeholder="Jurisdiction" aria-label="Authority jurisdiction"><input id="law-review-limitations" class="search-input" placeholder="Limitations" aria-label="Authority limitations"><button id="review-authority-source" class="utility-button">COMMIT SOURCE REVIEW</button>`
+  controls.innerHTML = `<p class="label">REVIEW SOURCE</p><input id="law-review-excerpt" class="search-input" value="${safe(object.text || object.proposition || '')}" placeholder="Exact excerpt" aria-label="Authority excerpt"><input id="law-review-page" class="search-input" placeholder="Page / section" aria-label="Authority source page"><input id="law-review-version" class="search-input" placeholder="Source version" aria-label="Authority source version"><input id="law-review-effective" class="search-input" type="date" aria-label="Authority effective date"><input id="law-review-jurisdiction" class="search-input" value="${safe(object.jurisdiction || '')}" placeholder="Jurisdiction" aria-label="Authority jurisdiction"><input id="law-review-limitations" class="search-input" placeholder="Limitations" aria-label="Authority limitations"><button id="review-authority-source" class="utility-button">COMMIT SOURCE REVIEW</button><button id="flag-stale-authority" class="utility-button">MARK SOURCE STALE</button>`
   card.append(controls)
   el('#review-authority-source').addEventListener('click', () => runLawReview(object.id))
+  el('#flag-stale-authority').addEventListener('click', () => runFlagStaleAuthority(object.id))
 }
 
 new MutationObserver(installLawReviewControls).observe(inspector, { childList: true, subtree: true })
@@ -394,6 +395,12 @@ async function runLawReview(authorityId) {
     state.data = await window.clo.action('review-authority-source', { authorityId, excerpt: el('#law-review-excerpt').value, sourcePage: el('#law-review-page').value, sourceVersion: el('#law-review-version').value, effectiveDate: el('#law-review-effective').value, jurisdiction: el('#law-review-jurisdiction').value, limitations: el('#law-review-limitations').value })
     renderInspector()
   } catch (error) { showActionError('SOURCE REVIEW FAILED', error) }
+}
+
+async function runFlagStaleAuthority(authorityId) {
+  const reason = window.prompt('Why is this authority stale or no longer current?')?.trim()
+  if (!reason) return
+  try { state.data = await window.clo.action('flag-stale-authority', { authorityId, reason }); renderInspector() } catch (error) { showActionError('STALE SOURCE FAILED', error) }
 }
 
 async function runElementFactLink(elementId, factId) {
