@@ -41,6 +41,7 @@ function registerIpc() {
   })
   ipcMain.handle('case:search', (_, query) => store.search(query))
   ipcMain.handle('ledger:state', () => store.ledgerSummary())
+  ipcMain.handle('ledger:requirements', (_, query, status, limit) => store.ledgerRequirements(query, status, limit))
   ipcMain.handle('ledger:update', (_, requirementId, status, evidence) => store.updateRequirement(requirementId, status, evidence))
   ipcMain.handle('evidence:link', (_, evidenceId, targetType, targetId) => store.linkEvidence(evidenceId, targetType, targetId))
   ipcMain.handle('procedure:derive-deadlines', () => store.deriveDeadlines())

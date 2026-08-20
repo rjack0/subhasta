@@ -6,6 +6,7 @@ contextBridge.exposeInMainWorld('clo', {
   action: (name, payload) => ipcRenderer.invoke('case:action', name, payload),
   search: (query) => ipcRenderer.invoke('case:search', query),
   ledger: () => ipcRenderer.invoke('ledger:state'),
+  ledgerRequirements: (query, status, limit) => ipcRenderer.invoke('ledger:requirements', query, status, limit),
   updateRequirement: (id, status, evidence) => ipcRenderer.invoke('ledger:update', id, status, evidence),
   linkEvidence: (evidenceId, targetType, targetId) => ipcRenderer.invoke('evidence:link', evidenceId, targetType, targetId),
   deriveDeadlines: () => ipcRenderer.invoke('procedure:derive-deadlines'),

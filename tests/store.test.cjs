@@ -11,6 +11,7 @@ async function main() {
     const store = await createStore(filePath)
     const initial = store.snapshot()
     assert.equal(initial.version, 2)
+    assert.equal(store.ledgerRequirements('Legacy plan point 0001', 'ALL', 5).length, 1)
     for (const name of ['evidence', 'extractedText', 'propositions', 'paragraphProvenance', 'audit']) assert.ok(Array.isArray(initial[name]), `${name} collection missing`)
 
     const text = 'CLO store test'

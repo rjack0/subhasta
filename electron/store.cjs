@@ -588,6 +588,11 @@ async function createStore(filePath) {
     ledgerSummary() {
       const counts = data.ledger.requirements.reduce((result, item) => { result[item.status] = (result[item.status] || 0) + 1; return result }, {})
       return { total: data.ledger.requirements.length, counts, sourceCount: data.ledger.sourceCount, checksum: data.ledger.checksum }
+    },
+    ledgerRequirements(query = '', status = 'ALL', limit = 100) {
+      const needle = String(query || '').trim().toLowerCase()
+      const selectedStatus = String(status || 'ALL')
+      return data.ledger.requirements.filter((item) => (selectedStatus === 'ALL' || item.status === selectedStatus) && (!needle || JSON.stringify(item).toLowerCase().includes(needle))).slice(0, Math.min(Math.max(Number(limit) || 100, 1), 500))
     }
   }
 }
