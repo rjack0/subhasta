@@ -3,8 +3,8 @@
 Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine extension, the 300-point shared-renderer representation extension, and the 1,000-point full-trial operating extension.
 
 - Total requirements: **2820**
-- Implemented baseline: **581**
-- Remaining requirements: **2239**
+- Implemented baseline: **591**
+- Remaining requirements: **2229**
 - Attachment sources indexed: **69**
 
 | ID | Requirement | Repeat | Status | Feature refs | Evidence |
@@ -420,16 +420,16 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 0409 | Legacy plan point 0409 | R1 | UNREAD | — | — |
 | 0410 | Legacy plan point 0410 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0411 | Legacy plan point 0411 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0412 | Legacy plan point 0412 | R1 | UNREAD | — | — |
-| 0413 | Legacy plan point 0413 | R1 | UNREAD | — | — |
-| 0414 | Legacy plan point 0414 | R1 | UNREAD | — | — |
-| 0415 | Legacy plan point 0415 | R1 | UNREAD | — | — |
-| 0416 | Legacy plan point 0416 | R1 | UNREAD | — | — |
-| 0417 | Legacy plan point 0417 | R1 | UNREAD | — | — |
-| 0418 | Legacy plan point 0418 | R1 | UNREAD | — | — |
+| 0412 | Legacy plan point 0412 | R1 | IMPLEMENTED | evidence-staging-drawer | clo/renderer.js |
+| 0413 | Legacy plan point 0413 | R1 | IMPLEMENTED | evidence-staging-drawer | clo/renderer.js, electron/store.cjs |
+| 0414 | Legacy plan point 0414 | R1 | IMPLEMENTED | evidence-staging-drawer | clo/renderer.js, electron/store.cjs |
+| 0415 | Legacy plan point 0415 | R1 | IMPLEMENTED | evidence-commit-metadata | clo/renderer.js, electron/store.cjs |
+| 0416 | Legacy plan point 0416 | R1 | IMPLEMENTED | evidence-commit-metadata | clo/renderer.js, electron/store.cjs |
+| 0417 | Legacy plan point 0417 | R1 | IMPLEMENTED | evidence-commit-metadata | clo/renderer.js, electron/store.cjs |
+| 0418 | Legacy plan point 0418 | R1 | IMPLEMENTED | evidence-commit-metadata | clo/renderer.js, electron/store.cjs |
 | 0419 | Legacy plan point 0419 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0420 | Legacy plan point 0420 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0421 | Legacy plan point 0421 | R1 | UNREAD | — | — |
+| 0421 | Legacy plan point 0421 | R1 | IMPLEMENTED | evidence-hash-deduplication | electron/store.cjs |
 | 0422 | Legacy plan point 0422 | R1 | UNREAD | — | — |
 | 0423 | Legacy plan point 0423 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0424 | Legacy plan point 0424 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
@@ -444,8 +444,8 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 0433 | Legacy plan point 0433 | R1 | UNREAD | — | — |
 | 0434 | Legacy plan point 0434 | R1 | UNREAD | — | — |
 | 0435 | Legacy plan point 0435 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0436 | Legacy plan point 0436 | R1 | UNREAD | — | — |
-| 0437 | Legacy plan point 0437 | R1 | UNREAD | — | — |
+| 0436 | Legacy plan point 0436 | R1 | IMPLEMENTED | evidence-staging-boundary | electron/store.cjs, clo/renderer.js |
+| 0437 | Legacy plan point 0437 | R1 | IMPLEMENTED | evidence-commit-confirmation | clo/renderer.js, electron/store.cjs |
 | 0438 | Legacy plan point 0438 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0439 | Legacy plan point 0439 | R1 | UNREAD | — | — |
 | 0440 | Legacy plan point 0440 | R1 | UNREAD | — | — |

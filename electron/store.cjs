@@ -623,12 +623,13 @@ async function createStore(filePath) {
     },
     async commitEvidence(staged) {
       if (!Array.isArray(staged) || staged.some((item) => !item || item.status !== 'STAGED' || !/^sha256:[a-f0-9]{64}$/.test(item.hash))) throw new Error('Evidence must be staged with a valid SHA-256 hash')
+      if (staged.some((item) => !String(item.source || '').trim() || !String(item.custodian || '').trim())) throw new Error('Evidence commitment requires a source and custodian')
       for (const item of staged) {
         if (item.originalPath) {
           const bytes = await fs.readFile(item.originalPath)
           const digest = crypto.createHash('sha256').update(bytes).digest('hex')
           if (item.hash !== `sha256:${digest}`) throw new Error(`Evidence hash mismatch for ${item.name || item.originalPath}`)
-        } else if (item.source === 'Clipboard import') {
+        } else if (!item.originalPath && item.extractedText !== undefined) {
           const digest = crypto.createHash('sha256').update(String(item.extractedText || ''), 'utf8').digest('hex')
           if (item.hash !== `sha256:${digest}`) throw new Error('Clipboard evidence hash mismatch')
         }

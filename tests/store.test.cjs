@@ -19,6 +19,7 @@ async function main() {
     const digest = crypto.createHash('sha256').update(text).digest('hex')
     assert.equal(staged.hash, `sha256:${digest}`)
     assert.equal(staged.status, 'STAGED')
+    await assert.rejects(() => store.commitEvidence([staged]), /requires a source and custodian/)
     const sourcePath = path.join(os.tmpdir(), `clo-source-${Date.now()}.txt`)
     await fs.writeFile(sourcePath, 'worker extraction')
     const stagedFile = await store.stageEvidence(sourcePath)
@@ -26,7 +27,7 @@ async function main() {
     assert.ok(stagedFile.originalTimestamps.mtime)
     await fs.rm(sourcePath, { force: true })
 
-    await store.commitEvidence([staged])
+    await store.commitEvidence([{ ...staged, source: 'Test source record', custodian: 'Test custodian' }])
     assert.equal(store.snapshot().evidence.at(-1).status, 'VERIFIED')
     assert.ok(await fs.stat(store.snapshot().evidence.at(-1).storedPath))
     assert.equal(store.health().completedJobs, 1)
@@ -34,7 +35,7 @@ async function main() {
     const evidenceId = store.snapshot().evidence.at(-1).id
     await store.linkEvidence(evidenceId, 'fact', 'fact-001')
     assert.ok(store.snapshot().evidenceLinks.some((item) => item.evidenceId === evidenceId && item.targetId === 'fact-001'))
-    await store.commitEvidence([staged])
+    await store.commitEvidence([{ ...staged, source: 'Test source record', custodian: 'Test custodian' }])
     assert.equal(store.snapshot().evidence.filter((item) => item.hash === staged.hash).length, 1)
     assert.equal((await store.search('CLO store test'))[0].type, 'EVIDENCE')
     await store.deriveDeadlines()
@@ -60,7 +61,7 @@ async function main() {
     assert.equal(store.snapshot().elements.find((item) => item.id === 'element-003').status, 'COMPLETE')
 
     const forged = { ...staged, hash: `sha256:${'0'.repeat(64)}` }
-    await assert.rejects(() => store.commitEvidence([forged]), /hash mismatch/)
+    await assert.rejects(() => store.commitEvidence([{ ...forged, source: 'Test source record', custodian: 'Test custodian' }]), /hash mismatch/)
 
     await store.update({ elements: store.snapshot().elements.map((element) => ({ ...element, status: 'COMPLETE', proof: 100, missing: null })) })
     await store.applyAction('validate-filing')
@@ -77,7 +78,7 @@ async function main() {
     try {
       const sqliteStore = await createStore(sqlitePath)
       const sqliteBaseline = sqliteStore.snapshot().evidence.length
-      await sqliteStore.commitEvidence([sqliteStore.stageTextEvidence('sqlite persistence')])
+      await sqliteStore.commitEvidence([{ ...sqliteStore.stageTextEvidence('sqlite persistence'), source: 'SQLite test source', custodian: 'SQLite test custodian' }])
       const sqliteReopened = await createStore(sqlitePath)
       assert.equal(sqliteReopened.snapshot().evidence.length, sqliteBaseline + 1)
     } finally {
