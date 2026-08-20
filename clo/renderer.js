@@ -44,6 +44,19 @@ const installEvidenceLinkControls = () => {
 
 new MutationObserver(installEvidenceLinkControls).observe(inspector, { childList: true, subtree: true })
 
+const installLawReviewControls = () => {
+  const object = currentObject()
+  const card = inspector.querySelector('.inspector-card')
+  if (!object || object.objectType !== 'LAW' || !card || inspector.querySelector('#review-authority-source')) return
+  const controls = document.createElement('div')
+  controls.className = 'law-review-controls'
+  controls.innerHTML = `<p class="label">REVIEW SOURCE</p><input id="law-review-excerpt" class="search-input" value="${safe(object.text || object.proposition || '')}" placeholder="Exact excerpt" aria-label="Authority excerpt"><input id="law-review-page" class="search-input" placeholder="Page / section" aria-label="Authority source page"><input id="law-review-version" class="search-input" placeholder="Source version" aria-label="Authority source version"><input id="law-review-effective" class="search-input" type="date" aria-label="Authority effective date"><input id="law-review-jurisdiction" class="search-input" value="${safe(object.jurisdiction || '')}" placeholder="Jurisdiction" aria-label="Authority jurisdiction"><input id="law-review-limitations" class="search-input" placeholder="Limitations" aria-label="Authority limitations"><button id="review-authority-source" class="utility-button">COMMIT SOURCE REVIEW</button>`
+  card.append(controls)
+  el('#review-authority-source').addEventListener('click', () => runLawReview(object.id))
+}
+
+new MutationObserver(installLawReviewControls).observe(inspector, { childList: true, subtree: true })
+
 const statusClass = (status) => ({ COMPLETE: 'state-complete', VERIFIED: 'state-complete', SUPPORTED: 'state-complete', INCOMPLETE: 'state-pending', PENDING: 'state-pending', HYPOTHESIS: 'state-pending', CONTRADICTION: 'state-danger', FAILED: 'state-danger', INFERENCE: 'state-inference' }[status] || '')
 const safe = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]))
 
@@ -240,6 +253,13 @@ async function runProcedureDocket() {
 
 async function runEvidenceLink(evidenceId, targetType, targetId) {
   try { state.data = await window.clo.linkEvidence(evidenceId, targetType, targetId); renderInspector() } catch (error) { showActionError('EVIDENCE LINK FAILED', error) }
+}
+
+async function runLawReview(authorityId) {
+  try {
+    state.data = await window.clo.action('review-authority-source', { authorityId, excerpt: el('#law-review-excerpt').value, sourcePage: el('#law-review-page').value, sourceVersion: el('#law-review-version').value, effectiveDate: el('#law-review-effective').value, jurisdiction: el('#law-review-jurisdiction').value, limitations: el('#law-review-limitations').value })
+    renderInspector()
+  } catch (error) { showActionError('SOURCE REVIEW FAILED', error) }
 }
 
 async function runModerationReview() {
