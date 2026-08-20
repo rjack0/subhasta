@@ -43,6 +43,9 @@ async function main() {
     assert.equal((await store.search('CLO store test'))[0].type, 'EVIDENCE')
     await store.deriveDeadlines()
     assert.equal(store.snapshot().deadlines.length, 2)
+    await store.applyAction('create-machine-deadline', { title: 'Manual preservation deadline', date: '2026-09-15', source: 'Test deadline source' })
+    await store.deriveDeadlines()
+    assert.ok(store.snapshot().deadlines.some((item) => item.title === 'Manual preservation deadline'))
 
     await store.applyAction('create-proposition')
     await store.applyAction('verify-source')

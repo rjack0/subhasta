@@ -664,9 +664,11 @@ async function createStore(filePath) {
       return data
     },
     async deriveDeadlines() {
-      const derived = data.procedure.filter((item) => item.type === 'DEADLINE').map((item) => ({ id: `deadline-${item.id}`, title: item.title, date: item.date, status: item.status, source: item.source, procedureId: item.id, consequence: item.title.toLowerCase().includes('service') ? 'HIGH' : 'MEDIUM', createdAt: item.createdAt || null }))
-      if (JSON.stringify(data.deadlines) === JSON.stringify(derived)) return data
-      data.deadlines = derived
+      const derived = data.procedure.filter((item) => item.type === 'DEADLINE').map((item) => ({ id: `deadline-${item.id}`, title: item.title, date: item.date, status: item.status, source: item.source, procedureId: item.id, claimDependencies: item.claimDependencies || [], evidenceDependencies: item.evidenceDependencies || [], strategyDependencies: item.strategyDependencies || [], draftDependencies: item.draftDependencies || [], consequence: item.title.toLowerCase().includes('service') ? 'HIGH' : 'MEDIUM', createdAt: item.createdAt || null, updatedAt: now() }))
+      const manual = data.deadlines.filter((item) => !item.procedureId)
+      const next = [...derived, ...manual]
+      if (JSON.stringify(data.deadlines) === JSON.stringify(next)) return data
+      data.deadlines = next
       data.audit.push({ id: id('audit'), at: now(), action: 'DERIVE DEADLINES', object: data.deadlines.map((item) => item.id).join(',') })
       await this.persist()
       return data

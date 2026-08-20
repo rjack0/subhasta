@@ -202,6 +202,9 @@ for (const index of implementedIds) {
 // Keep this separate from the broad legacy baseline so the ledger never treats
 // a fixture or a rendered label as proof of a behavior that has no test.
 const concreteEvidence = new Map([
+  [236, { featureRefs: ['deadline-derivation'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/store.test.cjs', 'tests/camden.test.cjs'] }],
+  [645, { featureRefs: ['deadline-dependency-fields'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/store.test.cjs'] }],
+  [650, { featureRefs: ['deadline-restart-recovery'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/store.test.cjs'] }],
   [520, { featureRefs: ['authority-source-review'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/camden.test.cjs'] }],
   [522, { featureRefs: ['authority-source-review'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/camden.test.cjs'] }],
   [524, { featureRefs: ['authority-source-review'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/camden.test.cjs'] }],
