@@ -503,9 +503,11 @@ async function createStore(filePath) {
       } else if (action === 'update-procedure-event') {
         const event = data.procedure.find((item) => item.id === payload.eventId)
         if (!event) throw new Error('Procedural event does not exist')
+        const source = String(payload.source || '').trim()
+        if (!source || /record required$/i.test(source)) throw new Error('Procedural event update requires a docket, filing, service, or court record source')
         event.status = payload.status || 'RECORDED'
         event.date = payload.date || event.date
-        event.source = payload.source || event.source
+        event.source = source
         event.recordLocation = payload.recordLocation || event.recordLocation || null
         event.updatedAt = now()
         data.audit.push({ id: id('audit'), at: now(), action: 'UPDATE PROCEDURAL EVENT', object: event.id })
@@ -565,9 +567,12 @@ async function createStore(filePath) {
         if (!exhibit) throw new Error('Trial exhibit does not exist')
         const witness = payload.witnessId ? data.trialWitnesses.find((item) => item.id === payload.witnessId) : null
         if (payload.witnessId && !witness) throw new Error('Foundation witness does not exist')
+        const source = String(payload.source || '').trim()
+        if (!source || source.includes('required')) throw new Error('Exhibit foundation requires a transcript, stipulation, or exhibit source')
         exhibit.custodianId = payload.witnessId || exhibit.custodianId
         exhibit.foundationStatus = payload.status || 'READY_FOR_FOUNDATION'
         exhibit.foundationNote = payload.note || (witness ? `Foundation assigned to ${witness.name}` : 'Foundation witness still required')
+        exhibit.foundationSource = source
         data.trialActions.push({ id: id('trial-action'), type: 'EXHIBIT_FOUNDATION', exhibitId: exhibit.id, witnessId: exhibit.custodianId, status: exhibit.foundationStatus, createdAt: now(), matterId: data.matter.id })
         data.audit.push({ id: id('audit'), at: now(), action: 'MARK EXHIBIT FOUNDATION', object: exhibit.id })
       } else if (action === 'record-trial-objection') {
@@ -663,10 +668,12 @@ async function createStore(filePath) {
         const judgment = data.trialJudgments[0]
         if (!judgment) throw new Error('Judgment record does not exist')
         const verdict = String(payload.verdict || '').trim()
+        const source = String(payload.source || '').trim()
         if (!verdict) throw new Error('Verdict requires a recorded result')
+        if (!source || source.includes('required')) throw new Error('Verdict requires a verdict form or clerk record source')
         judgment.verdict = verdict
         judgment.verdictStatus = 'RECORDED'
-        judgment.verdictSource = payload.source || 'Verdict form or clerk record required'
+        judgment.verdictSource = source
         data.trialActions.push({ id: id('trial-action'), type: 'VERDICT', judgmentId: judgment.id, status: 'RECORDED', createdAt: now(), matterId: data.matter.id })
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD VERDICT', object: judgment.id })
       } else if (action === 'record-judgment') {

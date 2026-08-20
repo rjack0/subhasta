@@ -302,7 +302,7 @@ async function runAction(action, objectId) {
   const selected = currentObject()
   const selectedAuthorityId = selected?.objectType === 'LAW' ? selected.id : state.data.law[0]?.id
   const selectedElementId = selected?.objectType === 'ELEMENT' ? selected.id : state.data.elements[0]?.id
-  const payload = action === 'create-preservation-hold' ? { holdId: objectId } : action === 'record-activation' ? { activationId: objectId } : action === 'review-machine-source' ? { sourceId: objectId } : action === 'advance-trial-phase' ? { phaseId: objectId } : action === 'record-trial-task' ? { taskId: objectId, status: 'COMPLETE' } : action === 'update-procedure-event' ? { eventId: objectId, status: 'RECORDED', source: 'Docket, filing, service, or court record required' } : action === 'mark-exhibit-foundation' ? { exhibitId: objectId, witnessId: state.data.trialWitnesses?.[0]?.id, status: 'READY_FOR_FOUNDATION' } : action === 'record-examination' ? { examinationId: objectId, status: 'COMPLETE' } : action === 'record-trial-motion' ? { motionId: objectId, status: 'READY_FOR_REVIEW', source: 'Controlling motion rule and filing record required' } : action === 'record-jury-instruction' ? { instructionId: objectId, status: 'READY_FOR_REVIEW', source: 'Controlling instruction source required' } : action === 'record-witness-foundation' ? { witnessId: objectId, status: 'FOUNDATION_RECORDED', note: 'Transcript, stipulation, or exhibit foundation record required' } : action === 'record-exhibit-admission' ? { exhibitId: objectId, result: 'ADMITTED', source: 'Court ruling or stipulation required' } : action === 'record-trial-cost' ? { costId: objectId, status: 'RECORDED', source: 'Trial cost record required' } : action === 'record-enforcement-step' ? { stepId: objectId, status: 'RECORDED', recordLocation: 'Post-judgment record required' } : action === 'record-appellate-step' ? { stepId: objectId, status: 'RECORDED', recordLocation: 'Appellate docket or record required' } : action === 'verify-source' || action === 'create-proposition' ? { authorityId: selectedAuthorityId } : action === 'link-element' ? { authorityId: selectedAuthorityId, elementId: selectedElementId } : { id: objectId }
+  const payload = action === 'create-preservation-hold' ? { holdId: objectId } : action === 'record-activation' ? { activationId: objectId } : action === 'review-machine-source' ? { sourceId: objectId } : action === 'advance-trial-phase' ? { phaseId: objectId } : action === 'record-trial-task' ? { taskId: objectId, status: 'COMPLETE' } : action === 'update-procedure-event' ? { eventId: objectId, status: 'RECORDED' } : action === 'mark-exhibit-foundation' ? { exhibitId: objectId, witnessId: state.data.trialWitnesses?.[0]?.id, status: 'READY_FOR_FOUNDATION' } : action === 'record-examination' ? { examinationId: objectId, status: 'COMPLETE' } : action === 'record-trial-motion' ? { motionId: objectId, status: 'READY_FOR_REVIEW', source: 'Controlling motion rule and filing record required' } : action === 'record-jury-instruction' ? { instructionId: objectId, status: 'READY_FOR_REVIEW', source: 'Controlling instruction source required' } : action === 'record-witness-foundation' ? { witnessId: objectId, status: 'FOUNDATION_RECORDED', note: 'Transcript, stipulation, or exhibit foundation record required' } : action === 'record-exhibit-admission' ? { exhibitId: objectId, result: 'ADMITTED', source: 'Court ruling or stipulation required' } : action === 'record-trial-cost' ? { costId: objectId, status: 'RECORDED', source: 'Trial cost record required' } : action === 'record-enforcement-step' ? { stepId: objectId, status: 'RECORDED', recordLocation: 'Post-judgment record required' } : action === 'record-appellate-step' ? { stepId: objectId, status: 'RECORDED', recordLocation: 'Appellate docket or record required' } : action === 'verify-source' || action === 'create-proposition' ? { authorityId: selectedAuthorityId } : action === 'link-element' ? { authorityId: selectedAuthorityId, elementId: selectedElementId } : { id: objectId }
   if (action === 'record-trial-control') {
     payload.owner = window.prompt('Responsible owner:')?.trim()
     payload.nextAction = window.prompt('Next action:')?.trim()
@@ -319,7 +319,7 @@ async function runAction(action, objectId) {
     if (amount === null || !amount.trim()) return
     payload.amount = amount.trim()
   }
-  if (['record-trial-motion', 'record-jury-instruction', 'record-trial-cost', 'record-enforcement-step', 'record-appellate-step', 'record-exhibit-admission'].includes(action)) {
+  if (['update-procedure-event', 'mark-exhibit-foundation', 'record-trial-motion', 'record-jury-instruction', 'record-trial-cost', 'record-enforcement-step', 'record-appellate-step', 'record-exhibit-admission'].includes(action)) {
     const source = window.prompt('Enter the controlling record source or location before recording this item:')
     if (!source?.trim()) return
     payload.source = source.trim()
@@ -426,7 +426,9 @@ async function runTrialObjection() {
 }
 
 async function runTrialVerdict() {
-  try { state.data = await window.clo.action('record-verdict', { verdict: el('#trial-verdict').value, source: 'Verdict form or clerk record required' }); render() } catch (error) { showActionError('VERDICT FAILED', error) }
+  const source = window.prompt('Verdict form or clerk record location:')?.trim()
+  if (!source) return
+  try { state.data = await window.clo.action('record-verdict', { verdict: el('#trial-verdict').value, source }); render() } catch (error) { showActionError('VERDICT FAILED', error) }
 }
 
 async function runTrialJudgment() {
