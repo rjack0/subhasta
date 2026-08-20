@@ -3,8 +3,8 @@
 Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine extension, the 300-point shared-renderer representation extension, and the 1,000-point full-trial operating extension.
 
 - Total requirements: **2820**
-- Implemented baseline: **596**
-- Remaining requirements: **2224**
+- Implemented baseline: **600**
+- Remaining requirements: **2220**
 - Attachment sources indexed: **69**
 
 | ID | Requirement | Repeat | Status | Feature refs | Evidence |
@@ -528,11 +528,11 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 0517 | Legacy plan point 0517 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0518 | Legacy plan point 0518 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0519 | Legacy plan point 0519 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0520 | Legacy plan point 0520 | R1 | UNREAD | — | — |
+| 0520 | Legacy plan point 0520 | R1 | IMPLEMENTED | authority-source-review | electron/store.cjs |
 | 0521 | Legacy plan point 0521 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0522 | Legacy plan point 0522 | R1 | UNREAD | — | — |
+| 0522 | Legacy plan point 0522 | R1 | IMPLEMENTED | authority-source-review | electron/store.cjs |
 | 0523 | Legacy plan point 0523 | R1 | UNREAD | — | — |
-| 0524 | Legacy plan point 0524 | R1 | UNREAD | — | — |
+| 0524 | Legacy plan point 0524 | R1 | IMPLEMENTED | authority-source-review | electron/store.cjs |
 | 0525 | Legacy plan point 0525 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0526 | Legacy plan point 0526 | R1 | UNREAD | — | — |
 | 0527 | Legacy plan point 0527 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
@@ -548,7 +548,7 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 0537 | Legacy plan point 0537 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0538 | Legacy plan point 0538 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0539 | Legacy plan point 0539 | R1 | UNREAD | — | — |
-| 0540 | Legacy plan point 0540 | R1 | UNREAD | — | — |
+| 0540 | Legacy plan point 0540 | R1 | IMPLEMENTED | authority-source-review | electron/store.cjs |
 | 0541 | Legacy plan point 0541 | R1 | UNREAD | — | — |
 | 0542 | Legacy plan point 0542 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0543 | Legacy plan point 0543 | R1 | UNREAD | — | — |

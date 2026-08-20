@@ -2,13 +2,13 @@
 
 ## Master Completion Ledger
 
-The repository now includes `docs/MASTER-LEDGER.json` and `docs/MASTER-LEDGER.md`, containing 2,820 atomic requirements: the original 1,050-point plan, a 250-point 1540 N. Vine machine extension, a 300-point shared-renderer representation extension, a 1,100-point full-trial operating extension, and a 120-point post-trial/appellate extension. The source registry covers 65 locally available pasted attachment files. The ledger distinguishes implementation, testing, and visual verification; related scaffolding is not treated as completion.
+The repository now includes `docs/MASTER-LEDGER.json` and `docs/MASTER-LEDGER.md`, containing 2,820 atomic requirements: the original 1,050-point plan, a 250-point 1540 N. Vine machine extension, a 300-point shared-renderer representation extension, a 1,100-point full-trial operating extension, and a 120-point post-trial/appellate extension. The source registry covers 69 locally available pasted attachment files. The ledger distinguishes implementation, testing, and visual verification; related scaffolding is not treated as completion.
 
 The current baseline is generated from direct repository evidence. The remaining requirements are intentionally open.
 
 ## Master Ledger Snapshot
 
-At commit `96c37ee`, the 2,820-point ledger contains **591 IMPLEMENTED** and **2,229 UNREAD** requirements. `IMPLEMENTED` means a repository feature exists; it does not imply `TESTED` or `VERIFIED`. The latest verified tranche adds source/custodian-gated evidence commitment, extraction-method provenance with guarded OCR fallback, source-gated strategy observations, and post-trial mutation validation.
+At the current working tree, the 2,820-point ledger contains **600 IMPLEMENTED** and **2,220 UNREAD** requirements. `IMPLEMENTED` means a repository feature exists; it does not imply `TESTED` or `VERIFIED`. The latest verified tranche adds source/custodian-gated evidence commitment, extraction-method provenance with guarded OCR fallback, source-gated strategy observations, post-trial mutation validation, Cicero organization profiles, auditable trial controls, exact property identity guards, and authority source review.
 
 This ledger is intentionally conservative. It records what is implemented and verified in the repository, not what is planned.
 

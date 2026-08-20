@@ -286,6 +286,28 @@ async function createStore(filePath) {
         if (authority) authority.status = 'VERIFIED'
         authority.verifiedAt = now()
         data.audit.push({ id: id('audit'), at: now(), action: 'VERIFY SOURCE', object: authority?.id || 'none' })
+      } else if (action === 'review-authority-source') {
+        const authority = data.law.find((item) => item.id === payload.authorityId)
+        if (!authority) throw new Error('Authority does not exist')
+        const excerpt = String(payload.excerpt || authority.text || '').trim()
+        const sourcePage = String(payload.sourcePage || '').trim()
+        const sourceVersion = String(payload.sourceVersion || '').trim()
+        const effectiveDate = String(payload.effectiveDate || '').trim()
+        const jurisdiction = String(payload.jurisdiction || authority.jurisdiction || '').trim()
+        const limitations = String(payload.limitations || authority.limitation || '').trim()
+        if (!/^https?:\/\//.test(String(authority.source || ''))) throw new Error('Authority review requires an HTTP(S) source URL')
+        if (!excerpt || !sourcePage || !sourceVersion || !effectiveDate || !jurisdiction || !limitations) throw new Error('Authority review requires excerpt, source page, version, effective date, jurisdiction, and limitations')
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(effectiveDate)) throw new Error('Authority effective date requires YYYY-MM-DD')
+        authority.text = excerpt
+        authority.excerpt = excerpt
+        authority.sourcePage = sourcePage
+        authority.sourceVersion = sourceVersion
+        authority.effectiveDate = effectiveDate
+        authority.jurisdiction = jurisdiction
+        authority.limitation = limitations
+        authority.status = 'VERIFIED'
+        authority.reviewedAt = now()
+        data.audit.push({ id: id('audit'), at: now(), action: 'REVIEW AUTHORITY SOURCE', object: authority.id })
       } else if (action === 'link-element') {
         const authority = data.law.find((item) => item.id === payload.authorityId) || data.law[0]
         const element = data.elements.find((item) => item.id === payload.elementId) || data.elements[0]
