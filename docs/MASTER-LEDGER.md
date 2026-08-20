@@ -3,8 +3,8 @@
 Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine extension, the 300-point shared-renderer representation extension, and the 1,000-point full-trial operating extension.
 
 - Total requirements: **2820**
-- Implemented baseline: **574**
-- Remaining requirements: **2246**
+- Implemented baseline: **580**
+- Remaining requirements: **2240**
 - Attachment sources indexed: **65**
 
 | ID | Requirement | Repeat | Status | Feature refs | Evidence |
@@ -1650,13 +1650,13 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 1639 | trial parties: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
 | 1640 | trial parties: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
 | 1641 | trial service record: has a named owner and responsible next action | R4+ | UNREAD | — | — |
-| 1642 | trial service record: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1642 | trial service record: has a source or explicit source gap | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
 | 1643 | trial service record: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
-| 1644 | trial service record: has a date or explicit date dependency | R4+ | UNREAD | — | — |
-| 1645 | trial service record: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 1644 | trial service record: has a date or explicit date dependency | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1645 | trial service record: has a status distinct from completion | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
 | 1646 | trial service record: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
 | 1647 | trial service record: has a contradiction or defense field | R4+ | UNREAD | — | — |
-| 1648 | trial service record: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 1648 | trial service record: has an inspectable audit history | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
 | 1649 | trial service record: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
 | 1650 | trial service record: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
 | 1651 | trial operative pleading: has a named owner and responsible next action | R4+ | UNREAD | — | — |
@@ -1710,9 +1710,9 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 1699 | trial scheduling order: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
 | 1700 | trial scheduling order: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
 | 1701 | trial case-management conference: has a named owner and responsible next action | R4+ | UNREAD | — | — |
-| 1702 | trial case-management conference: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 1702 | trial case-management conference: has a source or explicit source gap | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
 | 1703 | trial case-management conference: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
-| 1704 | trial case-management conference: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 1704 | trial case-management conference: has a date or explicit date dependency | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
 | 1705 | trial case-management conference: has a status distinct from completion | R4+ | UNREAD | — | — |
 | 1706 | trial case-management conference: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
 | 1707 | trial case-management conference: has a contradiction or defense field | R4+ | UNREAD | — | — |

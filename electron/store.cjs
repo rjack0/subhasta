@@ -311,6 +311,23 @@ async function createStore(filePath) {
         const event = { id: id('machine-action'), type: 'ACTIVATION', activationId: activation.id, output: payload.output || activation.output, status: 'RECORDED', recordedAt: now(), createdAt: now(), matterId: data.matter.id }
         if (!data.machineActions.some((item) => item.type === 'ACTIVATION' && item.activationId === activation.id)) data.machineActions.push(event)
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD ACTIVATION', object: event.id })
+      } else if (action === 'update-procedure-event') {
+        const event = data.procedure.find((item) => item.id === payload.eventId)
+        if (!event) throw new Error('Procedural event does not exist')
+        event.status = payload.status || 'RECORDED'
+        event.date = payload.date || event.date
+        event.source = payload.source || event.source
+        event.recordLocation = payload.recordLocation || event.recordLocation || null
+        event.updatedAt = now()
+        data.audit.push({ id: id('audit'), at: now(), action: 'UPDATE PROCEDURAL EVENT', object: event.id })
+      } else if (action === 'record-procedural-event') {
+        const title = String(payload.title || '').trim()
+        const date = String(payload.date || '').trim()
+        if (!title || !/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error('Procedural event requires a title and YYYY-MM-DD date')
+        const event = { id: id('procedure-event'), title, date, type: payload.type || 'COURT_EVENT', status: payload.status || 'RECORDED', source: payload.source || 'Docket, filing, service, or court record required', recordLocation: payload.recordLocation || null, matterId: data.matter.id, createdAt: now(), updatedAt: now() }
+        data.procedure.push(event)
+        data.proceduralEvents.push(event)
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD PROCEDURAL EVENT', object: event.id })
       } else if (action === 'advance-trial-phase') {
         const phase = data.trialPhases.find((item) => item.id === payload.phaseId)
         if (!phase) throw new Error('Trial phase does not exist')
@@ -468,7 +485,7 @@ async function createStore(filePath) {
     search(query) {
       const needle = String(query || '').trim().toLowerCase()
       if (!needle) return []
-      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', DEADLINES: 'deadlines', 'MACHINE FRONTS': 'machineFronts', 'MACHINE UNITS': 'unitMatrixDetailed', 'EVIDENCE HOLDS': 'evidenceHolds', SOURCES: 'sourceCatalog', WITNESSES: 'trialWitnesses', EXHIBITS: 'trialExhibits', MOTIONS: 'trialMotions', 'TRIAL TASKS': 'trialTasks', 'TRIAL EVENTS': 'trialEvents', ARGUMENTS: 'trialArguments', 'APPEAL ISSUES': 'trialAppealIssues', JUDGMENTS: 'trialJudgments', COSTS: 'trialCosts', ENFORCEMENT: 'trialEnforcement', APPEALS: 'trialAppeals' }
+      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', PROCEDURE: 'procedure', DEADLINES: 'deadlines', 'MACHINE FRONTS': 'machineFronts', 'MACHINE UNITS': 'unitMatrixDetailed', 'EVIDENCE HOLDS': 'evidenceHolds', SOURCES: 'sourceCatalog', WITNESSES: 'trialWitnesses', EXHIBITS: 'trialExhibits', MOTIONS: 'trialMotions', 'TRIAL TASKS': 'trialTasks', 'TRIAL EVENTS': 'trialEvents', ARGUMENTS: 'trialArguments', 'APPEAL ISSUES': 'trialAppealIssues', JUDGMENTS: 'trialJudgments', COSTS: 'trialCosts', ENFORCEMENT: 'trialEnforcement', APPEALS: 'trialAppeals' }
       return Object.entries(groups).flatMap(([type, collection]) => data[collection].filter((item) => JSON.stringify(item).toLowerCase().includes(needle)).slice(0, 20).map((item) => ({ id: item.id, type, name: item.title || item.name || item.filename || item.id, status: item.status || 'ACTIVE', source: item.source || item.provenance || 'Matter store', matterId: data.matter.id })))
     },
     async linkEvidence(evidenceId, targetType, targetId) {

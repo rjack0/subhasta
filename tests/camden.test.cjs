@@ -62,11 +62,18 @@ async function main() {
     assert.ok(eventState.trialEvents.some((item) => item.title === 'Opening statement delivered' && item.date === '2026-09-10'))
     const argumentState = await store.applyAction('record-trial-argument', { side: 'PLAINTIFF', segment: 'OPENING', text: 'The evidence will show the supported elements.', source: 'Test trial notes' })
     assert.ok(argumentState.trialArguments.some((item) => item.segment === 'OPENING' && item.side === 'PLAINTIFF'))
+    const procedureState = await store.applyAction('record-procedural-event', { title: 'Service completed', date: '2026-08-25', source: 'Test service record' })
+    assert.ok(procedureState.procedure.some((item) => item.title === 'Service completed' && item.date === '2026-08-25'))
+    const procedureId = procedureState.procedure.find((item) => item.title === 'Service completed').id
+    const updatedProcedureState = await store.applyAction('update-procedure-event', { eventId: procedureId, status: 'VERIFIED', source: 'Test verified service record' })
+    assert.equal(updatedProcedureState.procedure.find((item) => item.id === procedureId).status, 'VERIFIED')
+    assert.ok((await store.search('Service completed')).some((item) => item.type === 'PROCEDURE'))
     assert.ok((await store.search('opening statement')).some((item) => item.type === 'TRIAL EVENTS'))
     assert.ok((await store.search('supported elements')).some((item) => item.type === 'ARGUMENTS'))
     await assert.rejects(() => store.applyAction('record-verdict', { verdict: '' }), /Verdict requires a recorded result/)
     await assert.rejects(() => store.applyAction('record-judgment', { entryDate: 'October 1, 2026' }), /Judgment entry date requires YYYY-MM-DD/)
     await assert.rejects(() => store.applyAction('record-trial-event', { title: 'Invalid date', date: 'soon' }), /Trial event date requires YYYY-MM-DD/)
+    await assert.rejects(() => store.applyAction('record-procedural-event', { title: 'Invalid date', date: 'soon' }), /Procedural event requires a title and YYYY-MM-DD date/)
     await assert.rejects(() => store.applyAction('record-exhibit-admission', { exhibitId: 'TX-01', result: 'MAYBE' }), /Exhibit admission result is invalid/)
     if (data.machine?.sourceWorkbook) {
       assert.equal(data.unitMatrixDetailed.length, 287)

@@ -177,7 +177,9 @@ const implementedTrial = [
   'trial documentary exhibit: has a provenance link to facts or evidence', 'trial hearsay objection: has a named owner and responsible next action', 'trial ruling record: has an inspectable audit history',
   'trial objection preservation: has a status distinct from completion', 'trial jury instruction elements: has a controlling-rule placeholder', 'trial verdict form: has a source or explicit source gap',
   'trial post-trial motion: has a date or explicit date dependency', 'trial notice of appeal: has a date or explicit date dependency', 'trial preserved issue: has a provenance link to facts or evidence',
-  'trial appellate argument: has an inspectable audit history'
+  'trial appellate argument: has an inspectable audit history', 'trial service record: has a source or explicit source gap', 'trial service record: has a date or explicit date dependency',
+  'trial service record: has a status distinct from completion', 'trial service record: has an inspectable audit history', 'trial case-management conference: has a source or explicit source gap',
+  'trial case-management conference: has a date or explicit date dependency'
 ]
 for (const description of implementedTrial) {
   const item = requirements.find((candidate) => candidate.description === description)
