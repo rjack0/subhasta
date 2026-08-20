@@ -3,8 +3,8 @@
 Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine extension, the 300-point shared-renderer representation extension, and the 1,000-point full-trial operating extension.
 
 - Total requirements: **2820**
-- Implemented baseline: **591**
-- Remaining requirements: **2229**
+- Implemented baseline: **596**
+- Remaining requirements: **2224**
 - Attachment sources indexed: **69**
 
 | ID | Requirement | Repeat | Status | Feature refs | Evidence |
@@ -277,12 +277,12 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 0266 | Legacy plan point 0266 | R1 | UNREAD | — | — |
 | 0267 | Legacy plan point 0267 | R1 | UNREAD | — | — |
 | 0268 | Legacy plan point 0268 | R1 | UNREAD | — | — |
-| 0269 | Legacy plan point 0269 | R1 | UNREAD | — | — |
-| 0270 | Legacy plan point 0270 | R1 | UNREAD | — | — |
-| 0271 | Legacy plan point 0271 | R1 | UNREAD | — | — |
-| 0272 | Legacy plan point 0272 | R1 | UNREAD | — | — |
-| 0273 | Legacy plan point 0273 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0274 | Legacy plan point 0274 | R1 | UNREAD | — | — |
+| 0269 | Legacy plan point 0269 | R1 | IMPLEMENTED | property-address-guard | electron/store.cjs |
+| 0270 | Legacy plan point 0270 | R1 | IMPLEMENTED | property-address-guard | electron/store.cjs |
+| 0271 | Legacy plan point 0271 | R1 | IMPLEMENTED | property-address-guard | electron/store.cjs |
+| 0272 | Legacy plan point 0272 | R1 | IMPLEMENTED | property-address-guard | electron/store.cjs |
+| 0273 | Legacy plan point 0273 | R1 | IMPLEMENTED | property-address-guard | electron/store.cjs |
+| 0274 | Legacy plan point 0274 | R1 | IMPLEMENTED | property-address-guard | electron/store.cjs |
 | 0275 | Legacy plan point 0275 | R1 | UNREAD | — | — |
 | 0276 | Legacy plan point 0276 | R1 | UNREAD | — | — |
 | 0277 | Legacy plan point 0277 | R1 | UNREAD | — | — |
