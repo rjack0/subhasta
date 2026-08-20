@@ -24,7 +24,7 @@ function normalize(data) {
 }
 
 function findObject(data, type, objectId) {
-  const collection = { fact: 'facts', evidence: 'evidence', law: 'law', authority: 'authorities', machineAuthority: 'machineAuthorities', claim: 'claims', legalClaim: 'legalClaims', machineFront: 'machineFronts', element: 'elements', legalElement: 'legalElements', procedure: 'procedure', draft: 'drafts', proposition: 'propositions', deadline: 'deadlines', person: 'people', event: 'events', organization: 'organizations', unit: 'units', machineUnit: 'unitMatrixDetailed', notice: 'notices', filing: 'courtFilings', evidenceHold: 'evidenceHolds', activation: 'activationSequence', damage: 'damagesModel', source: 'sourceCatalog', trialPhase: 'trialPhases', trialWitness: 'trialWitnesses', trialExhibit: 'trialExhibits', trialMotion: 'trialMotions', trialObjection: 'trialObjections', trialTask: 'trialTasks', trialRuling: 'trialRulings', trialEvent: 'trialEvents', trialAppealIssue: 'trialAppealIssues', trialJudgment: 'trialJudgments', trialCost: 'trialCosts', trialEnforcement: 'trialEnforcement', trialAppeal: 'trialAppeals' }[type]
+  const collection = { fact: 'facts', evidence: 'evidence', law: 'law', authority: 'authorities', machineAuthority: 'machineAuthorities', claim: 'claims', legalClaim: 'legalClaims', machineFront: 'machineFronts', element: 'elements', legalElement: 'legalElements', procedure: 'procedure', draft: 'drafts', proposition: 'propositions', deadline: 'deadlines', person: 'people', event: 'events', organization: 'organizations', unit: 'units', machineUnit: 'unitMatrixDetailed', notice: 'notices', filing: 'courtFilings', evidenceHold: 'evidenceHolds', activation: 'activationSequence', damage: 'damagesModel', source: 'sourceCatalog', trialPhase: 'trialPhases', trialWitness: 'trialWitnesses', trialExhibit: 'trialExhibits', trialMotion: 'trialMotions', trialObjection: 'trialObjections', trialTask: 'trialTasks', trialRuling: 'trialRulings', trialEvent: 'trialEvents', trialArgument: 'trialArguments', trialAppealIssue: 'trialAppealIssues', trialJudgment: 'trialJudgments', trialCost: 'trialCosts', trialEnforcement: 'trialEnforcement', trialAppeal: 'trialAppeals' }[type]
   return collection ? data[collection].find((item) => item.id === objectId) : null
 }
 
@@ -361,6 +361,53 @@ async function createStore(filePath) {
         examination.completedAt = examination.status === 'COMPLETE' ? now() : null
         data.trialActions.push({ id: id('trial-action'), type: 'EXAMINATION', examinationId: examination.id, status: examination.status, createdAt: now(), matterId: data.matter.id })
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD EXAMINATION', object: examination.id })
+      } else if (action === 'record-trial-motion') {
+        const motion = data.trialMotions.find((item) => item.id === payload.motionId)
+        if (!motion) throw new Error('Trial motion does not exist')
+        motion.status = payload.status || 'READY_FOR_REVIEW'
+        motion.hearingDate = payload.hearingDate || motion.hearingDate || null
+        motion.ruleSource = payload.source || motion.ruleSource
+        data.trialActions.push({ id: id('trial-action'), type: 'MOTION', motionId: motion.id, status: motion.status, createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD TRIAL MOTION', object: motion.id })
+      } else if (action === 'record-jury-instruction') {
+        const instruction = data.juryInstructions.find((item) => item.id === payload.instructionId)
+        if (!instruction) throw new Error('Jury instruction does not exist')
+        instruction.status = payload.status || 'READY_FOR_REVIEW'
+        instruction.source = payload.source || instruction.source
+        data.trialActions.push({ id: id('trial-action'), type: 'JURY_INSTRUCTION', instructionId: instruction.id, status: instruction.status, createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD JURY INSTRUCTION', object: instruction.id })
+      } else if (action === 'record-witness-foundation') {
+        const witness = data.trialWitnesses.find((item) => item.id === payload.witnessId)
+        if (!witness) throw new Error('Trial witness does not exist')
+        witness.status = payload.status || 'FOUNDATION_RECORDED'
+        witness.foundationNote = payload.note || witness.foundationNote || 'Foundation record requires transcript or exhibit source.'
+        data.trialActions.push({ id: id('trial-action'), type: 'WITNESS_FOUNDATION', witnessId: witness.id, status: witness.status, createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD WITNESS FOUNDATION', object: witness.id })
+      } else if (action === 'record-exhibit-admission') {
+        const exhibit = data.trialExhibits.find((item) => item.id === payload.exhibitId)
+        if (!exhibit) throw new Error('Trial exhibit does not exist')
+        const result = String(payload.result || '').trim().toUpperCase()
+        if (!['ADMITTED', 'EXCLUDED', 'LIMITED', 'PENDING'].includes(result)) throw new Error('Exhibit admission result is invalid')
+        exhibit.admissionResult = result
+        exhibit.status = result === 'ADMITTED' ? 'ADMITTED' : result === 'EXCLUDED' ? 'EXCLUDED' : result === 'LIMITED' ? 'LIMITED' : 'FOUNDATION_NEEDED'
+        exhibit.admissionSource = payload.source || 'Court record or stipulation required'
+        data.trialActions.push({ id: id('trial-action'), type: 'EXHIBIT_ADMISSION', exhibitId: exhibit.id, status: result, createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD EXHIBIT ADMISSION', object: exhibit.id })
+      } else if (action === 'record-trial-event') {
+        const title = String(payload.title || '').trim()
+        if (!title) throw new Error('Trial event requires a title')
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(String(payload.date || ''))) throw new Error('Trial event date requires YYYY-MM-DD')
+        const event = { id: id('trial-event'), title, date: payload.date, type: payload.type || 'COURTROOM', source: payload.source || 'Transcript, docket, or court record required', status: payload.status || 'RECORDED', phaseId: payload.phaseId || data.trial.currentPhaseId, matterId: data.matter.id, createdAt: now(), updatedAt: now() }
+        data.trialEvents.push(event)
+        data.trialActions.push({ id: id('trial-action'), type: 'TRIAL_EVENT', eventId: event.id, status: event.status, createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD TRIAL EVENT', object: event.id })
+      } else if (action === 'record-trial-argument') {
+        const text = String(payload.text || '').trim()
+        if (!text) throw new Error('Trial argument requires text')
+        const argument = { id: id('trial-argument'), side: payload.side || 'PLAINTIFF', segment: payload.segment || 'OPENING', text, source: payload.source || 'Attorney notes and admitted record required', status: payload.status || 'DRAFT', phaseId: payload.phaseId || data.trial.currentPhaseId, matterId: data.matter.id, createdAt: now(), updatedAt: now() }
+        data.trialArguments.push(argument)
+        data.trialActions.push({ id: id('trial-action'), type: 'TRIAL_ARGUMENT', argumentId: argument.id, status: argument.status, createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD TRIAL ARGUMENT', object: argument.id })
       } else if (action === 'record-appeal-issue') {
         const issue = String(payload.issue || '').trim()
         if (!issue) throw new Error('Appeal issue requires text')
@@ -421,7 +468,7 @@ async function createStore(filePath) {
     search(query) {
       const needle = String(query || '').trim().toLowerCase()
       if (!needle) return []
-      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', DEADLINES: 'deadlines', 'MACHINE FRONTS': 'machineFronts', 'MACHINE UNITS': 'unitMatrixDetailed', 'EVIDENCE HOLDS': 'evidenceHolds', SOURCES: 'sourceCatalog', WITNESSES: 'trialWitnesses', EXHIBITS: 'trialExhibits', MOTIONS: 'trialMotions', 'TRIAL TASKS': 'trialTasks', 'APPEAL ISSUES': 'trialAppealIssues', JUDGMENTS: 'trialJudgments', COSTS: 'trialCosts', ENFORCEMENT: 'trialEnforcement', APPEALS: 'trialAppeals' }
+      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', DEADLINES: 'deadlines', 'MACHINE FRONTS': 'machineFronts', 'MACHINE UNITS': 'unitMatrixDetailed', 'EVIDENCE HOLDS': 'evidenceHolds', SOURCES: 'sourceCatalog', WITNESSES: 'trialWitnesses', EXHIBITS: 'trialExhibits', MOTIONS: 'trialMotions', 'TRIAL TASKS': 'trialTasks', 'TRIAL EVENTS': 'trialEvents', ARGUMENTS: 'trialArguments', 'APPEAL ISSUES': 'trialAppealIssues', JUDGMENTS: 'trialJudgments', COSTS: 'trialCosts', ENFORCEMENT: 'trialEnforcement', APPEALS: 'trialAppeals' }
       return Object.entries(groups).flatMap(([type, collection]) => data[collection].filter((item) => JSON.stringify(item).toLowerCase().includes(needle)).slice(0, 20).map((item) => ({ id: item.id, type, name: item.title || item.name || item.filename || item.id, status: item.status || 'ACTIVE', source: item.source || item.provenance || 'Matter store', matterId: data.matter.id })))
     },
     async linkEvidence(evidenceId, targetType, targetId) {

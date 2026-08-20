@@ -25,8 +25,8 @@ const registry = {
   rules: { pastedClaims: 'LEAD_UNTIL_PRIMARY_SOURCE', residentReports: 'LEAD_UNTIL_CORROBORATED', addressIdentity: 'EXACT_PROPERTY_REQUIRED', contextImport: 'EXPLICIT_ACTION_REQUIRED' }
 }
 
-const requirements = Array.from({ length: 2700 }, (_, index) => ({
-  id: String(index + 1).padStart(4, '0'), description: index < 1050 ? `Legacy plan point ${String(index + 1).padStart(4, '0')}` : index < 1300 ? `1540 N. Vine machine extension point ${String(index + 1).padStart(4, '0')}` : index < 1600 ? `CLO representation acceptance point ${String(index + 1).padStart(4, '0')}` : `Trial operating acceptance point ${String(index + 1).padStart(4, '0')}`, sourceRefs: index < 1050 ? ['CLO', 'OPS'] : index < 1300 ? ['CAM', 'WRK', 'CLO'] : index < 1600 ? ['CLO', 'VIS', 'CAM', 'WRK'] : ['CLO', 'LAW', 'CAM', 'VIS', 'OPS'], repeat: index < 1050 ? 'R1' : index < 1300 ? 'R2' : index < 1600 ? 'R3' : 'R4+', status: 'UNREAD', featureRefs: [], implementationEvidence: [], testEvidence: [], screenshotEvidence: [], updatedAt: null
+const requirements = Array.from({ length: 2820 }, (_, index) => ({
+  id: String(index + 1).padStart(4, '0'), description: index < 1050 ? `Legacy plan point ${String(index + 1).padStart(4, '0')}` : index < 1300 ? `1540 N. Vine machine extension point ${String(index + 1).padStart(4, '0')}` : index < 1600 ? `CLO representation acceptance point ${String(index + 1).padStart(4, '0')}` : index < 2700 ? `Trial operating acceptance point ${String(index + 1).padStart(4, '0')}` : `Post-trial and appellate acceptance point ${String(index + 1).padStart(4, '0')}`, sourceRefs: index < 1050 ? ['CLO', 'OPS'] : index < 1300 ? ['CAM', 'WRK', 'CLO'] : index < 1600 ? ['CLO', 'VIS', 'CAM', 'WRK'] : ['CLO', 'LAW', 'CAM', 'VIS', 'OPS'], repeat: index < 1050 ? 'R1' : index < 1300 ? 'R2' : index < 1600 ? 'R3' : 'R4+', status: 'UNREAD', featureRefs: [], implementationEvidence: [], testEvidence: [], screenshotEvidence: [], updatedAt: null
 }))
 const machineTopics = [
   'Verify exact fee-title SPV identity from recorded deed', 'Verify successor manager and service agent disclosure', 'Verify Camden predecessor control period', 'Verify public sale date against deed date', 'Verify 287-unit asset identity', 'Verify 37 known public unit IDs', 'Track 250 unknown unit IDs', 'Store building certificate-of-occupancy year', 'Store current brand and legacy operator', 'Store public sale price as a lead',
@@ -140,6 +140,37 @@ trialTopics.forEach((description, offset) => {
   item.sourceRefs = ['CLO', 'LAW', 'CAM', 'VIS', 'OPS']
   item.repeat = 'R4+'
 })
+const postTrialSurfaces = [
+  'post-trial judgment entry and service', 'post-trial motion calendar', 'post-trial cost memorandum', 'post-judgment satisfaction and accounting',
+  'post-judgment stay analysis', 'post-judgment enforcement selection', 'appellate notice of appeal', 'appellate jurisdiction and appealability',
+  'appellate record designation', 'appellate transcript and reporter record', 'appellate brief calendar', 'appellate disposition and remand'
+]
+const postTrialChecks = [
+  'has a named owner and responsible next action', 'has a source or explicit source gap', 'has a controlling-rule placeholder', 'has a date or explicit date dependency',
+  'has a status distinct from completion', 'has a provenance link to facts or evidence', 'has a contradiction or defense field', 'has an inspectable audit history',
+  'has a keyboard and responsive representation', 'has an end-to-end acceptance test'
+]
+const postTrialTopics = postTrialSurfaces.flatMap((surface) => postTrialChecks.map((check) => `${surface}: ${check}`))
+postTrialTopics.forEach((description, offset) => {
+  const index = 2701 + offset
+  const item = requirements[index - 1]
+  item.description = description
+  item.sourceRefs = ['CLO', 'LAW', 'CAM', 'VIS', 'OPS']
+  item.repeat = 'R4+'
+})
+const implementedPostTrial = [
+  'post-trial judgment entry and service: has a source or explicit source gap', 'post-trial judgment entry and service: has a date or explicit date dependency',
+  'post-trial judgment entry and service: has a status distinct from completion', 'post-trial judgment entry and service: has an inspectable audit history',
+  'post-trial cost memorandum: has a source or explicit source gap', 'post-trial cost memorandum: has a provenance link to facts or evidence',
+  'post-judgment satisfaction and accounting: has a status distinct from completion', 'post-judgment stay analysis: has a source or explicit source gap',
+  'post-judgment enforcement selection: has an inspectable audit history', 'appellate notice of appeal: has a date or explicit date dependency',
+  'appellate record designation: has a source or explicit source gap', 'appellate transcript and reporter record: has a provenance link to facts or evidence',
+  'appellate brief calendar: has a date or explicit date dependency', 'appellate disposition and remand: has an inspectable audit history'
+]
+for (const description of implementedPostTrial) {
+  const item = requirements.find((candidate) => candidate.description === description)
+  if (item) { item.status = 'IMPLEMENTED'; item.featureRefs = ['trial-post-verdict']; item.implementationEvidence = ['electron/store.cjs', 'clo/renderer.js', 'tests/camden.test.cjs']; item.updatedAt = new Date().toISOString() }
+}
 const implementedTrial = [
   'trial matter identity: has a named owner and responsible next action', 'trial scheduling order: has a source or explicit source gap', 'trial witness list: has a status distinct from completion',
   'trial exhibit list: has a provenance link to facts or evidence', 'trial witness foundation: has a contradiction or defense field', 'trial direct examination: has an inspectable audit history',

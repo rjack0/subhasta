@@ -4,7 +4,7 @@
 
 The implementation ledger is executable and repository-local:
 
-- `docs/MASTER-LEDGER.json` contains 2,700 atomic requirement records: the original 1,050, a 250-point 1540 N. Vine machine extension, a 300-point shared-renderer representation extension, and a 1,100-point full-trial operating extension.
+- `docs/MASTER-LEDGER.json` contains 2,820 atomic requirement records: the original 1,050, a 250-point 1540 N. Vine machine extension, a 300-point shared-renderer representation extension, a 1,100-point full-trial operating extension, and a 120-point post-trial/appellate extension.
 - `docs/MASTER-LEDGER.md` is the review projection.
 - `docs/source-registry.json` records indexed attachment sources, hashes, and source families.
 - `docs/source-extracts/` preserves the original pasted text used for intake.
@@ -16,11 +16,11 @@ The ledger distinguishes `IMPLEMENTED`, `TESTED`, and `VERIFIED`; scaffolding is
 
 Subhasta is an Electron litigation operating environment. CLO is the primary shell; Field Atlas and Cicero are secondary tools mounted from the same desktop navigation. The repository currently contains a seeded local case store and a functional first implementation of evidence staging, SHA-256 provenance, extracted text, audit history, proposition creation, draft building, validation gating, and contextual imports.
 
-The primary seeded matter is the supplied `1540_Vine_Camden_Litigation_War_Room.xlsx` baseline. Its 287-unit matrix, 41 legal fronts, evidence registry, critical clocks, authorities, property facts, and handling rules are preserved in `fixtures/camden-1540-vine.json` and surfaced through the Camden `COVERAGE` route. Workbook leads remain context until primary evidence is committed.
+The primary seeded matter is the supplied `1540_Vine_Camden_Litigation_War_Room.xlsx` baseline. Its 287-unit matrix, 41 legal fronts, evidence registry, critical clocks, authorities, property facts, and handling rules are preserved in `fixtures/camden-1540-vine.json` and surfaced through the Camden `COVERAGE` route. Workbook leads remain context until primary evidence is committed. The Trial route now carries explicit judgment, costs, enforcement/stay, appellate record, transcript, briefing, and remand records.
 
 ## Current quality gate
 
-The build is measured against [the hyper-precise CLO acceptance rubric](docs/CLO-RUBRIC.md). The current implementation tranche is summarized in [the status ledger](docs/CLO-STATUS.md); the full completion ledger is the 1,050-item master ledger described above. The master ledger is the authoritative completion count.
+The build is measured against [the hyper-precise CLO acceptance rubric](docs/CLO-RUBRIC.md). The current implementation tranche is summarized in [the status ledger](docs/CLO-STATUS.md); the full completion ledger is the 2,820-item master ledger described above. The master ledger is the authoritative completion count.
 
 ## Desktop structure
 

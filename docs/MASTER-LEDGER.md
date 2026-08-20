@@ -2,10 +2,10 @@
 
 Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine extension, the 300-point shared-renderer representation extension, and the 1,000-point full-trial operating extension.
 
-- Total requirements: **2700**
-- Implemented baseline: **560**
-- Remaining requirements: **2140**
-- Attachment sources indexed: **62**
+- Total requirements: **2820**
+- Implemented baseline: **574**
+- Remaining requirements: **2246**
+- Attachment sources indexed: **65**
 
 | ID | Requirement | Repeat | Status | Feature refs | Evidence |
 |---:|---|---|---|---|---|
@@ -2709,3 +2709,123 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 2698 | trial appellate argument: has an inspectable audit history | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
 | 2699 | trial appellate argument: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
 | 2700 | trial appellate argument: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2701 | post-trial judgment entry and service: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2702 | post-trial judgment entry and service: has a source or explicit source gap | R4+ | IMPLEMENTED | trial-post-verdict | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2703 | post-trial judgment entry and service: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2704 | post-trial judgment entry and service: has a date or explicit date dependency | R4+ | IMPLEMENTED | trial-post-verdict | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2705 | post-trial judgment entry and service: has a status distinct from completion | R4+ | IMPLEMENTED | trial-post-verdict | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2706 | post-trial judgment entry and service: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2707 | post-trial judgment entry and service: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2708 | post-trial judgment entry and service: has an inspectable audit history | R4+ | IMPLEMENTED | trial-post-verdict | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2709 | post-trial judgment entry and service: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2710 | post-trial judgment entry and service: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2711 | post-trial motion calendar: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2712 | post-trial motion calendar: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2713 | post-trial motion calendar: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2714 | post-trial motion calendar: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2715 | post-trial motion calendar: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2716 | post-trial motion calendar: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2717 | post-trial motion calendar: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2718 | post-trial motion calendar: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2719 | post-trial motion calendar: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2720 | post-trial motion calendar: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2721 | post-trial cost memorandum: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2722 | post-trial cost memorandum: has a source or explicit source gap | R4+ | IMPLEMENTED | trial-post-verdict | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2723 | post-trial cost memorandum: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2724 | post-trial cost memorandum: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2725 | post-trial cost memorandum: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2726 | post-trial cost memorandum: has a provenance link to facts or evidence | R4+ | IMPLEMENTED | trial-post-verdict | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2727 | post-trial cost memorandum: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2728 | post-trial cost memorandum: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2729 | post-trial cost memorandum: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2730 | post-trial cost memorandum: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2731 | post-judgment satisfaction and accounting: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2732 | post-judgment satisfaction and accounting: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2733 | post-judgment satisfaction and accounting: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2734 | post-judgment satisfaction and accounting: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2735 | post-judgment satisfaction and accounting: has a status distinct from completion | R4+ | IMPLEMENTED | trial-post-verdict | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2736 | post-judgment satisfaction and accounting: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2737 | post-judgment satisfaction and accounting: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2738 | post-judgment satisfaction and accounting: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2739 | post-judgment satisfaction and accounting: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2740 | post-judgment satisfaction and accounting: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2741 | post-judgment stay analysis: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2742 | post-judgment stay analysis: has a source or explicit source gap | R4+ | IMPLEMENTED | trial-post-verdict | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2743 | post-judgment stay analysis: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2744 | post-judgment stay analysis: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2745 | post-judgment stay analysis: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2746 | post-judgment stay analysis: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2747 | post-judgment stay analysis: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2748 | post-judgment stay analysis: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2749 | post-judgment stay analysis: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2750 | post-judgment stay analysis: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2751 | post-judgment enforcement selection: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2752 | post-judgment enforcement selection: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2753 | post-judgment enforcement selection: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2754 | post-judgment enforcement selection: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2755 | post-judgment enforcement selection: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2756 | post-judgment enforcement selection: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2757 | post-judgment enforcement selection: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2758 | post-judgment enforcement selection: has an inspectable audit history | R4+ | IMPLEMENTED | trial-post-verdict | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2759 | post-judgment enforcement selection: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2760 | post-judgment enforcement selection: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2761 | appellate notice of appeal: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2762 | appellate notice of appeal: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2763 | appellate notice of appeal: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2764 | appellate notice of appeal: has a date or explicit date dependency | R4+ | IMPLEMENTED | trial-post-verdict | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2765 | appellate notice of appeal: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2766 | appellate notice of appeal: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2767 | appellate notice of appeal: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2768 | appellate notice of appeal: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2769 | appellate notice of appeal: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2770 | appellate notice of appeal: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2771 | appellate jurisdiction and appealability: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2772 | appellate jurisdiction and appealability: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2773 | appellate jurisdiction and appealability: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2774 | appellate jurisdiction and appealability: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2775 | appellate jurisdiction and appealability: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2776 | appellate jurisdiction and appealability: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2777 | appellate jurisdiction and appealability: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2778 | appellate jurisdiction and appealability: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2779 | appellate jurisdiction and appealability: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2780 | appellate jurisdiction and appealability: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2781 | appellate record designation: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2782 | appellate record designation: has a source or explicit source gap | R4+ | IMPLEMENTED | trial-post-verdict | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2783 | appellate record designation: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2784 | appellate record designation: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2785 | appellate record designation: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2786 | appellate record designation: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2787 | appellate record designation: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2788 | appellate record designation: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2789 | appellate record designation: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2790 | appellate record designation: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2791 | appellate transcript and reporter record: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2792 | appellate transcript and reporter record: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2793 | appellate transcript and reporter record: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2794 | appellate transcript and reporter record: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2795 | appellate transcript and reporter record: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2796 | appellate transcript and reporter record: has a provenance link to facts or evidence | R4+ | IMPLEMENTED | trial-post-verdict | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2797 | appellate transcript and reporter record: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2798 | appellate transcript and reporter record: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2799 | appellate transcript and reporter record: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2800 | appellate transcript and reporter record: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2801 | appellate brief calendar: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2802 | appellate brief calendar: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2803 | appellate brief calendar: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2804 | appellate brief calendar: has a date or explicit date dependency | R4+ | IMPLEMENTED | trial-post-verdict | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2805 | appellate brief calendar: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2806 | appellate brief calendar: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2807 | appellate brief calendar: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2808 | appellate brief calendar: has an inspectable audit history | R4+ | UNREAD | — | — |
+| 2809 | appellate brief calendar: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2810 | appellate brief calendar: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
+| 2811 | appellate disposition and remand: has a named owner and responsible next action | R4+ | UNREAD | — | — |
+| 2812 | appellate disposition and remand: has a source or explicit source gap | R4+ | UNREAD | — | — |
+| 2813 | appellate disposition and remand: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
+| 2814 | appellate disposition and remand: has a date or explicit date dependency | R4+ | UNREAD | — | — |
+| 2815 | appellate disposition and remand: has a status distinct from completion | R4+ | UNREAD | — | — |
+| 2816 | appellate disposition and remand: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
+| 2817 | appellate disposition and remand: has a contradiction or defense field | R4+ | UNREAD | — | — |
+| 2818 | appellate disposition and remand: has an inspectable audit history | R4+ | IMPLEMENTED | trial-post-verdict | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 2819 | appellate disposition and remand: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
+| 2820 | appellate disposition and remand: has an end-to-end acceptance test | R4+ | UNREAD | — | — |

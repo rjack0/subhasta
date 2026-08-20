@@ -17,8 +17,8 @@ function sourceRegistry() {
 function requirementLedger() {
   const stored = readJson(ledgerPath, null)
   if (stored?.requirements?.length) return stored
-  return { version: 4, total: 2700, requirements: Array.from({ length: 2700 }, (_, index) => ({
-    id: String(index + 1).padStart(4, '0'), description: index < 1050 ? `Legacy plan point ${String(index + 1).padStart(4, '0')}` : index < 1300 ? `1540 N. Vine machine extension point ${String(index + 1).padStart(4, '0')}` : index < 1600 ? `CLO representation acceptance point ${String(index + 1).padStart(4, '0')}` : `Trial operating acceptance point ${String(index + 1).padStart(4, '0')}`, sourceRefs: [], repeat: index < 1050 ? 'R1' : index < 1300 ? 'R2' : index < 1600 ? 'R3' : 'R4+', status: 'UNREAD', featureRefs: [], implementationEvidence: [], testEvidence: [], screenshotEvidence: [], updatedAt: null
+  return { version: 4, total: 2820, requirements: Array.from({ length: 2820 }, (_, index) => ({
+    id: String(index + 1).padStart(4, '0'), description: index < 1050 ? `Legacy plan point ${String(index + 1).padStart(4, '0')}` : index < 1300 ? `1540 N. Vine machine extension point ${String(index + 1).padStart(4, '0')}` : index < 1600 ? `CLO representation acceptance point ${String(index + 1).padStart(4, '0')}` : index < 2700 ? `Trial operating acceptance point ${String(index + 1).padStart(4, '0')}` : `Post-trial and appellate acceptance point ${String(index + 1).padStart(4, '0')}`, sourceRefs: [], repeat: index < 1050 ? 'R1' : index < 1300 ? 'R2' : index < 1600 ? 'R3' : 'R4+', status: 'UNREAD', featureRefs: [], implementationEvidence: [], testEvidence: [], screenshotEvidence: [], updatedAt: null
   })) }
 }
 

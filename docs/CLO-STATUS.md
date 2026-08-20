@@ -2,7 +2,7 @@
 
 ## Master Completion Ledger
 
-The repository now includes `docs/MASTER-LEDGER.json` and `docs/MASTER-LEDGER.md`, containing 2,700 atomic requirements: the original 1,050-point plan, a 250-point 1540 N. Vine machine extension, a 300-point shared-renderer representation extension, and a 1,100-point full-trial operating extension. The source registry covers 62 locally available pasted attachment files. The ledger distinguishes implementation, testing, and visual verification; related scaffolding is not treated as completion.
+The repository now includes `docs/MASTER-LEDGER.json` and `docs/MASTER-LEDGER.md`, containing 2,820 atomic requirements: the original 1,050-point plan, a 250-point 1540 N. Vine machine extension, a 300-point shared-renderer representation extension, a 1,100-point full-trial operating extension, and a 120-point post-trial/appellate extension. The source registry covers 65 locally available pasted attachment files. The ledger distinguishes implementation, testing, and visual verification; related scaffolding is not treated as completion.
 
 The current baseline is generated from direct repository evidence. The remaining requirements are intentionally open.
 
@@ -40,6 +40,8 @@ This ledger is intentionally conservative. It records what is implemented and ve
 ## Not Yet Verified
 
 - The master completion ledger remains open: the generated `IMPLEMENTED` count and open count are authoritative in `docs/MASTER-LEDGER.json`; open items still require implementation, tests, or screenshot evidence.
+
+- The post-trial operating layer now has explicit persisted mutations for verdict, judgment entry, cost records, enforcement/stay steps, appellate steps, motions, jury instructions, witness foundation, exhibit admission, courtroom events, and argument records.
 
 - OCR extraction and scanned-PDF fallback.
 - Typed repository validation beyond the current link validator.
