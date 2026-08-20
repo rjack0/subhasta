@@ -1650,13 +1650,13 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 1639 | trial parties: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
 | 1640 | trial parties: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
 | 1641 | trial service record: has a named owner and responsible next action | R4+ | UNREAD | — | — |
-| 1642 | trial service record: has a source or explicit source gap | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1642 | trial service record: has a source or explicit source gap | R4+ | IMPLEMENTED | trial-control-register | electron/store.cjs, clo/renderer.js |
 | 1643 | trial service record: has a controlling-rule placeholder | R4+ | UNREAD | — | — |
-| 1644 | trial service record: has a date or explicit date dependency | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
-| 1645 | trial service record: has a status distinct from completion | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1644 | trial service record: has a date or explicit date dependency | R4+ | IMPLEMENTED | trial-control-register | electron/store.cjs, clo/renderer.js |
+| 1645 | trial service record: has a status distinct from completion | R4+ | IMPLEMENTED | trial-control-register | electron/store.cjs, clo/renderer.js |
 | 1646 | trial service record: has a provenance link to facts or evidence | R4+ | UNREAD | — | — |
 | 1647 | trial service record: has a contradiction or defense field | R4+ | UNREAD | — | — |
-| 1648 | trial service record: has an inspectable audit history | R4+ | IMPLEMENTED | trial-route, trial-store | electron/store.cjs, clo/renderer.js, tests/camden.test.cjs |
+| 1648 | trial service record: has an inspectable audit history | R4+ | IMPLEMENTED | trial-control-register | electron/store.cjs, clo/renderer.js |
 | 1649 | trial service record: has a keyboard and responsive representation | R4+ | UNREAD | — | — |
 | 1650 | trial service record: has an end-to-end acceptance test | R4+ | UNREAD | — | — |
 | 1651 | trial operative pleading: has a named owner and responsible next action | R4+ | UNREAD | — | — |

@@ -200,6 +200,10 @@ for (const index of implementedIds) {
 // Keep this separate from the broad legacy baseline so the ledger never treats
 // a fixture or a rendered label as proof of a behavior that has no test.
 const concreteEvidence = new Map([
+  [1642, { featureRefs: ['trial-control-register'], implementationEvidence: ['electron/store.cjs', 'clo/renderer.js'], testEvidence: ['tests/camden.test.cjs'] }],
+  [1644, { featureRefs: ['trial-control-register'], implementationEvidence: ['electron/store.cjs', 'clo/renderer.js'], testEvidence: ['tests/camden.test.cjs'] }],
+  [1645, { featureRefs: ['trial-control-register'], implementationEvidence: ['electron/store.cjs', 'clo/renderer.js'], testEvidence: ['tests/camden.test.cjs'] }],
+  [1648, { featureRefs: ['trial-control-register'], implementationEvidence: ['electron/store.cjs', 'clo/renderer.js'], testEvidence: ['tests/camden.test.cjs'] }],
   [780, { featureRefs: ['cicero-profile-persistence'], implementationEvidence: ['cicero/main.js', 'electron/store.cjs'], testEvidence: ['tests/ledger.test.cjs'] }],
   [781, { featureRefs: ['cicero-profile-persistence'], implementationEvidence: ['cicero/main.js', 'electron/store.cjs'], testEvidence: ['tests/ledger.test.cjs'] }],
   [782, { featureRefs: ['cicero-profile-persistence'], implementationEvidence: ['cicero/index.html', 'cicero/main.js', 'electron/store.cjs'], testEvidence: ['tests/ledger.test.cjs'] }],
