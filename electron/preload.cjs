@@ -11,6 +11,7 @@ contextBridge.exposeInMainWorld('clo', {
   deriveDeadlines: () => ipcRenderer.invoke('procedure:derive-deadlines'),
   chooseEvidence: () => ipcRenderer.invoke('evidence:choose-files'),
   chooseEvidenceDirectory: () => ipcRenderer.invoke('evidence:choose-directory'),
+  stageDroppedEvidence: (paths) => ipcRenderer.invoke('evidence:drop-files', paths),
   clipboardEvidence: () => ipcRenderer.invoke('evidence:clipboard'),
   commitEvidence: (staged) => ipcRenderer.invoke('evidence:commit', staged),
   importContext: (record) => ipcRenderer.invoke('context:import', record),

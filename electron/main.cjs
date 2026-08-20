@@ -56,6 +56,10 @@ function registerIpc() {
     const files = entries.filter((entry) => entry.isFile()).map((entry) => path.join(result.filePaths[0], entry.name))
     return Promise.all(files.map((filePath) => store.stageEvidence(filePath)))
   })
+  ipcMain.handle('evidence:drop-files', async (_, paths) => {
+    if (!Array.isArray(paths) || paths.length > 100 || paths.some((filePath) => typeof filePath !== 'string' || !filePath.trim())) throw new Error('Dropped evidence paths are invalid')
+    return Promise.all(paths.map((filePath) => store.stageEvidence(filePath)))
+  })
   ipcMain.handle('evidence:clipboard', () => {
     const text = clipboard.readText()
     if (!text.trim()) return null
