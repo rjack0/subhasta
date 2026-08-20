@@ -17,6 +17,8 @@ const installProcedureDocketField = () => {
   article.className = 'field wide-field'
   article.innerHTML = '<div class="field-header"><h2 class="field-title">Record docket entry</h2><span class="field-meta">TITLE + DATE + SOURCE</span></div><div class="trial-form"><input id="procedure-docket-title" class="search-input" placeholder="Docket entry title" aria-label="Docket entry title"><input id="procedure-docket-number" class="search-input" placeholder="Docket number" aria-label="Docket number"><input id="procedure-docket-date" class="search-input" type="date" aria-label="Docket entry date"><input id="procedure-docket-source" class="search-input" placeholder="Docket source" aria-label="Docket source"><button id="record-procedure-docket" class="action-button">RECORD DOCKET ENTRY</button></div>'
   grid.append(article)
+  const docketRows = (state.data.docketEntries || []).slice(-12).reverse().map((item) => `<div class="object-row" data-select="${safe(item.id)}"><div><strong>${safe(item.title)}</strong><small>${safe(item.date)} · docket ${safe(item.docketNumber || 'UNNUMBERED')} · ${safe(item.source)}</small></div><b class="${statusClass(item.status)}">${safe(item.status)}</b></div>`).join('')
+  article.insertAdjacentHTML('beforeend', `<div class="field-header"><h2 class="field-title">Committed docket</h2><span class="field-meta">${(state.data.docketEntries || []).length} ENTRIES</span></div><div class="object-list">${docketRows || '<p class="muted">No docket entries committed.</p>'}</div>`)
   el('#record-procedure-docket').addEventListener('click', runProcedureDocket)
 }
 
