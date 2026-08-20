@@ -44,6 +44,7 @@ async function main() {
     await store.applyAction('verify-source')
     await store.applyAction('link-element')
     assert.equal(store.snapshot().law[0].status, 'VERIFIED')
+    assert.match(store.snapshot().propositions[0].source, /^https?:\/\//)
     assert.ok(store.snapshot().propositionLinks.length >= 1)
     await store.applyAction('build-section')
     await store.applyAction('verify-citations')

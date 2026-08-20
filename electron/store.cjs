@@ -85,8 +85,8 @@ const seed = () => {
     { id: 'ev-003', name: 'LAHD inspection record', type: 'MISSING', hash: null, source: 'Gap', status: 'HYPOTHESIS', links: ['element-003'], createdAt: now() }
   ],
   law: [
-    { id: 'law-001', title: 'Civil Code §1942.4', jurisdiction: 'CALIFORNIA', status: 'VERIFIED', text: 'A landlord may not collect rent or issue certain notices while specified conditions remain unresolved.', proposition: 'Unresolved statutory conditions can affect rent collection and notice remedies.', links: ['element-002'] },
-    { id: 'law-002', title: 'Local housing code', jurisdiction: 'LOS ANGELES', status: 'HYPOTHESIS', text: 'Local inspection and notice requirements remain to be confirmed from the controlling source.', proposition: null, links: ['element-003'] }
+    { id: 'law-001', title: 'Civil Code §1942.4', jurisdiction: 'CALIFORNIA', status: 'VERIFIED', text: 'A landlord may not collect rent or issue certain notices while specified conditions remain unresolved.', proposition: 'Unresolved statutory conditions can affect rent collection and notice remedies.', source: 'https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1942.4', links: ['element-002'] },
+    { id: 'law-002', title: 'Local housing code', jurisdiction: 'LOS ANGELES', status: 'HYPOTHESIS', text: 'Local inspection and notice requirements remain to be confirmed from the controlling source.', proposition: null, source: 'https://housing.lacity.gov/', links: ['element-003'] }
   ],
   claims: [{ id: 'claim-001', title: 'Habitability / notice theory', status: 'INCOMPLETE', proof: 66, elements: ['element-001', 'element-002', 'element-003'] }],
   elements: [
@@ -251,18 +251,22 @@ async function createStore(filePath) {
     async applyAction(action, payload = {}) {
       if (action === 'create-proposition') {
         const authorityId = payload.authorityId || data.law[0]?.id
-        const proposition = { id: id('prop'), title: payload.title || 'Statutory condition proposition', text: payload.text || data.law[0]?.proposition || 'Proposition requires source verification.', authorityId, status: 'PENDING', source: 'Local authority fixture', createdAt: now() }
+        const authority = data.law.find((item) => item.id === authorityId)
+        const proposition = { id: id('prop'), title: payload.title || 'Statutory condition proposition', text: payload.text || authority?.proposition || 'Proposition requires source verification.', authorityId, status: 'PENDING', source: authority?.source || 'Authority source required', createdAt: now() }
         data.propositions.push(proposition)
         data.law = data.law.map((item) => item.id === authorityId ? { ...item, proposition: proposition.text, propositionId: proposition.id } : item)
         data.audit.push({ id: id('audit'), at: now(), action: 'CREATE PROPOSITION', object: proposition.id })
       } else if (action === 'verify-source') {
         const authority = data.law.find((item) => item.id === payload.authorityId) || data.law[0]
+        if (!authority || !/^https?:\/\//.test(String(authority.source || ''))) throw new Error('Authority requires an HTTP(S) source URL before verification')
         if (authority) authority.status = 'VERIFIED'
+        authority.verifiedAt = now()
         data.audit.push({ id: id('audit'), at: now(), action: 'VERIFY SOURCE', object: authority?.id || 'none' })
       } else if (action === 'link-element') {
         const authority = data.law.find((item) => item.id === payload.authorityId) || data.law[0]
         const element = data.elements.find((item) => item.id === payload.elementId) || data.elements[0]
         if (!authority || !element) throw new Error('Law element link target does not exist')
+        if (authority.status !== 'VERIFIED') throw new Error('Authority must be verified before linking an element')
         const link = { id: id('prop-link'), propositionId: authority.propositionId || authority.id, elementId: element.id, createdAt: now() }
         data.propositionLinks.push(link)
         authority.links = Array.from(new Set([...(authority.links || []), element.id]))
