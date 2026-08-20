@@ -9,6 +9,19 @@ document.addEventListener('click', (event) => {
   if (event.target?.id === 'record-procedure-service') runProcedureService()
 })
 
+const installProcedureDocketField = () => {
+  if (state.route !== 'procedure' || el('#record-procedure-docket')) return
+  const grid = stage.querySelector('.stage-grid')
+  if (!grid) return
+  const article = document.createElement('article')
+  article.className = 'field wide-field'
+  article.innerHTML = '<div class="field-header"><h2 class="field-title">Record docket entry</h2><span class="field-meta">TITLE + DATE + SOURCE</span></div><div class="trial-form"><input id="procedure-docket-title" class="search-input" placeholder="Docket entry title" aria-label="Docket entry title"><input id="procedure-docket-number" class="search-input" placeholder="Docket number" aria-label="Docket number"><input id="procedure-docket-date" class="search-input" type="date" aria-label="Docket entry date"><input id="procedure-docket-source" class="search-input" placeholder="Docket source" aria-label="Docket source"><button id="record-procedure-docket" class="action-button">RECORD DOCKET ENTRY</button></div>'
+  grid.append(article)
+  el('#record-procedure-docket').addEventListener('click', runProcedureDocket)
+}
+
+new MutationObserver(installProcedureDocketField).observe(stage, { childList: true })
+
 const statusClass = (status) => ({ COMPLETE: 'state-complete', VERIFIED: 'state-complete', SUPPORTED: 'state-complete', INCOMPLETE: 'state-pending', PENDING: 'state-pending', HYPOTHESIS: 'state-pending', CONTRADICTION: 'state-danger', FAILED: 'state-danger', INFERENCE: 'state-inference' }[status] || '')
 const safe = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]))
 
@@ -197,6 +210,10 @@ async function runProcedureFiling() {
 
 async function runProcedureService() {
   try { state.data = await window.clo.action('record-service', { servedParty: el('#procedure-service-party').value, method: el('#procedure-service-method').value, date: el('#procedure-service-date').value, source: el('#procedure-service-source').value }); render() } catch (error) { showActionError('SERVICE FAILED', error) }
+}
+
+async function runProcedureDocket() {
+  try { state.data = await window.clo.action('record-docket-entry', { title: el('#procedure-docket-title').value, docketNumber: el('#procedure-docket-number').value, date: el('#procedure-docket-date').value, source: el('#procedure-docket-source').value }); render() } catch (error) { showActionError('DOCKET ENTRY FAILED', error) }
 }
 
 async function runModerationReview() {
