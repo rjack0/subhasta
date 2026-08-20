@@ -31,7 +31,7 @@ This ledger is intentionally conservative. It records what is implemented and ve
 - Evidence links are typed and validated; duplicate hashes are detected; procedure deadlines are derived and persisted.
 - The Electron application path uses a local SQLite file with a versioned case-state table; the JSON path remains available for isolated tests.
 - Window presentation is opt-out for normal use and explicitly suppressed with `CLO_BACKGROUND_CAPTURE=1` for background capture/smoke workflows.
-- Background capture generated 11 normalized `1440x900` route screenshots, 1024px/mobile shell screenshots, and four state-variant screenshots under `artifacts/screenshots/`.
+- Existing background capture artifacts include the earlier normalized `1440x900` route set, 1024px/mobile shell screenshots, and state variants under `artifacts/screenshots/`; the updated capture runner currently aborts with Electron exit 134 before generating the new Machine, Trial, or Moderate captures.
 - The supplied war-room workbook is imported as `fixtures/camden-1540-vine.json`; its raw sheet rows and source row numbers remain auditable.
 - File hashing and text extraction run in `electron/hash-worker.cjs`; the 10,000-object search benchmark passes in the current runtime.
 - PDF text extraction uses the local `pdftotext` executable when present; OCR remains intentionally separate and unclaimed.
