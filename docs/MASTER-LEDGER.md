@@ -3,9 +3,9 @@
 Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine extension, the 300-point shared-renderer representation extension, and the 1,000-point full-trial operating extension.
 
 - Total requirements: **2820**
-- Implemented baseline: **580**
-- Remaining requirements: **2240**
-- Attachment sources indexed: **65**
+- Implemented baseline: **581**
+- Remaining requirements: **2239**
+- Attachment sources indexed: **69**
 
 | ID | Requirement | Repeat | Status | Feature refs | Evidence |
 |---:|---|---|---|---|---|
@@ -712,13 +712,13 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 0701 | Legacy plan point 0701 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0702 | Legacy plan point 0702 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0703 | Legacy plan point 0703 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0704 | Legacy plan point 0704 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0705 | Legacy plan point 0705 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0706 | Legacy plan point 0706 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0707 | Legacy plan point 0707 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0708 | Legacy plan point 0708 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0709 | Legacy plan point 0709 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0710 | Legacy plan point 0710 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
+| 0704 | Legacy plan point 0704 | R1 | IMPLEMENTED | strategy-observation-record | electron/store.cjs, clo/renderer.js |
+| 0705 | Legacy plan point 0705 | R1 | IMPLEMENTED | strategy-observation-record | electron/store.cjs, clo/renderer.js |
+| 0706 | Legacy plan point 0706 | R1 | IMPLEMENTED | strategy-observation-record | electron/store.cjs, clo/renderer.js |
+| 0707 | Legacy plan point 0707 | R1 | IMPLEMENTED | strategy-observation-record | electron/store.cjs, clo/renderer.js |
+| 0708 | Legacy plan point 0708 | R1 | IMPLEMENTED | strategy-observation-record | electron/store.cjs, clo/renderer.js |
+| 0709 | Legacy plan point 0709 | R1 | IMPLEMENTED | strategy-observation-record | electron/store.cjs, clo/renderer.js |
+| 0710 | Legacy plan point 0710 | R1 | IMPLEMENTED | strategy-observation-record | electron/store.cjs, clo/renderer.js |
 | 0711 | Legacy plan point 0711 | R1 | UNREAD | — | — |
 | 0712 | Legacy plan point 0712 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0713 | Legacy plan point 0713 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
@@ -731,13 +731,13 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 0720 | Legacy plan point 0720 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0721 | Legacy plan point 0721 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0722 | Legacy plan point 0722 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0723 | Legacy plan point 0723 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0724 | Legacy plan point 0724 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
+| 0723 | Legacy plan point 0723 | R1 | IMPLEMENTED | filing-validation | electron/store.cjs, clo/renderer.js |
+| 0724 | Legacy plan point 0724 | R1 | IMPLEMENTED | filing-export-gate | electron/store.cjs, clo/renderer.js |
 | 0725 | Legacy plan point 0725 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0726 | Legacy plan point 0726 | R1 | UNREAD | — | — |
-| 0727 | Legacy plan point 0727 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0728 | Legacy plan point 0728 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0729 | Legacy plan point 0729 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
+| 0727 | Legacy plan point 0727 | R1 | IMPLEMENTED | deadline-field | electron/store.cjs, clo/renderer.js |
+| 0728 | Legacy plan point 0728 | R1 | IMPLEMENTED | deadline-field | electron/store.cjs, clo/renderer.js |
+| 0729 | Legacy plan point 0729 | R1 | IMPLEMENTED | deadline-field | electron/store.cjs, clo/renderer.js |
 | 0730 | Legacy plan point 0730 | R1 | UNREAD | — | — |
 | 0731 | Legacy plan point 0731 | R1 | UNREAD | — | — |
 | 0732 | Legacy plan point 0732 | R1 | UNREAD | — | — |
@@ -746,14 +746,14 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 0735 | Legacy plan point 0735 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0736 | Legacy plan point 0736 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0737 | Legacy plan point 0737 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0738 | Legacy plan point 0738 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
+| 0738 | Legacy plan point 0738 | R1 | IMPLEMENTED | shared-inspector | clo/renderer.js |
 | 0739 | Legacy plan point 0739 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0740 | Legacy plan point 0740 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0741 | Legacy plan point 0741 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0742 | Legacy plan point 0742 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0743 | Legacy plan point 0743 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0744 | Legacy plan point 0744 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0745 | Legacy plan point 0745 | R1 | UNREAD | — | — |
+| 0745 | Legacy plan point 0745 | R1 | IMPLEMENTED | deadline-derivation | electron/store.cjs, clo/renderer.js |
 | 0746 | Legacy plan point 0746 | R1 | UNREAD | — | — |
 | 0747 | Legacy plan point 0747 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0748 | Legacy plan point 0748 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
@@ -808,7 +808,7 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 0797 | Legacy plan point 0797 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0798 | Legacy plan point 0798 | R1 | UNREAD | — | — |
 | 0799 | Legacy plan point 0799 | R1 | UNREAD | — | — |
-| 0800 | Legacy plan point 0800 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
+| 0800 | Legacy plan point 0800 | R1 | IMPLEMENTED | secondary-route-shell | clo/renderer.js, cicero/main.js |
 | 0801 | Legacy plan point 0801 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0802 | Legacy plan point 0802 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0803 | Legacy plan point 0803 | R1 | IMPLEMENTED | existing-clo-build | current-repository |

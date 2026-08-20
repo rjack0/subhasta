@@ -74,6 +74,9 @@ async function main() {
     assert.equal(moderateState.moderateReviews.find((item) => item.id === 'MR-01').status, 'REVIEWED')
     assert.equal(moderateState.moderateReviews.find((item) => item.id === 'MR-01').protectedTraitTargeting, false)
     assert.equal(moderateState.moderateReviews.find((item) => item.id === 'MR-01').associationGraph, false)
+    const strategyState = await store.applyAction('record-strategy-observation', { role: 'JUDGE', observation: 'Requires clean procedural record', sourceUniverse: 'Docket fixture', confidence: 75, uncertainty: 'Local order remains unverified.', source: 'Test docket record', linkedObjects: ['proc-001'] })
+    assert.ok(strategyState.strategyRecords.some((item) => item.observation === 'Requires clean procedural record' && item.inference === true))
+    await assert.rejects(() => store.applyAction('record-strategy-observation', { role: 'JUDGE', observation: 'Missing source fields' }), /requires observation, source universe, source, and uncertainty/)
     await assert.rejects(() => store.applyAction('record-moderation-review', { reviewId: 'MR-02', viewpointIntensity: 101, acceptanceWidth: 20, confidence: 90, reason: 'x', source: 'y' }), /Moderation scores must be between 0 and 100/)
     assert.ok((await store.search('opening statement')).some((item) => item.type === 'TRIAL EVENTS'))
     assert.ok((await store.search('supported elements')).some((item) => item.type === 'ARGUMENTS'))
@@ -82,6 +85,8 @@ async function main() {
     await assert.rejects(() => store.applyAction('record-trial-event', { title: 'Invalid date', date: 'soon' }), /Trial event date requires YYYY-MM-DD/)
     await assert.rejects(() => store.applyAction('record-procedural-event', { title: 'Invalid date', date: 'soon' }), /Procedural event requires a title and YYYY-MM-DD date/)
     await assert.rejects(() => store.applyAction('record-exhibit-admission', { exhibitId: 'TX-01', result: 'MAYBE' }), /Exhibit admission result is invalid/)
+    await assert.rejects(() => store.applyAction('record-trial-cost', { costId: 'TC-01', amount: -1, source: 'Receipt 1' }), /non-negative number/)
+    await assert.rejects(() => store.applyAction('record-appellate-step', { stepId: 'TA-01', dueDate: 'soon', recordLocation: 'Docket 1' }), /YYYY-MM-DD/)
     if (data.machine?.sourceWorkbook) {
       assert.equal(data.unitMatrixDetailed.length, 287)
       assert.equal(data.machineFronts.length, 12)
