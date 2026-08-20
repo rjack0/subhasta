@@ -11,7 +11,7 @@ const { makeLedgerState, sourceRegistry } = require('./ledger.cjs')
 
 const now = () => new Date().toISOString()
 const id = (prefix) => `${prefix}-${crypto.randomUUID().slice(0, 8)}`
-const collectionNames = ['people', 'organizations', 'properties', 'units', 'incidents', 'workOrders', 'vendors', 'telemetry', 'notices', 'extractedText', 'authorities', 'propositions', 'legalClaims', 'legalElements', 'elementRequirements', 'evidenceLinks', 'propositionLinks', 'contradictions', 'evidenceGaps', 'proceduralEvents', 'courtFilings', 'docketEntries', 'deadlines', 'paragraphProvenance', 'judgeProfiles', 'opponentProfiles', 'agentJobs', 'facts', 'evidence', 'law', 'claims', 'elements', 'procedure', 'drafts', 'context', 'audit', 'events', 'machineFronts', 'unitMatrixDetailed', 'machineAuthorities', 'evidenceHolds', 'activationSequence', 'damagesModel', 'sourceCatalog', 'caseInputs', 'machineLinks', 'machineActions', 'trialPhases', 'trialWitnesses', 'trialExhibits', 'trialMotions', 'trialObjections', 'trialExaminations', 'juryInstructions', 'trialTasks', 'trialRulings', 'trialEvents', 'trialArguments', 'trialAppealIssues', 'trialActions']
+const collectionNames = ['people', 'organizations', 'properties', 'units', 'incidents', 'workOrders', 'vendors', 'telemetry', 'notices', 'extractedText', 'authorities', 'propositions', 'legalClaims', 'legalElements', 'elementRequirements', 'evidenceLinks', 'propositionLinks', 'contradictions', 'evidenceGaps', 'proceduralEvents', 'courtFilings', 'docketEntries', 'deadlines', 'paragraphProvenance', 'judgeProfiles', 'opponentProfiles', 'agentJobs', 'facts', 'evidence', 'law', 'claims', 'elements', 'procedure', 'drafts', 'context', 'audit', 'events', 'machineFronts', 'unitMatrixDetailed', 'machineAuthorities', 'evidenceHolds', 'activationSequence', 'damagesModel', 'sourceCatalog', 'caseInputs', 'machineLinks', 'machineActions', 'trialPhases', 'trialWitnesses', 'trialExhibits', 'trialMotions', 'trialObjections', 'trialExaminations', 'juryInstructions', 'trialTasks', 'trialRulings', 'trialEvents', 'trialArguments', 'trialAppealIssues', 'trialActions', 'trialJudgments', 'trialCosts', 'trialEnforcement', 'trialAppeals']
 
 function normalize(data) {
   const normalized = { ...data, version: Math.max(Number(data.version || 0), 2) }
@@ -24,7 +24,7 @@ function normalize(data) {
 }
 
 function findObject(data, type, objectId) {
-  const collection = { fact: 'facts', evidence: 'evidence', law: 'law', authority: 'authorities', machineAuthority: 'machineAuthorities', claim: 'claims', legalClaim: 'legalClaims', machineFront: 'machineFronts', element: 'elements', legalElement: 'legalElements', procedure: 'procedure', draft: 'drafts', proposition: 'propositions', deadline: 'deadlines', person: 'people', event: 'events', organization: 'organizations', unit: 'units', machineUnit: 'unitMatrixDetailed', notice: 'notices', filing: 'courtFilings', evidenceHold: 'evidenceHolds', activation: 'activationSequence', damage: 'damagesModel', source: 'sourceCatalog', trialPhase: 'trialPhases', trialWitness: 'trialWitnesses', trialExhibit: 'trialExhibits', trialMotion: 'trialMotions', trialObjection: 'trialObjections', trialTask: 'trialTasks', trialRuling: 'trialRulings', trialEvent: 'trialEvents', trialAppealIssue: 'trialAppealIssues' }[type]
+  const collection = { fact: 'facts', evidence: 'evidence', law: 'law', authority: 'authorities', machineAuthority: 'machineAuthorities', claim: 'claims', legalClaim: 'legalClaims', machineFront: 'machineFronts', element: 'elements', legalElement: 'legalElements', procedure: 'procedure', draft: 'drafts', proposition: 'propositions', deadline: 'deadlines', person: 'people', event: 'events', organization: 'organizations', unit: 'units', machineUnit: 'unitMatrixDetailed', notice: 'notices', filing: 'courtFilings', evidenceHold: 'evidenceHolds', activation: 'activationSequence', damage: 'damagesModel', source: 'sourceCatalog', trialPhase: 'trialPhases', trialWitness: 'trialWitnesses', trialExhibit: 'trialExhibits', trialMotion: 'trialMotions', trialObjection: 'trialObjections', trialTask: 'trialTasks', trialRuling: 'trialRulings', trialEvent: 'trialEvents', trialAppealIssue: 'trialAppealIssues', trialJudgment: 'trialJudgments', trialCost: 'trialCosts', trialEnforcement: 'trialEnforcement', trialAppeal: 'trialAppeals' }[type]
   return collection ? data[collection].find((item) => item.id === objectId) : null
 }
 
@@ -181,6 +181,14 @@ const seed = () => {
   data.trialArguments = []
   data.trialAppealIssues = []
   data.trialActions = []
+  data.trialJudgments = [{ id: 'TJ-01', verdictStatus: 'NOT_ENTERED', verdict: null, judgmentStatus: 'NOT_ENTERED', entryDate: null, serviceDate: null, appealDeadline: null, relief: null, source: 'Court judgment record required', matterId: data.matter.id, createdAt: now(), updatedAt: now() }]
+  data.trialCosts = ['Filing fees', 'Service and subpoena costs', 'Expert and record costs', 'Recoverable costs request'].map((category, index) => ({ id: `TC-${String(index + 1).padStart(2, '0')}`, category, amount: null, status: 'NOT_RECORDED', source: 'Receipts or court cost record required', matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.trialEnforcement = [
+    ['TEF-01', 'Demand or comply with judgment', 'NOT_STARTED'], ['TEF-02', 'Record satisfaction or partial satisfaction', 'NOT_STARTED'], ['TEF-03', 'Request or oppose stay', 'NOT_STARTED'], ['TEF-04', 'Enforcement mechanism selection', 'NOT_STARTED'], ['TEF-05', 'Post-judgment accounting', 'NOT_STARTED']
+  ].map(([id, title, status]) => ({ id, title, status, source: 'Judgment and controlling procedure source required', recordLocation: null, matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
+  data.trialAppeals = [
+    ['TA-01', 'Notice of appeal', 'DATE_REQUIRED'], ['TA-02', 'Appellate jurisdiction and appealability check', 'SOURCE_REQUIRED'], ['TA-03', 'Record designation', 'NOT_STARTED'], ['TA-04', 'Reporter transcript request', 'NOT_STARTED'], ['TA-05', 'Opening brief issue map', 'NOT_STARTED'], ['TA-06', 'Responding or reply brief calendar', 'NOT_STARTED'], ['TA-07', 'Record correction or augmentation request', 'NOT_STARTED'], ['TA-08', 'Disposition and remand tracking', 'NOT_STARTED']
+  ].map(([id, title, status]) => ({ id, title, status, dueDate: null, recordLocation: null, source: 'Appellate court rule or docket required', matterId: data.matter.id, createdAt: now(), updatedAt: now() }))
   data.audit.push({ id: id('audit'), at: now(), action: 'IMPORTED CAMDEN WAR ROOM FIXTURE', object: data.matter.id })
   return data
 }
@@ -360,6 +368,50 @@ async function createStore(filePath) {
         data.trialAppealIssues.push(appealIssue)
         data.trialActions.push({ id: id('trial-action'), type: 'APPEAL_ISSUE', issueId: appealIssue.id, status: appealIssue.preservation, createdAt: now(), matterId: data.matter.id })
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD APPEAL ISSUE', object: appealIssue.id })
+      } else if (action === 'record-verdict') {
+        const judgment = data.trialJudgments[0]
+        if (!judgment) throw new Error('Judgment record does not exist')
+        const verdict = String(payload.verdict || '').trim()
+        if (!verdict) throw new Error('Verdict requires a recorded result')
+        judgment.verdict = verdict
+        judgment.verdictStatus = 'RECORDED'
+        judgment.verdictSource = payload.source || 'Verdict form or clerk record required'
+        data.trialActions.push({ id: id('trial-action'), type: 'VERDICT', judgmentId: judgment.id, status: 'RECORDED', createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD VERDICT', object: judgment.id })
+      } else if (action === 'record-judgment') {
+        const judgment = data.trialJudgments[0]
+        if (!judgment) throw new Error('Judgment record does not exist')
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(String(payload.entryDate || ''))) throw new Error('Judgment entry date requires YYYY-MM-DD')
+        judgment.judgmentStatus = 'ENTERED'
+        judgment.entryDate = payload.entryDate
+        judgment.serviceDate = payload.serviceDate || null
+        judgment.relief = payload.relief || null
+        judgment.source = payload.source || 'Court judgment record required'
+        data.trialActions.push({ id: id('trial-action'), type: 'JUDGMENT', judgmentId: judgment.id, status: 'ENTERED', createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD JUDGMENT', object: judgment.id })
+      } else if (action === 'record-trial-cost') {
+        const cost = data.trialCosts.find((item) => item.id === payload.costId)
+        if (!cost) throw new Error('Trial cost record does not exist')
+        cost.amount = payload.amount ?? cost.amount
+        cost.status = payload.status || 'RECORDED'
+        cost.source = payload.source || cost.source
+        data.trialActions.push({ id: id('trial-action'), type: 'COST', costId: cost.id, status: cost.status, createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD TRIAL COST', object: cost.id })
+      } else if (action === 'record-enforcement-step') {
+        const step = data.trialEnforcement.find((item) => item.id === payload.stepId)
+        if (!step) throw new Error('Enforcement step does not exist')
+        step.status = payload.status || 'RECORDED'
+        step.recordLocation = payload.recordLocation || step.recordLocation
+        data.trialActions.push({ id: id('trial-action'), type: 'ENFORCEMENT', stepId: step.id, status: step.status, createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD ENFORCEMENT STEP', object: step.id })
+      } else if (action === 'record-appellate-step') {
+        const step = data.trialAppeals.find((item) => item.id === payload.stepId)
+        if (!step) throw new Error('Appellate step does not exist')
+        step.status = payload.status || 'RECORDED'
+        step.dueDate = payload.dueDate || step.dueDate
+        step.recordLocation = payload.recordLocation || step.recordLocation
+        data.trialActions.push({ id: id('trial-action'), type: 'APPEAL_STEP', stepId: step.id, status: step.status, createdAt: now(), matterId: data.matter.id })
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD APPELLATE STEP', object: step.id })
       } else {
         throw new Error(`Unknown case action: ${action}`)
       }
@@ -369,7 +421,7 @@ async function createStore(filePath) {
     search(query) {
       const needle = String(query || '').trim().toLowerCase()
       if (!needle) return []
-      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', DEADLINES: 'deadlines', 'MACHINE FRONTS': 'machineFronts', 'MACHINE UNITS': 'unitMatrixDetailed', 'EVIDENCE HOLDS': 'evidenceHolds', SOURCES: 'sourceCatalog', WITNESSES: 'trialWitnesses', EXHIBITS: 'trialExhibits', MOTIONS: 'trialMotions', 'TRIAL TASKS': 'trialTasks', 'APPEAL ISSUES': 'trialAppealIssues' }
+      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', DEADLINES: 'deadlines', 'MACHINE FRONTS': 'machineFronts', 'MACHINE UNITS': 'unitMatrixDetailed', 'EVIDENCE HOLDS': 'evidenceHolds', SOURCES: 'sourceCatalog', WITNESSES: 'trialWitnesses', EXHIBITS: 'trialExhibits', MOTIONS: 'trialMotions', 'TRIAL TASKS': 'trialTasks', 'APPEAL ISSUES': 'trialAppealIssues', JUDGMENTS: 'trialJudgments', COSTS: 'trialCosts', ENFORCEMENT: 'trialEnforcement', APPEALS: 'trialAppeals' }
       return Object.entries(groups).flatMap(([type, collection]) => data[collection].filter((item) => JSON.stringify(item).toLowerCase().includes(needle)).slice(0, 20).map((item) => ({ id: item.id, type, name: item.title || item.name || item.filename || item.id, status: item.status || 'ACTIVE', source: item.source || item.provenance || 'Matter store', matterId: data.matter.id })))
     },
     async linkEvidence(evidenceId, targetType, targetId) {
