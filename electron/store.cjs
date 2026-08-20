@@ -425,7 +425,7 @@ async function createStore(filePath) {
         const title = String(payload.title || '').trim()
         const date = String(payload.date || '').trim()
         if (!title || !/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error('Machine deadline requires a title and YYYY-MM-DD date')
-        const deadline = { id: id('machine-deadline'), title, date, status: 'PENDING', source: payload.source || 'Machine activation record', machineActionId: payload.machineActionId || null, matterId: data.matter.id, createdAt: now(), updatedAt: now() }
+        const deadline = { id: id('machine-deadline'), title, date, status: 'PENDING', source: payload.source || 'Machine activation record', consequence: payload.consequence || 'MEDIUM', claimDependencies: Array.isArray(payload.claimDependencies) ? payload.claimDependencies : [], evidenceDependencies: Array.isArray(payload.evidenceDependencies) ? payload.evidenceDependencies : [], strategyDependencies: Array.isArray(payload.strategyDependencies) ? payload.strategyDependencies : [], draftDependencies: Array.isArray(payload.draftDependencies) ? payload.draftDependencies : [], machineActionId: payload.machineActionId || null, matterId: data.matter.id, createdAt: now(), updatedAt: now() }
         data.deadlines.push(deadline)
         data.machineActions.push({ id: id('machine-action'), type: 'DEADLINE', deadlineId: deadline.id, status: 'CREATED', createdAt: now(), matterId: data.matter.id })
         data.audit.push({ id: id('audit'), at: now(), action: 'CREATE MACHINE DEADLINE', object: deadline.id })
