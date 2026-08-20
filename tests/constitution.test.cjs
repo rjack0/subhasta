@@ -35,6 +35,8 @@ assert.match(read('electron/store.cjs'), /Authority review requires excerpt, sou
 assert.match(read('electron/store.cjs'), /sourceObject.status === 'STALE'/)
 assert.match(read('clo/renderer.js'), /staged-extracted-text/)
 assert.match(read('electron/store.cjs'), /originalExtractedText/)
+assert.match(read('clo/renderer.js'), /export-evidence-manifest/)
+assert.match(read('clo/renderer.js'), /exportCaseBackup/)
 assert.match(preload, /stageDroppedEvidence/)
 assert.match(preload, /ledgerRequirements/)
 assert.match(preload, /deriveDeadlines/)

@@ -41,6 +41,20 @@ const installCoverageControls = () => {
 
 new MutationObserver(installCoverageControls).observe(stage, { childList: true })
 
+const installSystemExportControls = () => {
+  if (state.route !== 'system' || stage.querySelector('#export-evidence-manifest')) return
+  const grid = stage.querySelector('.stage-grid')
+  if (!grid) return
+  const article = document.createElement('article')
+  article.className = 'field wide-field system-export-controls'
+  article.innerHTML = '<div class="field-header"><h2 class="field-title">Local exports</h2><span class="field-meta">PROVENANCE-PRESERVING</span></div><p class="muted">Exports retain matter identity, source metadata, hashes, audit history, and uncertainty state.</p><div class="button-row"><button id="export-evidence-manifest" class="utility-button">EXPORT EVIDENCE MANIFEST</button><button id="export-case-backup" class="utility-button">EXPORT CASE BACKUP</button></div>'
+  grid.append(article)
+  el('#export-evidence-manifest').addEventListener('click', exportEvidenceManifest)
+  el('#export-case-backup').addEventListener('click', exportCaseBackup)
+}
+
+new MutationObserver(installSystemExportControls).observe(stage, { childList: true })
+
 const installEvidenceLinkControls = () => {
   const object = currentObject()
   const card = inspector.querySelector('.inspector-card')
@@ -318,6 +332,22 @@ async function runCoverageContradiction() {
 
 async function runCoverageProperty() {
   try { state.data = await window.clo.action('record-property-record', { address: el('#coverage-property-address').value, source: el('#coverage-property-source').value, recordType: 'PUBLIC_RECORD' }); render() } catch (error) { showActionError('PROPERTY RECORD FAILED', error) }
+}
+
+function downloadJson(filename, payload) {
+  const link = document.createElement('a')
+  link.href = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' }))
+  link.download = filename
+  link.click()
+  URL.revokeObjectURL(link.href)
+}
+
+async function exportEvidenceManifest() {
+  try { downloadJson('clo-evidence-manifest.json', await window.clo.evidenceManifest()) } catch (error) { showActionError('MANIFEST EXPORT FAILED', error) }
+}
+
+async function exportCaseBackup() {
+  try { downloadJson('clo-case-backup.json', await window.clo.backupSnapshot()) } catch (error) { showActionError('CASE BACKUP FAILED', error) }
 }
 
 async function runEvidenceLink(evidenceId, targetType, targetId) {
