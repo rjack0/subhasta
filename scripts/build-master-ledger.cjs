@@ -190,6 +190,7 @@ implementedIds.push(745)
 implementedIds.push(412, 413, 414, 415, 416, 417, 418, 421, 436, 437)
 implementedIds.push(269, 270, 271, 272, 274)
 implementedIds.push(520, 522, 524, 539, 540)
+implementedIds.push(493)
 for (const index of implementedIds) {
   const item = requirements[index - 1]
   item.status = 'IMPLEMENTED'
@@ -202,6 +203,9 @@ for (const index of implementedIds) {
 // Keep this separate from the broad legacy baseline so the ledger never treats
 // a fixture or a rendered label as proof of a behavior that has no test.
 const concreteEvidence = new Map([
+  [174, { featureRefs: ['contradiction-record'], implementationEvidence: ['electron/store.cjs', 'clo/renderer.js'], testEvidence: ['tests/camden.test.cjs'] }],
+  [175, { featureRefs: ['evidence-gap-record'], implementationEvidence: ['electron/store.cjs', 'clo/renderer.js'], testEvidence: ['tests/camden.test.cjs'] }],
+  [493, { featureRefs: ['contradiction-record'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/camden.test.cjs'] }],
   [236, { featureRefs: ['deadline-derivation'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/store.test.cjs', 'tests/camden.test.cjs'] }],
   [645, { featureRefs: ['deadline-dependency-fields'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/store.test.cjs'] }],
   [650, { featureRefs: ['deadline-restart-recovery'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/store.test.cjs'] }],

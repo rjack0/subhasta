@@ -3,8 +3,8 @@
 Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine extension, the 300-point shared-renderer representation extension, and the 1,000-point full-trial operating extension.
 
 - Total requirements: **2820**
-- Implemented baseline: **601**
-- Remaining requirements: **2219**
+- Implemented baseline: **602**
+- Remaining requirements: **2218**
 - Attachment sources indexed: **69**
 
 | ID | Requirement | Repeat | Status | Feature refs | Evidence |
@@ -182,8 +182,8 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 0171 | Legacy plan point 0171 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0172 | Legacy plan point 0172 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0173 | Legacy plan point 0173 | R1 | UNREAD | — | — |
-| 0174 | Legacy plan point 0174 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0175 | Legacy plan point 0175 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
+| 0174 | Legacy plan point 0174 | R1 | IMPLEMENTED | contradiction-record | electron/store.cjs, clo/renderer.js |
+| 0175 | Legacy plan point 0175 | R1 | IMPLEMENTED | evidence-gap-record | electron/store.cjs, clo/renderer.js |
 | 0176 | Legacy plan point 0176 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0177 | Legacy plan point 0177 | R1 | UNREAD | — | — |
 | 0178 | Legacy plan point 0178 | R1 | UNREAD | — | — |
@@ -501,7 +501,7 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 0490 | Legacy plan point 0490 | R1 | UNREAD | — | — |
 | 0491 | Legacy plan point 0491 | R1 | UNREAD | — | — |
 | 0492 | Legacy plan point 0492 | R1 | UNREAD | — | — |
-| 0493 | Legacy plan point 0493 | R1 | UNREAD | — | — |
+| 0493 | Legacy plan point 0493 | R1 | IMPLEMENTED | contradiction-record | electron/store.cjs |
 | 0494 | Legacy plan point 0494 | R1 | UNREAD | — | — |
 | 0495 | Legacy plan point 0495 | R1 | UNREAD | — | — |
 | 0496 | Legacy plan point 0496 | R1 | UNREAD | — | — |

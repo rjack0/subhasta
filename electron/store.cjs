@@ -273,6 +273,26 @@ async function createStore(filePath) {
         const record = { id: id('property-record'), address, addressIdentity, recordType: payload.recordType || 'PUBLIC_RECORD', source, sourceRow: payload.sourceRow || null, status: addressIdentity === 'EXACT_PROPERTY' ? 'LEAD' : addressIdentity === 'UNRELATED_ADDRESS' ? 'UNRELATED' : 'AMBIGUOUS', linkedToMatter: addressIdentity === 'EXACT_PROPERTY', matterId: data.matter.id, createdAt: now(), updatedAt: now() }
         data.propertyRecords.push(record)
         data.audit.push({ id: id('audit'), at: now(), action: addressIdentity === 'EXACT_PROPERTY' ? 'RECORD EXACT PROPERTY SOURCE' : 'REJECT PROPERTY IDENTITY LINK', object: record.id })
+      } else if (action === 'record-contradiction') {
+        const left = findObject(data, payload.leftType, payload.leftId)
+        const right = findObject(data, payload.rightType, payload.rightId)
+        const leftStatement = String(payload.leftStatement || '').trim()
+        const rightStatement = String(payload.rightStatement || '').trim()
+        const source = String(payload.source || '').trim()
+        if (!left || !right) throw new Error('Contradiction endpoints do not exist')
+        if (!leftStatement || !rightStatement || !source) throw new Error('Contradiction requires two statements and a source')
+        const contradiction = { id: id('contradiction'), leftType: payload.leftType, leftId: payload.leftId, rightType: payload.rightType, rightId: payload.rightId, leftStatement, rightStatement, source, status: 'CONTRADICTION', resolution: 'OPEN', matterId: data.matter.id, createdAt: now(), updatedAt: now() }
+        data.contradictions.push(contradiction)
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD CONTRADICTION', object: contradiction.id })
+      } else if (action === 'record-evidence-gap') {
+        const title = String(payload.title || '').trim()
+        const requirement = String(payload.requirement || '').trim()
+        const nextAction = String(payload.nextAction || '').trim()
+        const source = String(payload.source || '').trim()
+        if (!title || !requirement || !nextAction || !source) throw new Error('Evidence gap requires title, requirement, next action, and source')
+        const gap = { id: id('gap'), title, requirement, nextAction, source, priority: payload.priority || 'MEDIUM', status: 'OPEN', linkedObjects: Array.isArray(payload.linkedObjects) ? payload.linkedObjects : [], matterId: data.matter.id, createdAt: now(), updatedAt: now() }
+        data.evidenceGaps.push(gap)
+        data.audit.push({ id: id('audit'), at: now(), action: 'RECORD EVIDENCE GAP', object: gap.id })
       } else if (action === 'create-proposition') {
         const authorityId = payload.authorityId || data.law[0]?.id
         const authority = data.law.find((item) => item.id === authorityId)
@@ -660,7 +680,7 @@ async function createStore(filePath) {
     search(query) {
       const needle = String(query || '').trim().toLowerCase()
       if (!needle) return []
-      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', PROCEDURE: 'procedure', DEADLINES: 'deadlines', MODERATE: 'moderateReviews', STRATEGY: 'strategyRecords', ORGANIZATIONS: 'organizationProfiles', 'PROPERTY RECORDS': 'propertyRecords', 'TRIAL CONTROLS': 'trialControls', 'MACHINE FRONTS': 'machineFronts', 'MACHINE UNITS': 'unitMatrixDetailed', 'EVIDENCE HOLDS': 'evidenceHolds', SOURCES: 'sourceCatalog', WITNESSES: 'trialWitnesses', EXHIBITS: 'trialExhibits', MOTIONS: 'trialMotions', 'TRIAL TASKS': 'trialTasks', 'TRIAL EVENTS': 'trialEvents', ARGUMENTS: 'trialArguments', 'APPEAL ISSUES': 'trialAppealIssues', JUDGMENTS: 'trialJudgments', COSTS: 'trialCosts', ENFORCEMENT: 'trialEnforcement', APPEALS: 'trialAppeals' }
+      const groups = { LAW: 'law', CLAIMS: 'claims', EVIDENCE: 'evidence', GAPS: 'evidenceGaps', CONTRADICTIONS: 'contradictions', DRAFTS: 'drafts', PEOPLE: 'people', EVENTS: 'events', FILINGS: 'courtFilings', PROCEDURE: 'procedure', DEADLINES: 'deadlines', MODERATE: 'moderateReviews', STRATEGY: 'strategyRecords', ORGANIZATIONS: 'organizationProfiles', 'PROPERTY RECORDS': 'propertyRecords', 'TRIAL CONTROLS': 'trialControls', 'MACHINE FRONTS': 'machineFronts', 'MACHINE UNITS': 'unitMatrixDetailed', 'EVIDENCE HOLDS': 'evidenceHolds', SOURCES: 'sourceCatalog', WITNESSES: 'trialWitnesses', EXHIBITS: 'trialExhibits', MOTIONS: 'trialMotions', 'TRIAL TASKS': 'trialTasks', 'TRIAL EVENTS': 'trialEvents', ARGUMENTS: 'trialArguments', 'APPEAL ISSUES': 'trialAppealIssues', JUDGMENTS: 'trialJudgments', COSTS: 'trialCosts', ENFORCEMENT: 'trialEnforcement', APPEALS: 'trialAppeals' }
       return Object.entries(groups).flatMap(([type, collection]) => data[collection].filter((item) => JSON.stringify(item).toLowerCase().includes(needle)).slice(0, 20).map((item) => ({ id: item.id, type, name: item.title || item.name || item.filename || item.id, status: item.status || 'ACTIVE', source: item.source || item.provenance || 'Matter store', matterId: data.matter.id })))
     },
     async linkEvidence(evidenceId, targetType, targetId) {
