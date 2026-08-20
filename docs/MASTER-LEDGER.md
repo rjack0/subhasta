@@ -437,8 +437,8 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 0426 | Legacy plan point 0426 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0427 | Legacy plan point 0427 | R1 | UNREAD | — | — |
 | 0428 | Legacy plan point 0428 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0429 | Legacy plan point 0429 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0430 | Legacy plan point 0430 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
+| 0429 | Legacy plan point 0429 | R1 | IMPLEMENTED | extraction-provenance | electron/hash-worker.cjs, electron/store.cjs |
+| 0430 | Legacy plan point 0430 | R1 | IMPLEMENTED | extraction-provenance | electron/hash-worker.cjs, electron/store.cjs |
 | 0431 | Legacy plan point 0431 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0432 | Legacy plan point 0432 | R1 | UNREAD | — | — |
 | 0433 | Legacy plan point 0433 | R1 | UNREAD | — | — |

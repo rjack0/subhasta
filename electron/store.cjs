@@ -614,12 +614,12 @@ async function createStore(filePath) {
       const fileStat = await fs.stat(filePathToRead)
       const extension = path.extname(filePathToRead).toLowerCase()
       const processed = await processEvidenceBytes(bytes, extension)
-      return { id: id('stage'), name: path.basename(filePathToRead), originalPath: filePathToRead, bytes: bytes.length, hash: `sha256:${processed.hash}`, type: extension.slice(1).toUpperCase() || 'FILE', source: 'Local import', status: 'STAGED', extractedText: processed.extractedText, custodian: null, originalTimestamps: { birthtime: fileStat.birthtime.toISOString(), mtime: fileStat.mtime.toISOString() } }
+      return { id: id('stage'), name: path.basename(filePathToRead), originalPath: filePathToRead, bytes: bytes.length, hash: `sha256:${processed.hash}`, type: extension.slice(1).toUpperCase() || 'FILE', source: 'Local import', status: 'STAGED', extractedText: processed.extractedText, extractionMethod: processed.extractionMethod, extractionConfidence: processed.extractionConfidence, custodian: null, originalTimestamps: { birthtime: fileStat.birthtime.toISOString(), mtime: fileStat.mtime.toISOString() } }
     },
     stageTextEvidence(text) {
       const bytes = Buffer.from(text, 'utf8')
       const hash = crypto.createHash('sha256').update(bytes).digest('hex')
-      return { id: id('stage'), name: 'Clipboard text', originalPath: null, bytes: bytes.length, hash: `sha256:${hash}`, type: 'TEXT', source: 'Clipboard import', status: 'STAGED', extractedText: text, custodian: null, originalTimestamps: null }
+      return { id: id('stage'), name: 'Clipboard text', originalPath: null, bytes: bytes.length, hash: `sha256:${hash}`, type: 'TEXT', source: 'Clipboard import', status: 'STAGED', extractedText: text, extractionMethod: 'DIRECT', extractionConfidence: 1, custodian: null, originalTimestamps: null }
     },
     async commitEvidence(staged) {
       if (!Array.isArray(staged) || staged.some((item) => !item || item.status !== 'STAGED' || !/^sha256:[a-f0-9]{64}$/.test(item.hash))) throw new Error('Evidence must be staged with a valid SHA-256 hash')
@@ -645,7 +645,7 @@ async function createStore(filePath) {
         committed.push({ ...item, id: id('ev'), status: 'VERIFIED', storedPath, links: [], linkedEvents: [], linkedPeople: [], linkedSystems: [], linkedElements: [], corroboration: 'UNREVIEWED', contradiction: null, importedAt: now(), createdAt: now(), updatedAt: now(), matterId: data.matter.id })
       }
       const duplicates = staged.filter((item) => data.evidence.some((existing) => existing.hash && existing.hash === item.hash)).map((item) => ({ ...item, status: 'DUPLICATE' }))
-      data.extractedText.push(...committed.filter((item) => item.extractedText).map((item) => ({ id: id('text'), evidenceId: item.id, text: item.extractedText, createdAt: now() })))
+      data.extractedText.push(...committed.filter((item) => item.extractedText).map((item) => ({ id: id('text'), evidenceId: item.id, text: item.extractedText, extractionMethod: item.extractionMethod || 'UNKNOWN', extractionConfidence: item.extractionConfidence ?? null, createdAt: now() })))
       data.evidence.push(...committed)
       data.agentJobs.push({ id: id('job'), type: 'HASH_EXTRACT_INDEX', status: 'COMPLETE', records: committed.length, startedAt: now(), finishedAt: now() })
       data.audit.push({ id: id('audit'), at: now(), action: duplicates.length ? 'COMMIT EVIDENCE / DUPLICATE DETECTED' : 'COMMIT EVIDENCE', object: committed.map((item) => item.id).join(', ') || duplicates.map((item) => item.hash).join(', ') }); await this.persist(); return data
