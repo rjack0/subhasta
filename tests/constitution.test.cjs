@@ -36,6 +36,8 @@ assert.match(read('clo/renderer.js'), /linkedObjects: \(el\('#strategy-links'\)/
 assert.match(read('electron/store.cjs'), /Authority review requires excerpt, source page, version, effective date, jurisdiction, and limitations/)
 assert.match(read('electron/store.cjs'), /sourceObject.status === 'STALE'/)
 assert.match(read('electron/store.cjs'), /claimDependencies: Array.isArray\(payload.claimDependencies\)/)
+assert.match(read('electron/store.cjs'), /validationIssues = Object.entries\(checks\)/)
+assert.match(read('clo/renderer.js'), /validation-issues/)
 assert.match(read('clo/renderer.js'), /staged-extracted-text/)
 assert.match(read('electron/store.cjs'), /originalExtractedText/)
 assert.match(read('clo/renderer.js'), /export-evidence-manifest/)

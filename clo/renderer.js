@@ -71,6 +71,22 @@ const installStrategyLinkControl = () => {
 
 new MutationObserver(installStrategyLinkControl).observe(stage, { childList: true })
 
+const installValidationSummary = () => {
+  if (!['elements', 'drafts'].includes(state.route) || stage.querySelector('#validation-issues')) return
+  const draft = state.data.drafts?.[0]
+  if (!draft?.validation) return
+  const grid = stage.querySelector('.stage-grid')
+  if (!grid) return
+  const article = document.createElement('article')
+  article.id = 'validation-issues'
+  article.className = 'field wide-field validation-summary'
+  const issues = draft.validationIssues || []
+  article.innerHTML = `<div class="field-header"><h2 class="field-title">Validation result</h2><span class="field-meta">${safe(draft.validation)}</span></div>${issues.length ? `<p class="label state-danger">EXPORT BLOCKED</p><div class="object-list">${issues.map((item) => `<div class="object-row"><strong>${safe(item)}</strong><b class="state-danger">OPEN</b></div>`).join('')}</div>` : '<p class="label state-complete">ALL CHECKS PASSED</p>'}`
+  grid.append(article)
+}
+
+new MutationObserver(installValidationSummary).observe(stage, { childList: true })
+
 const installEvidenceLinkControls = () => {
   const object = currentObject()
   const card = inspector.querySelector('.inspector-card')

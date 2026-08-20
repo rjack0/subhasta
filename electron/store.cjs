@@ -391,7 +391,7 @@ async function createStore(filePath) {
           noBrokenSupport: !draft?.paragraphs?.some((paragraph) => ['FAILED', 'CONTRADICTION'].includes(paragraph.status))
         }
         const complete = Object.values(checks).every(Boolean)
-        if (draft) { draft.validation = complete ? 'PASSED' : 'FAILED'; draft.validationChecks = checks; draft.validatedAt = now() }
+        if (draft) { draft.validation = complete ? 'PASSED' : 'FAILED'; draft.validationChecks = checks; draft.validationIssues = Object.entries(checks).filter(([, passed]) => !passed).map(([key]) => key); draft.validatedAt = now() }
         data.audit.push({ id: id('audit'), at: now(), action: complete ? 'VALIDATE FILING' : 'VALIDATE FILING FAILED', object: draft?.id || 'none' })
       } else if (action === 'export-filing') {
         if (data.drafts[0]?.validation !== 'PASSED') throw new Error('Filing validation has not passed')
