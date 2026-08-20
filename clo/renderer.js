@@ -31,9 +31,12 @@ const installCoverageControls = () => {
   const article = document.createElement('article')
   article.className = 'field wide-field coverage-controls'
   article.innerHTML = `<div class="field-header"><h2 class="field-title">Open proof controls</h2><span class="field-meta">SOURCE + NEXT ACTION REQUIRED</span></div><div class="coverage-form"><input id="coverage-gap-title" class="search-input" placeholder="Evidence gap title" aria-label="Evidence gap title"><input id="coverage-gap-requirement" class="search-input" placeholder="Required proof" aria-label="Evidence gap requirement"><input id="coverage-gap-next" class="search-input" placeholder="Next verification action" aria-label="Evidence gap next action"><input id="coverage-gap-source" class="search-input" placeholder="Gap source" aria-label="Evidence gap source"><button id="record-coverage-gap" class="utility-button">RECORD GAP</button></div><div class="coverage-form"><select id="coverage-left-fact" aria-label="Contradiction left fact">${options}</select><input id="coverage-left-statement" class="search-input" placeholder="Left statement" aria-label="Contradiction left statement"><select id="coverage-right-fact" aria-label="Contradiction right fact">${options}</select><input id="coverage-right-statement" class="search-input" placeholder="Right statement" aria-label="Contradiction right statement"><input id="coverage-contradiction-source" class="search-input" placeholder="Comparison source" aria-label="Contradiction source"><button id="record-coverage-contradiction" class="utility-button">RECORD CONTRADICTION</button></div>`
+  const propertyRows = (state.data.propertyRecords || []).map((item) => `<div class="object-row"><div><strong>${safe(item.address)}</strong><small>${safe(item.addressIdentity)} · ${safe(item.source)}</small></div><b class="${item.linkedToMatter ? 'state-pending' : 'state-danger'}">${item.linkedToMatter ? 'LEAD' : 'NO MATTER LINK'}</b></div>`).join('')
+  article.insertAdjacentHTML('beforeend', `<div class="field-header"><h2 class="field-title">Verify property identity</h2><span class="field-meta">EXACT ADDRESS REQUIRED</span></div><div class="coverage-form"><input id="coverage-property-address" class="search-input" placeholder="Full property address" aria-label="Property address"><input id="coverage-property-source" class="search-input" placeholder="Recorder / agency source" aria-label="Property record source"><button id="record-coverage-property" class="utility-button">RECORD PROPERTY SOURCE</button></div><div class="object-list">${propertyRows || '<p class="muted">No property identity records committed.</p>'}</div>`)
   grid.append(article)
   el('#record-coverage-gap').addEventListener('click', runCoverageGap)
   el('#record-coverage-contradiction').addEventListener('click', runCoverageContradiction)
+  el('#record-coverage-property').addEventListener('click', runCoverageProperty)
 }
 
 new MutationObserver(installCoverageControls).observe(stage, { childList: true })
@@ -289,6 +292,10 @@ async function runCoverageGap() {
 
 async function runCoverageContradiction() {
   try { state.data = await window.clo.action('record-contradiction', { leftType: 'fact', leftId: el('#coverage-left-fact').value, leftStatement: el('#coverage-left-statement').value, rightType: 'fact', rightId: el('#coverage-right-fact').value, rightStatement: el('#coverage-right-statement').value, source: el('#coverage-contradiction-source').value }); render() } catch (error) { showActionError('CONTRADICTION FAILED', error) }
+}
+
+async function runCoverageProperty() {
+  try { state.data = await window.clo.action('record-property-record', { address: el('#coverage-property-address').value, source: el('#coverage-property-source').value, recordType: 'PUBLIC_RECORD' }); render() } catch (error) { showActionError('PROPERTY RECORD FAILED', error) }
 }
 
 async function runEvidenceLink(evidenceId, targetType, targetId) {
