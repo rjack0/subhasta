@@ -55,6 +55,20 @@ const installSystemExportControls = () => {
 
 new MutationObserver(installSystemExportControls).observe(stage, { childList: true })
 
+const installStrategyLinkControl = () => {
+  if (state.route !== 'strategy' || stage.querySelector('#strategy-links')) return
+  const button = stage.querySelector('#record-strategy')
+  if (!button) return
+  const input = document.createElement('input')
+  input.id = 'strategy-links'
+  input.className = 'search-input'
+  input.placeholder = 'Linked object IDs, comma separated'
+  input.setAttribute('aria-label', 'Strategy linked object IDs')
+  button.before(input)
+}
+
+new MutationObserver(installStrategyLinkControl).observe(stage, { childList: true })
+
 const installEvidenceLinkControls = () => {
   const object = currentObject()
   const card = inspector.querySelector('.inspector-card')
@@ -301,7 +315,7 @@ async function runMachineDeadline(title, date) {
 
 async function runStrategyObservation() {
   try {
-    state.data = await window.clo.action('record-strategy-observation', { role: el('#strategy-role').value, observation: el('#strategy-observation').value, sourceUniverse: el('#strategy-universe').value, confidence: el('#strategy-confidence').value, uncertainty: el('#strategy-uncertainty').value, source: el('#strategy-source').value })
+    state.data = await window.clo.action('record-strategy-observation', { role: el('#strategy-role').value, observation: el('#strategy-observation').value, sourceUniverse: el('#strategy-universe').value, confidence: el('#strategy-confidence').value, uncertainty: el('#strategy-uncertainty').value, source: el('#strategy-source').value, linkedObjects: (el('#strategy-links')?.value || '').split(',').map((item) => item.trim()).filter(Boolean) })
     render()
   } catch (error) { showActionError('STRATEGY RECORD FAILED', error) }
 }
