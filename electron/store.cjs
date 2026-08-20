@@ -611,18 +611,22 @@ async function createStore(filePath) {
       } else if (action === 'record-witness-foundation') {
         const witness = data.trialWitnesses.find((item) => item.id === payload.witnessId)
         if (!witness) throw new Error('Trial witness does not exist')
+        const note = String(payload.note || '').trim()
+        if (!note || note.includes('requires')) throw new Error('Witness foundation requires a transcript or exhibit source')
         witness.status = payload.status || 'FOUNDATION_RECORDED'
-        witness.foundationNote = payload.note || witness.foundationNote || 'Foundation record requires transcript or exhibit source.'
+        witness.foundationNote = note
         data.trialActions.push({ id: id('trial-action'), type: 'WITNESS_FOUNDATION', witnessId: witness.id, status: witness.status, createdAt: now(), matterId: data.matter.id })
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD WITNESS FOUNDATION', object: witness.id })
       } else if (action === 'record-exhibit-admission') {
         const exhibit = data.trialExhibits.find((item) => item.id === payload.exhibitId)
         if (!exhibit) throw new Error('Trial exhibit does not exist')
         const result = String(payload.result || '').trim().toUpperCase()
+        const source = String(payload.source || '').trim()
         if (!['ADMITTED', 'EXCLUDED', 'LIMITED', 'PENDING'].includes(result)) throw new Error('Exhibit admission result is invalid')
+        if (!source || source.includes('required')) throw new Error('Exhibit admission requires a court ruling or stipulation source')
         exhibit.admissionResult = result
         exhibit.status = result === 'ADMITTED' ? 'ADMITTED' : result === 'EXCLUDED' ? 'EXCLUDED' : result === 'LIMITED' ? 'LIMITED' : 'FOUNDATION_NEEDED'
-        exhibit.admissionSource = payload.source || 'Court record or stipulation required'
+        exhibit.admissionSource = source
         data.trialActions.push({ id: id('trial-action'), type: 'EXHIBIT_ADMISSION', exhibitId: exhibit.id, status: result, createdAt: now(), matterId: data.matter.id })
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD EXHIBIT ADMISSION', object: exhibit.id })
       } else if (action === 'record-trial-event') {
@@ -646,8 +650,10 @@ async function createStore(filePath) {
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD TRIAL ARGUMENT', object: argument.id })
       } else if (action === 'record-appeal-issue') {
         const issue = String(payload.issue || '').trim()
+        const recordLocation = String(payload.recordLocation || '').trim()
         if (!issue) throw new Error('Appeal issue requires text')
-        const appealIssue = { id: id('appeal-issue'), issue, rulingId: payload.rulingId || null, preservation: payload.preservation || 'NOT_REVIEWED', recordLocation: payload.recordLocation || null, status: 'OPEN', createdAt: now(), updatedAt: now(), matterId: data.matter.id }
+        if (!recordLocation) throw new Error('Appeal issue requires a transcript or exhibit record location')
+        const appealIssue = { id: id('appeal-issue'), issue, rulingId: payload.rulingId || null, preservation: payload.preservation || 'NOT_REVIEWED', recordLocation, status: 'OPEN', createdAt: now(), updatedAt: now(), matterId: data.matter.id }
         data.trialAppealIssues.push(appealIssue)
         data.trialActions.push({ id: id('trial-action'), type: 'APPEAL_ISSUE', issueId: appealIssue.id, status: appealIssue.preservation, createdAt: now(), matterId: data.matter.id })
         data.audit.push({ id: id('audit'), at: now(), action: 'RECORD APPEAL ISSUE', object: appealIssue.id })

@@ -310,12 +310,16 @@ async function runAction(action, objectId) {
     payload.ruleSource = window.prompt('Controlling rule or explicit rule gap:')?.trim()
     if (!payload.owner || !payload.nextAction || !payload.source || !payload.ruleSource) return
   }
+  if (action === 'record-witness-foundation') {
+    payload.note = window.prompt('Transcript, stipulation, or exhibit foundation source:')?.trim()
+    if (!payload.note) return
+  }
   if (action === 'record-trial-cost') {
     const amount = window.prompt('Amount in the cost record:')
     if (amount === null || !amount.trim()) return
     payload.amount = amount.trim()
   }
-  if (['record-trial-motion', 'record-jury-instruction', 'record-trial-cost', 'record-enforcement-step', 'record-appellate-step'].includes(action)) {
+  if (['record-trial-motion', 'record-jury-instruction', 'record-trial-cost', 'record-enforcement-step', 'record-appellate-step', 'record-exhibit-admission'].includes(action)) {
     const source = window.prompt('Enter the controlling record source or location before recording this item:')
     if (!source?.trim()) return
     payload.source = source.trim()
