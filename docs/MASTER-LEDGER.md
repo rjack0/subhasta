@@ -3,8 +3,8 @@
 Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine extension, the 300-point shared-renderer representation extension, and the 1,000-point full-trial operating extension.
 
 - Total requirements: **2820**
-- Implemented baseline: **600**
-- Remaining requirements: **2220**
+- Implemented baseline: **601**
+- Remaining requirements: **2219**
 - Attachment sources indexed: **69**
 
 | ID | Requirement | Repeat | Status | Feature refs | Evidence |
@@ -547,7 +547,7 @@ Generated from the original 1,050-point plan, the 250-point 1540 N. Vine machine
 | 0536 | Legacy plan point 0536 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0537 | Legacy plan point 0537 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
 | 0538 | Legacy plan point 0538 | R1 | IMPLEMENTED | existing-clo-build | current-repository |
-| 0539 | Legacy plan point 0539 | R1 | UNREAD | — | — |
+| 0539 | Legacy plan point 0539 | R1 | IMPLEMENTED | authority-freshness-gate | electron/store.cjs |
 | 0540 | Legacy plan point 0540 | R1 | IMPLEMENTED | authority-source-review | electron/store.cjs |
 | 0541 | Legacy plan point 0541 | R1 | UNREAD | — | — |
 | 0542 | Legacy plan point 0542 | R1 | IMPLEMENTED | existing-clo-build | current-repository |

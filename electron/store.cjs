@@ -285,7 +285,19 @@ async function createStore(filePath) {
         if (!authority || !/^https?:\/\//.test(String(authority.source || ''))) throw new Error('Authority requires an HTTP(S) source URL before verification')
         if (authority) authority.status = 'VERIFIED'
         authority.verifiedAt = now()
+        authority.retrievedAt = authority.verifiedAt
+        authority.sourceFreshness = 'CURRENT_REVIEW'
         data.audit.push({ id: id('audit'), at: now(), action: 'VERIFY SOURCE', object: authority?.id || 'none' })
+      } else if (action === 'flag-stale-authority') {
+        const authority = data.law.find((item) => item.id === payload.authorityId)
+        const reason = String(payload.reason || '').trim()
+        if (!authority) throw new Error('Authority does not exist')
+        if (!reason) throw new Error('Stale authority requires a reason')
+        authority.status = 'STALE'
+        authority.sourceFreshness = 'STALE'
+        authority.staleReason = reason
+        authority.updatedAt = now()
+        data.audit.push({ id: id('audit'), at: now(), action: 'FLAG STALE AUTHORITY', object: authority.id })
       } else if (action === 'review-authority-source') {
         const authority = data.law.find((item) => item.id === payload.authorityId)
         if (!authority) throw new Error('Authority does not exist')

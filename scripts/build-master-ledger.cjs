@@ -189,7 +189,7 @@ const implementedIds = [1, 2, 3, 4, 7, 8, 9, 10, 20, 21, 31, 32, 35, 36, 37, 38,
 implementedIds.push(745)
 implementedIds.push(412, 413, 414, 415, 416, 417, 418, 421, 436, 437)
 implementedIds.push(269, 270, 271, 272, 274)
-implementedIds.push(520, 522, 524, 540)
+implementedIds.push(520, 522, 524, 539, 540)
 for (const index of implementedIds) {
   const item = requirements[index - 1]
   item.status = 'IMPLEMENTED'
@@ -209,6 +209,7 @@ const concreteEvidence = new Map([
   [522, { featureRefs: ['authority-source-review'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/camden.test.cjs'] }],
   [524, { featureRefs: ['authority-source-review'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/camden.test.cjs'] }],
   [540, { featureRefs: ['authority-source-review'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/camden.test.cjs'] }],
+  [539, { featureRefs: ['authority-freshness-gate'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/store.test.cjs'] }],
   [269, { featureRefs: ['property-address-guard'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/camden.test.cjs'] }],
   [270, { featureRefs: ['property-address-guard'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/camden.test.cjs'] }],
   [271, { featureRefs: ['property-address-guard'], implementationEvidence: ['electron/store.cjs'], testEvidence: ['tests/camden.test.cjs'] }],
